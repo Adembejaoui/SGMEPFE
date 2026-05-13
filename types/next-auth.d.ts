@@ -39,6 +39,7 @@ declare module "next-auth" {
       image: string | null
       role: string
       mustChangePassword: boolean
+      specialization?: string | null
     } & DefaultSession["user"]
   }
 }
@@ -56,5 +57,6 @@ declare module "next-auth/jwt" {
     image: string | null
     role: string
     mustChangePassword: boolean
+    specialization?: string
   }
 }

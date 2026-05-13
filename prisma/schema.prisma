@@ -7,12 +7,16 @@
 // - Role enum for ADMIN, EMPLOYE, and TECHNICIEN
 // - Account and Session models for NextAuth authentication
 // - VerificationToken model for email verification
+// - PrioriteDemande and StatutDemande enums for maintenance request tracking
+// - DemandeMaintenance model for maintenance request management
+// - Intervention stub model for future intervention tracking
 //
 // The schema uses PostgreSQL (Supabase) as the database provider.
 // =============================================================================
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+    output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -31,6 +35,60 @@ enum Role {
   ADMIN
   EMPLOYE
   TECHNICIEN
+}
+
+// =============================================================================
+// EQUIPMENT TYPE ENUM
+// =============================================================================
+// Defines the types of equipment for technician specialization:
+// - PRINTER: Printers and printing equipment
+// - NETWORK: Network equipment (routers, switches, etc.)
+// - HVAC: Heating, ventilation, and air conditioning systems
+// - ELECTRICAL: Electrical systems and equipment
+// - SECURITY: Security systems (cameras, alarms, access control)
+// =============================================================================
+enum EquipmentType {
+  PRINTER
+  NETWORK
+  HVAC
+  ELECTRICAL
+  SECURITY
+}
+
+// =============================================================================
+// MAINTENANCE REQUEST PRIORITY ENUM
+// =============================================================================
+// Defines the priority levels for maintenance requests:
+// - BASSE: Low priority, routine maintenance
+// - MOYENNE: Medium priority, standard maintenance
+// - HAUTE: High priority, urgent attention needed
+// - URGENTE: Critical priority, immediate action required
+// =============================================================================
+enum PrioriteDemande {
+  BASSE
+  MOYENNE
+  HAUTE
+  URGENTE
+}
+
+// =============================================================================
+// MAINTENANCE REQUEST STATUS ENUM
+// =============================================================================
+// Defines the lifecycle states for maintenance requests:
+// - EN_ATTENTE: Request created, awaiting validation
+// - VALIDEE: Request approved by admin
+// - EN_COURS: Maintenance work in progress
+// - TRAITEE: Maintenance work completed
+// - REJETEE: Request rejected by admin
+// - ANNULEE: Request cancelled
+// =============================================================================
+enum StatutDemande {
+  EN_ATTENTE
+  VALIDEE
+  EN_COURS
+  TRAITEE
+  REJETEE
+  ANNULEE
 }
 
 // =============================================================================
@@ -59,22 +117,22 @@ enum EtatEquipement {
 // - adminId: Reference to the admin who manages this equipment
 // =============================================================================
 model Equipement {
-  id                Int              @id @default(autoincrement())
-  nom               String
-  type              String
-  marque            String
-  modele            String
-  numeroSerie       String           @unique
-  etat              EtatEquipement   @default(DISPONIBLE)
-  localisation      String
-  adminId           String?
+  id                  Int              @id @default(autoincrement())
+  nom                 String
+  type                EquipmentType
+  marque              String
+  modele              String
+  numeroSerie         String           @unique
+  etat                EtatEquipement   @default(DISPONIBLE)
+  localisation        String
+  adminId             String?
 
   // Relations
-  admin             User?            @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  admin               User?            @relation(fields: [adminId], references: [id], onDelete: SetNull)
   demandesMaintenance DemandeMaintenance[]
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
 
   @@map("equipements")
 }
@@ -84,28 +142,32 @@ model Equipement {
 // =============================================================================
 // Stores maintenance requests for equipment.
 // Key fields:
-// - equipementId: Reference to the equipment
-// - employeId: Reference to the employee who created the request
-// - statut: Current status of the request
+// - equipementId: Reference to the equipment concerned
+// - clientId: Reference to the Utilisateur who created the request (CLIENT/EMPLOYE role)
+// - technicianId: Reference to the TECHNICIEN who claimed the request
+// - priorite: Priority level (enum: BASSE, MOYENNE, HAUTE, URGENTE)
+// - statut: Current status (enum: EN_ATTENTE, VALIDEE, EN_COURS, TRAITEE, REJETEE, ANNULEE)
 // =============================================================================
 model DemandeMaintenance {
-  id                Int              @id @default(autoincrement())
-  titre             String
-  description       String?
-  priorite          String           @default("MOYENNE")
-  statut            String           @default("EN_ATTENTE")
-  dateDemande       DateTime         @default(now())
-  dateEcheance      DateTime?
-  dateResolution    DateTime?
-  equipementId      Int
-  employeId         String?
+  idDemande           Int              @id @default(autoincrement())
+  dateDemande         DateTime         @default(now())
+  description         String
+  priorite            PrioriteDemande
+  statut              StatutDemande    @default(EN_ATTENTE)
+  clientId            String
+  equipementId        Int
+  // Technician who claimed this request (null if unclaimed)
+  technicianId        String?
 
   // Relations
-  equipement        Equipement       @relation(fields: [equipementId], references: [id], onDelete: Cascade)
-  employe           User?            @relation(fields: [employeId], references: [id], onDelete: SetNull)
+  client              User             @relation("ClientDemandes", fields: [clientId], references: [id], onDelete: Cascade)
+  equipement          Equipement       @relation(fields: [equipementId], references: [id], onDelete: Cascade)
+  technician          User?            @relation("TechnicianDemandes", fields: [technicianId], references: [id], onDelete: SetNull)
+  interventions       Intervention[]    @relation("DemandeInterventions")
+  rapportMaintenance  RapportMaintenance?
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
 
   @@map("demandes_maintenance")
 }
@@ -120,24 +182,30 @@ model DemandeMaintenance {
 // - isActive: Allows admin to enable/disable user accounts
 // =============================================================================
 model User {
-  id                String    @id @default(cuid())
-  firstName         String
-  lastName          String
-  email             String    @unique
-  password          String
-  phone             String
-  image             String?
-  role              Role      @default(EMPLOYE)
-  isActive          Boolean   @default(true)
-  mustChangePassword Boolean  @default(true)
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id                  String    @id @default(cuid())
+  firstName           String
+  lastName            String
+  email               String    @unique
+  password            String
+  phone               String
+  image               String?
+  role                Role      @default(EMPLOYE)
+  isActive            Boolean   @default(true)
+  mustChangePassword  Boolean   @default(true)
+  // Technician specialization (only for TECHNICIEN role)
+  specialization      EquipmentType?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   // Relations
-  accounts          Account[]
-  sessions          Session[]
-  equipementsGestion Equipement[]
-  demandesMaintenanceCrees DemandeMaintenance[]
+  accounts                Account[]
+  sessions                Session[]
+  equipementsGestion      Equipement[]
+  demandesCrees           DemandeMaintenance[]  @relation("ClientDemandes")
+  // Demandes where this user is the assigned technician
+  technicianDemandes      DemandeMaintenance[]  @relation("TechnicianDemandes")
+  // Interventions carried out by this technician
+  interventions           Intervention[]        @relation("TechnicianInterventions")
 
   @@map("users")
 }
@@ -184,6 +252,55 @@ model Session {
 
   @@index([userId])
   @@map("sessions")
+}
+
+// =============================================================================
+// INTERVENTION MODEL (STUB)
+// =============================================================================
+// Stub model for future intervention tracking.
+// Each intervention is linked to a maintenance request (DemandeMaintenance).
+// =============================================================================
+model Intervention {
+  idIntervention      Int              @id @default(autoincrement())
+  demandeId           Int
+  demande             DemandeMaintenance @relation("DemandeInterventions", fields: [demandeId], references: [idDemande], onDelete: Cascade)
+  technicianId        String
+  technician          User             @relation("TechnicianInterventions", fields: [technicianId], references: [id])
+  description         String           @default("")
+  observation         String?
+  statut              StatutIntervention @default(OUVERTE)
+
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+}
+
+// =============================================================================
+// INTERVENTION STATUS ENUM
+// =============================================================================
+enum StatutIntervention {
+  OUVERTE
+  EN_COURS
+  TERMINEE
+  ANNULEE
+}
+
+// =============================================================================
+// MAINTENANCE REPORT MODEL
+// =============================================================================
+// Stores maintenance reports completed by technicians.
+// Each report is linked to a specific maintenance request (DemandeMaintenance).
+// =============================================================================
+model RapportMaintenance {
+  idRapport           Int              @id @default(autoincrement())
+  demandeId           Int              @unique
+  demande             DemandeMaintenance @relation(fields: [demandeId], references: [idDemande], onDelete: Cascade)
+  diagnostic          String
+  actionsEffectuees   String
+  resultat            String
+  dateCreation        DateTime         @default(now())
+  dateModification    DateTime         @updatedAt
+
+  @@map("rapports_maintenance")
 }
 
 // =============================================================================

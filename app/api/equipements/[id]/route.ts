@@ -22,7 +22,7 @@ import { z } from "zod"
 // =============================================================================
 const updateEquipementSchema = z.object({
   nom: z.string().min(1, "Le nom est requis").optional(),
-  type: z.string().min(1, "Le type est requis").optional(),
+  type: z.enum(["PRINTER", "NETWORK", "HVAC", "ELECTRICAL", "SECURITY"]).optional(),
   marque: z.string().min(1, "La marque est requis").optional(),
   modele: z.string().min(1, "Le modèle est requis").optional(),
   numeroSerie: z.string().min(1, "Le numéro de série est requis").optional(),
@@ -81,7 +81,7 @@ export async function GET(
       include: {
         demandesMaintenance: {
           include: {
-            employe: {
+            client: {
               select: {
                 id: true,
                 firstName: true,

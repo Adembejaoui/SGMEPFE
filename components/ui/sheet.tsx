@@ -11,10 +11,11 @@ const SheetClose = DialogPrimitive.Close
 
 const SheetPortal = ({
   className,
+  children,
   ...props
 }: DialogPrimitive.DialogPortalProps & React.HTMLAttributes<HTMLDivElement>) => (
   <DialogPrimitive.Portal {...props}>
-    <div className={cn(className)} />
+    {children}
   </DialogPrimitive.Portal>
 )
 SheetPortal.displayName = DialogPrimitive.Portal.displayName

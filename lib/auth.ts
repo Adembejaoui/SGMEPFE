@@ -112,34 +112,37 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     // On subsequent calls (decoding), reads mustChangePassword from database
     // to ensure the session reflects the current state after password changes.
     // =============================================================================
-    async jwt({ token, user }) {
-      // Add user info to token on initial sign in
-      if (user) {
-        token.id = user.id ?? ""
-        token.name = user.name ?? null
-        token.image = user.image ?? null
-        // Cast user to access custom properties defined in next-auth.d.ts
-        token.role = (user as { role?: string }).role ?? "EMPLOYE"
-        token.mustChangePassword = (user as { mustChangePassword?: boolean }).mustChangePassword ?? false
-      } else if (token.id) {
-        // On subsequent calls (decoding the token), read mustChangePassword
-        // from the database to ensure the session reflects the current state.
-        // This is necessary because the password change API updates the database
-        // but the JWT token is cached until the next sign-in.
-        try {
-          const dbUser = await prisma.user.findUnique({
-            where: { id: token.id as string },
-            select: { mustChangePassword: true },
-          })
-          if (dbUser) {
-            token.mustChangePassword = dbUser.mustChangePassword
-          }
-        } catch (error) {
-          console.error("Error fetching mustChangePassword from database:", error)
-        }
-      }
-      return token
-    },
+     async jwt({ token, user }) {
+       // Add user info to token on initial sign in
+       if (user) {
+         token.id = user.id ?? ""
+         token.name = user.name ?? null
+         token.image = user.image ?? null
+         // Cast user to access custom properties defined in next-auth.d.ts
+         token.role = (user as { role?: string }).role ?? "EMPLOYE"
+         token.mustChangePassword = (user as { mustChangePassword?: boolean }).mustChangePassword ?? false
+         // Add specialization to token
+         token.specialization = (user as { specialization?: string | null }).specialization ?? undefined
+       } else if (token.id) {
+         // On subsequent calls (decoding the token), read mustChangePassword
+         // from the database to ensure the session reflects the current state.
+         // This is necessary because the password change API updates the database
+         // but the JWT token is cached until the next sign-in.
+         try {
+           const dbUser = await prisma.user.findUnique({
+             where: { id: token.id as string },
+             select: { mustChangePassword: true, specialization: true },
+           })
+           if (dbUser) {
+             token.mustChangePassword = dbUser.mustChangePassword
+             token.specialization = dbUser.specialization || undefined
+           }
+         } catch (error) {
+           console.error("Error fetching mustChangePassword from database:", error)
+         }
+       }
+       return token
+     },
     
     // =============================================================================
     // SESSION CALLBACK
@@ -148,16 +151,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     // Adds user information from token to the session object.
     // This makes role and mustChangePassword available in the client.
     // =============================================================================
-    async session({ session, token }) {
-      // Add user info from token to session
-      if (session.user) {
-        session.user.id = token.id as string
-        session.user.name = token.name as string | null
-        session.user.image = token.image as string | null
-        session.user.role = token.role as string
-        session.user.mustChangePassword = token.mustChangePassword as boolean
-      }
-      return session
-    },
+     async session({ session, token }) {
+       // Add user info from token to session
+       if (session.user) {
+         session.user.id = token.id as string
+         session.user.name = token.name as string | null
+         session.user.image = token.image as string | null
+         session.user.role = token.role as string
+         session.user.mustChangePassword = token.mustChangePassword as boolean
+         // Add specialization to session
+         session.user.specialization = token.specialization as string | null
+       }
+       return session
+     },
   },
 })

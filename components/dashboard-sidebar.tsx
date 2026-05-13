@@ -66,83 +66,83 @@ interface DashboardSidebarProps {
 // Each item specifies which roles can access it.
 // =============================================================================
 export const menuByRole = {
-  ADMIN: [
-    {
-      title: "Tableau de board",
-      href: "/dashboard/admin",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Mon profil",
-      href: "/dashboard/profile",
-      icon: Wrench,
-    },
-    {
-      title: "Gestion des utilisateurs",
-      href: "/dashboard/admin/users",
-      icon: Users,
-      submenu: [
-        {
-          title: "Liste des utilisateurs",
-          href: "/dashboard/admin/users",
-          icon: Users,
-        },
-        {
-          title: "Créer un utilisateur",
-          href: "/dashboard/admin/users/create",
-          icon: UserPlus,
-        },
-      ],
-    },
-    {
-      title: "Gestion des équipements",
-      href: "/dashboard/admin/equipment",
-      icon: Wrench,
-    },
-    {
-      title: "Supervision des maintenances",
-      href: "/dashboard/admin/maintenance",
-      icon: ClipboardList,
-    },
-    {
-      title: "Rapports & statistiques",
-      href: "/dashboard/admin/reports",
-      icon: FileText,
-    },
-    {
-      title: "Paramètres système",
-      href: "/dashboard/admin/settings",
-      icon: Settings,
-    },
-  ],
+   ADMIN: [
+     {
+       title: "Tableau de board",
+       href: "/dashboard/admin",
+       icon: LayoutDashboard,
+     },
+     {
+       title: "Mon profil",
+       href: "/dashboard/profile",
+       icon: Wrench,
+     },
+     {
+       title: "Gestion des utilisateurs",
+       href: "/dashboard/admin/users",
+       icon: Users,
+       submenu: [
+         {
+           title: "Liste des utilisateurs",
+           href: "/dashboard/admin/users",
+           icon: Users,
+         },
+         {
+           title: "Créer un utilisateur",
+           href: "/dashboard/admin/users/create",
+           icon: UserPlus,
+         },
+       ],
+     },
+     {
+       title: "Gestion des équipements",
+       href: "/dashboard/admin/equipment",
+       icon: Wrench,
+     },
+     {
+       title: "Supervision des maintenances",
+       href: "/dashboard/admin/demandes",
+       icon: ClipboardList,
+     },
+     {
+       title: "Rapports d'intervention",
+       href: "/dashboard/admin/rapports",
+       icon: FileText,
+     },
+     {
+       title: "Paramètres système",
+       href: "/dashboard/admin/settings",
+       icon: Settings,
+     },
+   ],
 
-  TECHNICIEN: [
-    {
-      title: "Tableau de board",
-      href: "/dashboard/technicien",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Mes interventions",
-      href: "/dashboard/technicien/interventions",
-      icon: ClipboardList,
-    },
-    {
-      title: "Équipements assignés",
-      href: "/dashboard/technicien/equipment",
-      icon: Wrench,
-    },
-    {
-      title: "Rapports d’intervention",
-      href: "/dashboard/technicien/reports",
-      icon: FileText,
-    },
-    {
-      title: "Mon profil",
-      href: "/dashboard/profile",
-      icon: User,
-    },
-  ],
+   TECHNICIEN: [
+     {
+       title: "Tableau de board",
+       href: "/dashboard/technicien",
+       icon: LayoutDashboard,
+     },
+     {
+       title: "Mes interventions",
+       href: "/dashboard/technicien/interventions",
+       icon: ClipboardList,
+     },
+     {
+       title: "demandes assignées",
+       href: "/dashboard/technicien/demandes",
+       icon: Wrench,
+     },
+     {
+       title: "Rapports d'intervention",
+       href: "/dashboard/technicien/rapports",
+       icon: FileText,
+     },
+     {
+       title: "Mon profil",
+       href: "/dashboard/profile",
+       icon: User,
+     },
+   ],
 
   EMPLOYE: [
     {
@@ -152,7 +152,7 @@ export const menuByRole = {
     },
     {
       title: "Signaler une panne",
-      href: "/dashboard/employe/requests/create",
+      href: "/dashboard/employe/demandes",
       icon: ClipboardList,
     },
     {
@@ -353,7 +353,7 @@ export function DashboardSidebar({ role, session }: DashboardSidebarProps) {
               <p className="text-sm text-muted-foreground">
                 {role === "ADMIN" && "Administrateur"}
                 {role === "EMPLOYE" && "Employé"}
-                {role === "TECHNICIEN" && "Technicien"}
+              {role === "TECHNICIEN" && ("Technicien" + " " + session.user?.specialization)}
               </p>
             </div>
 

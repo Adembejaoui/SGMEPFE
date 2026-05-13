@@ -1,26 +1,11 @@
-import { PrismaClient } from "@prisma/client"
-import { PrismaPg } from "@prisma/adapter-pg"
-import pg from "pg"
+import "dotenv/config";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@/app/generated/prisma/client";
 
-const { Pool } = pg
 
-const prismaClientSingleton = () => {
-  const connectionString = process.env.DATABASE_URL
-  
-  if (!connectionString) {
-    throw new Error("DATABASE_URL is not defined")
-  }
-  
-  const pool = new Pool({ connectionString }) as unknown as ConstructorParameters<typeof PrismaPg>[0]
-  const adapter = new PrismaPg(pool)
-  
-  return new PrismaClient({ adapter })
-}
+const connectionString = `${process.env.DATABASE_URL}`;
 
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>
-} & typeof global
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
-export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
-
-if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma
+export { prisma };

@@ -4,6 +4,26 @@
 // TypeScript type definitions for equipment-related operations.
 // =============================================================================
 
+import { DemandeMaintenance } from "./demande"
+
+
+// =============================================================================
+// EQUIPMENT TYPE ENUM
+// =============================================================================
+// Defines the types of equipment for technician specialization:
+// - PRINTER: Printers and printing equipment
+// - NETWORK: Network equipment (routers, switches, etc.)
+// - HVAC: Heating, ventilation, and air conditioning systems
+// - ELECTRICAL: Electrical systems and equipment
+// - SECURITY: Security systems (cameras, alarms, access control)
+// =============================================================================
+export type EquipmentType = 
+  | "PRINTER" 
+  | "NETWORK" 
+  | "HVAC" 
+  | "ELECTRICAL" 
+  | "SECURITY"
+
 // =============================================================================
 // EQUIPMENT STATE TYPE
 // =============================================================================
@@ -18,22 +38,24 @@ export type User = {
   lastName: string
   email: string
   role: "ADMIN" | "EMPLOYE" | "TECHNICIEN"
+  // Technician specialization (only for TECHNICIEN role)
+  specialization: EquipmentType | null
 }
 
 // =============================================================================
 // DEMANDE MAINTENANCE TYPE (MINIMAL)
 // =============================================================================
-export type DemandeMaintenance = {
-  id: number
-  titre: string
-  description: string | null
-  priorite: string
-  statut: string
+// Matches the current Prisma DemandeMaintenance model.
+// For full types, see types/demande.ts.
+
+export type DemandeMaintenanceBase = {
+  idDemande: number
+  description: string
+  priorite: "BASSE" | "MOYENNE" | "HAUTE" | "URGENTE"
+  statut: "EN_ATTENTE" | "VALIDEE" | "EN_COURS" | "TRAITEE" | "REJETEE" | "ANNULEE"
   dateDemande: Date
-  dateEcheance: Date | null
-  dateResolution: Date | null
+  clientId: string
   equipementId: number
-  employeId: string | null
   createdAt: Date
   updatedAt: Date
 }
@@ -44,7 +66,7 @@ export type DemandeMaintenance = {
 export type Equipement = {
   id: number
   nom: string
-  type: string
+  type: EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -62,17 +84,19 @@ export type Equipement = {
 // Equipement with demandes de maintenance included
 export type EquipementWithDemandes = Equipement & {
   demandesMaintenance: (DemandeMaintenance & {
-    employe: User | null
+    client: User | null
   })[]
   admin: User | null
 }
 
 // Equipement list item (lightweight, for listing)
 export type EquipementListItem = Equipement & {
-  admin: User | null
-  _count: {
-    demandesMaintenance: number
-  }
+  admin: {
+    id: string
+    firstName: string
+    lastName: string
+  } | null
+  demandesMaintenance: { id: number }[]
 }
 
 // =============================================================================
@@ -82,7 +106,7 @@ export type EquipementListItem = Equipement & {
 // =============================================================================
 export type EquipementCreateInput = {
   nom: string
-  type: string
+  type: EquipmentType
   marque: string
   modele: string
   numeroSerie: string

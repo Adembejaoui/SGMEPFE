@@ -1,78 +1,72 @@
+import Link from "next/link"
 import { auth, signOut } from "@/lib/auth"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 
-// Force dynamic rendering - don't cache this page
+import { Button } from "@/components/ui/button"
+
 export const dynamic = "force-dynamic"
 
 export default async function Home() {
   const session = await auth()
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-muted p-6 md:p-10">
-      <div className="w-full max-w-md">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl">
-              Système de Gestion de Maintenance d'Équipement
-            </CardTitle>
-            <CardDescription>
-              Bienvenue sur la plateforme SGME
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
+    <main className="min-h-screen bg-background">
+      <section className="container mx-auto flex min-h-screen flex-col items-center justify-center px-6 text-center">
+        <div className="max-w-3xl space-y-6">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+            Système de Gestion de Maintenance d&apos;Équipement
+          </h1>
+
+          <p className="text-lg text-muted-foreground">
+            Gérez vos équipements, demandes de maintenance et interventions
+            facilement avec la plateforme SGME.
+          </p>
+
+          <div className="flex items-center justify-center gap-4 pt-4">
             {session?.user ? (
-              <div className="grid gap-4">
-                <div className="flex items-center gap-4 justify-center">
-                  {session.user.image && (
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name || "User"}
-                      className="h-16 w-16 rounded-full"
-                    />
-                  )}
-                  <div className="text-center">
-                    <p className="font-medium">{session.user.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {session.user.email}
-                    </p>
-                  </div>
-                </div>
+              <>
+                <Button asChild size="lg">
+                  <Link href="/dashboard">
+                    Dashboard
+                  </Link>
+                </Button>
+
                 <form
                   action={async () => {
                     "use server"
-                    await signOut({ redirectTo: "/login" })
+                    await signOut({
+                      redirectTo: "/login",
+                    })
                   }}
                 >
-                  <Button type="submit" variant="destructive" className="w-full">
-                    Sign out
+                  <Button
+                    type="submit"
+                    variant="destructive"
+                    size="lg"
+                  >
+                    Logout
                   </Button>
                 </form>
-              </div>
+              </>
             ) : (
-              <div className="text-center space-y-4">
-                <p className="text-muted-foreground">
-                  Veuillez vous connecter pour accéder à la plateforme.
-                </p>
-                <div className="flex gap-4 justify-center">
-                  <Button>
-                    <a href="/login">Se connecter</a>
-                  </Button>
-                  <Button variant="outline">
-                    <a href="/register">S'inscrire</a>
-                  </Button>
-                </div>
-              </div>
+              <>
+                <Button
+                  size="lg"
+                  disabled
+                  className="cursor-not-allowed opacity-60"
+                >
+                  Dashboard
+                </Button>
+
+                <Button asChild size="lg" variant="outline">
+                  <Link href="/login">
+                    Login
+                  </Link>
+                </Button>
+              </>
             )}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

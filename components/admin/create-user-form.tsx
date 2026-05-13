@@ -24,12 +24,15 @@ import {
   Phone, 
   Lock, 
   Shield,
+  Activity,
   Loader2
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { EquipmentType } from "@/app/generated/prisma/enums"
 
 // =============================================================================
 // FORM VALIDATION SCHEMA
@@ -38,16 +41,27 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui
 // Ensures data integrity before submission.
 // =============================================================================
 const createUserSchema = z.object({
-  firstName: z.string().min(1, "Le prénom est requis"),
-  lastName: z.string().min(1, "Le nom est requis"),
-  email: z.string().email("Adresse email invalide"),
-  phone: z.string().optional(),
-  role: z.enum(["ADMIN", "EMPLOYE", "TECHNICIEN"], {
-    message: "Veuillez sélectionner un rôle"
-  }),
-  password: z.string().min(8, "Le mot de passe doit contenir au moins 8 caractères"),
-  isActive: z.boolean(),
+   firstName: z.string().min(1, "Le prénom est requis"),
+   lastName: z.string().min(1, "Le nom est requis"),
+   email: z.string().email("Adresse email invalide"),
+   phone: z.string().optional(),
+   role: z.enum(["ADMIN", "EMPLOYE", "TECHNICIEN"], {
+     message: "Veuillez sélectionner un rôle"
+   }),
+   // Specialization is required only for TECHNICIEN role
+   specialization: z.nativeEnum(EquipmentType).optional(),
+   password: z.string().min(8, "Le mot de passe doit contenir au moins 8 caractères"),
+   isActive: z.boolean(),
 })
+.refine((data) => {
+   if (data.role === "TECHNICIEN") {
+     return data.specialization !== undefined;
+   }
+   return true;
+ }, {
+   message: "La spécialisation est requise pour les techniciens",
+   path: ["specialization"],
+ })
 
 // =============================================================================
 // CREATE USER FORM COMPONENT
@@ -55,74 +69,76 @@ const createUserSchema = z.object({
 // Main form component for creating new users.
 // =============================================================================
 export function CreateUserForm() {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
+   const router = useRouter()
+   const [isLoading, setIsLoading] = useState(false)
+   const [error, setError] = useState("")
+   const [success, setSuccess] = useState("")
+   const [selectedRole, setSelectedRole] = useState<string>("")
 
-  // =============================================================================
-  // HANDLE FORM SUBMISSION
-  // =============================================================================
-  // Handles form submission and creates a new user.
-  // Validates form data and sends it to the API.
-  // =============================================================================
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoading(true)
-    setError("")
-    setSuccess("")
+   // =============================================================================
+   // HANDLE FORM SUBMISSION
+   // =============================================================================
+   // Handles form submission and creates a new user.
+   // Validates form data and sends it to the API.
+   // =============================================================================
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+     event.preventDefault()
+     setIsLoading(true)
+     setError("")
+     setSuccess("")
 
-    const formData = new FormData(event.currentTarget)
-    
-    // Extract form data
-    const data = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string || undefined,
-      role: formData.get("role") as string,
-      password: formData.get("password") as string,
-      isActive: formData.get("isActive") === "true",
-    }
+     const formData = new FormData(event.currentTarget)
+     
+     // Extract form data
+     const data = {
+       firstName: formData.get("firstName") as string,
+       lastName: formData.get("lastName") as string,
+       email: formData.get("email") as string,
+       phone: formData.get("phone") as string || undefined,
+       role: formData.get("role") as string,
+       specialization: formData.get("specialization") as EquipmentType || null,
+       password: formData.get("password") as string,
+       isActive: formData.get("isActive") === "true",
+     }
 
-    // Validate form data
-    const validationResult = createUserSchema.safeParse(data)
-    
-    if (!validationResult.success) {
-      setError(validationResult.error.issues[0].message)
-      setIsLoading(false)
-      return
-    }
+     // Validate form data
+     const validationResult = createUserSchema.safeParse(data)
+     
+     if (!validationResult.success) {
+       setError(validationResult.error.issues[0].message)
+       setIsLoading(false)
+       return
+     }
 
-    try {
-      // Send request to API
-      const response = await fetch("/api/admin/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
+     try {
+       // Send request to API
+       const response = await fetch("/api/admin/users", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(data),
+       })
 
-      const result = await response.json()
+       const result = await response.json()
 
-      if (!response.ok) {
-        setError(result.error || "Erreur lors de la création de l'utilisateur")
-        setIsLoading(false)
-        return
-      }
+       if (!response.ok) {
+         setError(result.error || "Erreur lors de la création de l'utilisateur")
+         setIsLoading(false)
+         return
+       }
 
-      setSuccess("Utilisateur créé avec succès")
-      
-      // Redirect to user list after 2 seconds
-      setTimeout(() => {
-        router.push("/dashboard/admin/users")
-      }, 2000)
-    } catch {
-      setError("Une erreur est survenue. Veuillez réessayer.")
-      setIsLoading(false)
-    }
-  }
+       setSuccess("Utilisateur créé avec succès")
+       
+       // Redirect to user list after 2 seconds
+       setTimeout(() => {
+         router.push("/dashboard/admin/users")
+       }, 2000)
+     } catch {
+       setError("Une erreur est survenue. Veuillez réessayer.")
+       setIsLoading(false)
+     }
+   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -206,6 +222,8 @@ export function CreateUserForm() {
           </FieldLabel>
           <select
             name="role"
+            value={selectedRole}
+            onChange={(e) => setSelectedRole(e.target.value)}
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             required
           >
@@ -218,6 +236,41 @@ export function CreateUserForm() {
             Le rôle détermine les permissions de l'utilisateur
           </FieldDescription>
         </Field>
+
+        {/* Specialization field (shown only for TECHNICIEN role) */}
+        {selectedRole === "TECHNICIEN" && (
+          <Field>
+            <FieldLabel>
+              <Activity className="w-4 h-4" />
+              Spécialisation
+            </FieldLabel>
+            <Select
+              name="specialization"
+              defaultValue="PRINTER"
+              onValueChange={(value) => {
+                // Handle select value change
+                const select = event?.target as HTMLSelectElement;
+                if (select) {
+                  // Value is handled by the Select component
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Sélectionnez une spécialisation" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="PRINTER">Imprimantes</SelectItem>
+                <SelectItem value="NETWORK">Équipements réseau</SelectItem>
+                <SelectItem value="HVAC">Chauffage, ventilation, climatisation</SelectItem>
+                <SelectItem value="ELECTRICAL">Systèmes électriques</SelectItem>
+                <SelectItem value="SECURITY">Systèmes de sécurité</SelectItem>
+              </SelectContent>
+            </Select>
+            <FieldDescription>
+              La spécialisation détermine les types d'équipements que le technicien peut maintenir
+            </FieldDescription>
+          </Field>
+        )}
 
         {/* Password field */}
         <Field>

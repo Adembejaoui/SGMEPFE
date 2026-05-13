@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { auth } from "@/lib/auth"
 import { SessionProvider } from "@/components/session-provider"
 import "./globals.css"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 
 // Force dynamic rendering - always fetch session fresh
 export const dynamic = "force-dynamic"

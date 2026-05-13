@@ -250,7 +250,7 @@ export default async function AdminDashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {recentUsers.map((user) => (
+            {recentUsers.map((user : any) => (
               <div key={user.id} className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">

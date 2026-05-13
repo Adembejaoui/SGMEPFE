@@ -1,14 +1,3 @@
-// =============================================================================
-// ADMIN USERS API ROUTE - SGME
-// =============================================================================
-// This API route handles user CRUD operations for administrators.
-// It provides:
-// - GET: List all users
-// - POST: Create a new user
-//
-// Only administrators can access these routes.
-// The route checks the user's role before allowing access.
-// =============================================================================
 
 import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
@@ -19,162 +8,551 @@ import { z } from "zod"
 // =============================================================================
 // CREATE USER VALIDATION SCHEMA
 // =============================================================================
-// Validates user creation data using Zod.
-// Ensures all required fields are present and valid.
-// =============================================================================
+
 const createUserSchema = z.object({
-  firstName: z.string().min(4, "Le prénom est requis"),
-  lastName: z.string().min(4, "Le nom est requis"),
-  email: z.string().email("Adresse email invalide"),
-  phone: z.string().min(8, "Le numéro de téléphone doit contenir au moins 8 caractères"),
-  role: z.enum(["ADMIN", "EMPLOYE", "TECHNICIEN"]),
-  password: z.string().min(8, "Le mot de passe doit contenir au moins 8 caractères"),
-  isActive: z.boolean().default(true),
+  firstName: z
+    .string()
+    .min(4, "Le prénom est requis"),
+
+  lastName: z
+    .string()
+    .min(4, "Le nom est requis"),
+
+  email: z
+    .string()
+    .email("Adresse email invalide"),
+
+  phone: z
+    .string()
+    .min(
+      8,
+      "Le numéro de téléphone doit contenir au moins 8 caractères"
+    ),
+
+  role: z.enum([
+    "ADMIN",
+    "EMPLOYE",
+    "TECHNICIEN",
+  ]),
+
+  specialization: z
+    .enum([
+      "PRINTER",
+      "NETWORK",
+      "HVAC",
+      "ELECTRICAL",
+      "SECURITY",
+    ])
+    .optional()
+    .nullable(),
+
+  password: z
+    .string()
+    .min(
+      8,
+      "Le mot de passe doit contenir au moins 8 caractères"
+    ),
+
+  isActive: z.boolean(),
 })
 
 // =============================================================================
-// GET HANDLER - LIST ALL USERS
+// UPDATE USER VALIDATION SCHEMA
 // =============================================================================
-// Returns a list of all users in the system.
-// Only administrators can access this route.
+
+const updateUserSchema = z
+  .object({
+    id: z.string().cuid(
+      "ID utilisateur invalide"
+    ),
+
+    firstName: z
+      .string()
+      .min(
+        4,
+        "Le prénom est requis"
+      )
+      .optional(),
+
+    lastName: z
+      .string()
+      .min(
+        4,
+        "Le nom est requis"
+      )
+      .optional(),
+
+    email: z
+      .string()
+      .email(
+        "Adresse email invalide"
+      )
+      .optional(),
+
+    phone: z
+      .string()
+      .min(
+        8,
+        "Le numéro de téléphone doit contenir au moins 8 caractères"
+      )
+      .optional(),
+
+    role: z
+      .enum([
+        "ADMIN",
+        "EMPLOYE",
+        "TECHNICIEN",
+      ])
+      .optional(),
+
+    specialization: z
+      .enum([
+        "PRINTER",
+        "NETWORK",
+        "HVAC",
+        "ELECTRICAL",
+        "SECURITY",
+      ])
+      .optional()
+      .nullable(),
+
+    password: z
+      .string()
+      .min(
+        8,
+        "Le mot de passe doit contenir au moins 8 caractères"
+      )
+      .optional(),
+
+    isActive:
+      z.boolean().optional(),
+  })
+  .refine(
+    (data) =>
+      Object.keys(data)
+        .length > 1,
+    {
+      message:
+        "Au moins un champ doit être fourni pour la mise à jour",
+    }
+  )
+
 // =============================================================================
+// GET HANDLER
+// =============================================================================
+
 export async function GET() {
   try {
-    // Get the current session
     const session = await auth()
 
-    // Check if user is authenticated
     if (!session) {
       return NextResponse.json(
-        { error: "Non autorisé" },
+        {
+          error:
+            "Non autorisé",
+        },
         { status: 401 }
       )
     }
 
-    // Check if user is admin
-    if (session.user.role !== "ADMIN") {
+    if (
+      session.user.role !==
+      "ADMIN"
+    ) {
       return NextResponse.json(
-        { error: "Accès refusé" },
+        {
+          error:
+            "Accès refusé",
+        },
         { status: 403 }
       )
     }
 
-    // Fetch all users from database
-    const users = await prisma.user.findMany({
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        phone: true,
-        role: true,
-        isActive: true,
-        mustChangePassword: true,
-        createdAt: true,
-        updatedAt: true,
-      }
-    })
+    const users =
+      await prisma.user.findMany(
+        {
+          orderBy: {
+            createdAt: "desc",
+          },
 
-    return NextResponse.json(users)
-  } catch (error) {
-    console.error("Error fetching users:", error)
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            phone: true,
+            role: true,
+            specialization:
+              true,
+            isActive: true,
+            mustChangePassword:
+              true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        }
+      )
+
     return NextResponse.json(
-      { error: "Erreur lors de la récupération des utilisateurs" },
+      users
+    )
+  } catch (error) {
+    console.error(
+      "Error fetching users:",
+      error
+    )
+
+    return NextResponse.json(
+      {
+        error:
+          "Erreur lors de la récupération des utilisateurs",
+      },
       { status: 500 }
     )
   }
 }
 
 // =============================================================================
-// POST HANDLER - CREATE NEW USER
+// POST HANDLER
 // =============================================================================
-// Creates a new user in the system.
-// Only administrators can access this route.
-// The new user will have mustChangePassword set to true by default.
-// =============================================================================
-export async function POST(request: Request) {
+
+export async function POST(
+  request: Request
+) {
   try {
-    // Get the current session
     const session = await auth()
 
-    // Check if user is authenticated
     if (!session) {
       return NextResponse.json(
-        { error: "Non autorisé" },
+        {
+          error:
+            "Non autorisé",
+        },
         { status: 401 }
       )
     }
 
-    // Check if user is admin
-    if (session.user.role !== "ADMIN") {
+    if (
+      session.user.role !==
+      "ADMIN"
+    ) {
       return NextResponse.json(
-        { error: "Accès refusé" },
+        {
+          error:
+            "Accès refusé",
+        },
         { status: 403 }
       )
     }
 
-    // Parse request body
-    const body = await request.json()
+    const body =
+      await request.json()
 
-    // Validate request data
-    const validationResult = createUserSchema.safeParse(body)
+    const validationResult =
+      createUserSchema.safeParse(
+        body
+      )
 
-    if (!validationResult.success) {
+    if (
+      !validationResult.success
+    ) {
       return NextResponse.json(
-        { error: validationResult.error.issues[0].message },
+        {
+          error:
+            validationResult
+              .error.issues[0]
+              .message,
+        },
         { status: 400 }
       )
     }
 
-    const { firstName, lastName, email, phone, role, password, isActive } = validationResult.data
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      role,
+      specialization,
+      password,
+      isActive,
+    } = validationResult.data
 
-    // Check if user with this email already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    })
+    // Validate technician specialization
+    if (
+      role === "TECHNICIEN" &&
+      !specialization
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "La spécialisation est obligatoire pour un technicien",
+        },
+        { status: 400 }
+      )
+    }
+
+    // Check existing user
+    const existingUser =
+      await prisma.user.findUnique(
+        {
+          where: {
+            email,
+          },
+        }
+      )
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "Un utilisateur avec cet email existe déjà" },
+        {
+          error:
+            "Un utilisateur avec cet email existe déjà",
+        },
         { status: 400 }
       )
     }
 
-    // Hash password using bcrypt
-    const hashedPassword = await bcrypt.hash(password, 12)
+    // Hash password
+    const hashedPassword =
+      await bcrypt.hash(
+        password,
+        12
+      )
 
-    // Create new user in database
-    const user = await prisma.user.create({
-      data: {
-        firstName,
-        lastName,
-        email,
-        phone,
-        role,
-        password: hashedPassword,
-        isActive,
-        mustChangePassword: true, // Force password change on first login
-      }
-    })
+    // Create user
+    const user =
+      await prisma.user.create({
+        data: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          role,
+
+          specialization:
+            role ===
+            "TECHNICIEN"
+              ? specialization
+              : null,
+
+          password:
+            hashedPassword,
+
+          isActive,
+
+          mustChangePassword:
+            true,
+        },
+      })
 
     return NextResponse.json(
-      { 
-        message: "Utilisateur créé avec succès",
+      {
+        message:
+          "Utilisateur créé avec succès",
+
         user: {
           id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstName:
+            user.firstName,
+          lastName:
+            user.lastName,
           email: user.email,
           role: user.role,
-        }
+          specialization:
+            user.specialization,
+        },
       },
       { status: 201 }
     )
   } catch (error) {
-    console.error("Error creating user:", error)
+    console.error(
+      "Error creating user:",
+      error
+    )
+
     return NextResponse.json(
-      { error: "Erreur lors de la création de l'utilisateur" },
+      {
+        error:
+          "Erreur lors de la création de l'utilisateur",
+      },
+      { status: 500 }
+    )
+  }
+}
+
+// =============================================================================
+// PUT HANDLER
+// =============================================================================
+
+export async function PUT(
+  request: Request
+) {
+  try {
+    const session = await auth()
+
+    if (!session) {
+      return NextResponse.json(
+        {
+          error:
+            "Non autorisé",
+        },
+        { status: 401 }
+      )
+    }
+
+    if (
+      session.user.role !==
+      "ADMIN"
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Accès refusé",
+        },
+        { status: 403 }
+      )
+    }
+
+    const body =
+      await request.json()
+
+    const validationResult =
+      updateUserSchema.safeParse(
+        body
+      )
+
+    if (
+      !validationResult.success
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Données invalides",
+
+          details:
+            validationResult
+              .error.issues,
+        },
+        { status: 400 }
+      )
+    }
+
+    const {
+      id,
+      ...updateData
+    } = validationResult.data
+
+    // Check user existence
+    const existingUser =
+      await prisma.user.findUnique(
+        {
+          where: { id },
+        }
+      )
+
+    if (!existingUser) {
+      return NextResponse.json(
+        {
+          error:
+            "Utilisateur non trouvé",
+        },
+        { status: 404 }
+      )
+    }
+
+    const finalUpdateData: Record<
+      string,
+      unknown
+    > = {
+      ...updateData,
+    }
+
+    // Role logic
+    if (
+      updateData.role !==
+      undefined
+    ) {
+      // TECHNICIEN requires specialization
+      if (
+        updateData.role ===
+          "TECHNICIEN" &&
+        !updateData.specialization &&
+        !existingUser.specialization
+      ) {
+        return NextResponse.json(
+          {
+            error:
+              "La spécialisation est requise pour un technicien",
+          },
+          { status: 400 }
+        )
+      }
+
+      // Remove specialization for non-technicians
+      if (
+        updateData.role !==
+        "TECHNICIEN"
+      ) {
+        finalUpdateData.specialization =
+          null
+      }
+    }
+
+    // Hash password
+    if (
+      finalUpdateData.password
+    ) {
+      finalUpdateData.password =
+        await bcrypt.hash(
+          finalUpdateData.password as string,
+          12
+        )
+    }
+
+    // Update user
+    const updatedUser =
+      await prisma.user.update({
+        where: { id },
+
+        data: finalUpdateData,
+
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          phone: true,
+          role: true,
+          specialization:
+            true,
+          isActive: true,
+          mustChangePassword:
+            true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      })
+
+    return NextResponse.json(
+      {
+        message:
+          "Utilisateur mis à jour avec succès",
+
+        user: updatedUser,
+      },
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error(
+      "Error updating user:",
+      error
+    )
+
+    return NextResponse.json(
+      {
+        error:
+          "Erreur lors de la mise à jour de l'utilisateur",
+      },
       { status: 500 }
     )
   }

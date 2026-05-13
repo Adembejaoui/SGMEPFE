@@ -13,21 +13,31 @@
 import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import type { EquipementCreateInput, EquipementListItem } from "@/types/equipement"
+import type { EquipementCreateInput, EquipementListItem, EquipementUpdateInput } from "@/types/equipement"
 import { z } from "zod"
+
+// Generate a serial number: 2 digits followed by 4 uppercase letters (total 6 chars)
+function generateSerialNumber(): string {
+    const digits = Math.floor(10 + Math.random() * 90).toString(); // 2 digits: 10-99
+    let letters = '';
+    for (let i = 0; i < 4; i++) {
+        letters += String.fromCharCode(65 + Math.floor(Math.random() * 26)); // A-Z
+    }
+    return digits + letters;
+}
 
 // =============================================================================
 // CREATE EQUIPMENT VALIDATION SCHEMA
 // =============================================================================
 const createEquipementSchema = z.object({
-  nom: z.string().min(1, "Le nom est requis"),
-  type: z.string().min(1, "Le type est requis"),
-  marque: z.string().min(1, "La marque est requis"),
-  modele: z.string().min(1, "Le modèle est requis"),
-  numeroSerie: z.string().min(1, "Le numéro de série est requis"),
-  etat: z.enum(["DISPONIBLE", "EN_PANNE", "EN_MAINTENANCE", "HORS_SERVICE"]).optional(),
-  localisation: z.string().min(1, "La localisation est requise"),
-  adminId: z.string().optional(),
+   nom: z.string().min(1, "Le nom est requis"),
+   type: z.enum(["PRINTER", "NETWORK", "HVAC", "ELECTRICAL", "SECURITY"]),
+   marque: z.string().min(1, "La marque est requis"),
+   modele: z.string().min(1, "Le modèle est requis"),
+   numeroSerie: z.string().min(1, "Le numéro de série est requis").optional(),
+   etat: z.enum(["DISPONIBLE", "EN_PANNE", "EN_MAINTENANCE", "HORS_SERVICE"]).optional(),
+   localisation: z.string().min(1, "La localisation est requise"),
+   adminId: z.string().optional(),
 })
 
 // =============================================================================
@@ -54,8 +64,8 @@ export async function GET(request: Request) {
       )
     }
 
-    // Check if user is admin or technician
-    if (session.user.role !== "ADMIN" && session.user.role !== "TECHNICIEN") {
+    // Check if user has access (admin, technician, or employee)
+    if (session.user.role !== "ADMIN" && session.user.role !== "TECHNICIEN" && session.user.role !== "EMPLOYE") {
       return NextResponse.json(
         { error: "Accès refusé" },
         { status: 403 }
@@ -75,25 +85,27 @@ export async function GET(request: Request) {
       whereClause.etat = etat
     }
 
-    // Fetch equipments with pagination
-    const [equipements, total] = await Promise.all([
-      prisma.equipement.findMany({
-        where: whereClause,
-        skip,
-        take: limit,
-        orderBy: { createdAt: "desc" },
-        include: {
-          admin: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-            }
-          }
-        }
-      }) as Promise<EquipementListItem[]>,
-      prisma.equipement.count({ where: whereClause })
-    ])
+     // Fetch equipments with pagination
+     const [equipements, total] = await Promise.all([
+       prisma.equipement
+         .findMany({
+           where: whereClause,
+           skip,
+           take: limit,
+           orderBy: { createdAt: "desc" },
+           include: {
+             admin: {
+               select: {
+                 id: true,
+                 firstName: true,
+                 lastName: true,
+               },
+             },
+           },
+         })
+         .then(data => data as EquipementListItem[]),
+       prisma.equipement.count({ where: whereClause }),
+     ])
 
     const totalPages = Math.ceil(total / limit)
 
@@ -158,9 +170,12 @@ export async function POST(request: Request) {
 
     const { nom, type, marque, modele, numeroSerie, etat, localisation, adminId } = validationResult.data
 
+    // Generate serial number if not provided
+    const finalNumeroSerie = numeroSerie || generateSerialNumber()
+
     // Check if equipment with same serial number already exists
     const existingEquipement = await prisma.equipement.findUnique({
-      where: { numeroSerie }
+      where: { numeroSerie: finalNumeroSerie }
     })
 
     if (existingEquipement) {
@@ -183,35 +198,35 @@ export async function POST(request: Request) {
       }
     }
 
-    // Create new equipment
-    const newEquipement = await prisma.equipement.create({
-      data: {
-        nom,
-        type,
-        marque,
-        modele,
-        numeroSerie,
-        etat: etat || "DISPONIBLE",
-        localisation,
-        adminId: adminId || null
-      },
-      include: {
-        admin: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-          }
-        }
-      }
-    }) as unknown as EquipementListItem
+     // Create new equipment
+     const newEquipement = await prisma.equipement.create({
+       data: {
+         nom,
+         type,
+         marque,
+         modele,
+         numeroSerie: finalNumeroSerie,
+         etat: etat || "DISPONIBLE",
+         localisation,
+         adminId: adminId || null
+       },
+       include: {
+         admin: {
+           select: {
+             id: true,
+             firstName: true,
+             lastName: true,
+           }
+         }
+       }
+     }) as unknown as EquipementListItem
 
     return NextResponse.json(newEquipement, { status: 201 })
-  } catch (error) {
-    console.error("Error creating equipment:", error)
-    return NextResponse.json(
-      { error: "Erreur lors de la création de l'équipement" },
-      { status: 500 }
-    )
-  }
+   } catch (error) {
+      console.error("Error creating equipment:", error)
+      return NextResponse.json(
+        { error: "Erreur lors de la création de l'équipement" },
+        { status: 500 }
+       )
+     }
 }
