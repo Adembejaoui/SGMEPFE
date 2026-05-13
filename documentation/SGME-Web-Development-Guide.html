@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGME - Complete Web Development Guide</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            font-size: 12pt;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 28pt;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 3px solid #4361ee;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            font-size: 18pt;
+            color: #1a1a2e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4361ee;
+            padding-left: 15px;
+            background: #f8f9fa;
+            padding: 10px 15px;
+        }
+        
+        h3 {
+            font-size: 14pt;
+            color: #4361ee;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        h4 {
+            font-size: 12pt;
+            color: #666;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            color: #d63384;
+        }
+        
+        pre {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 9pt;
+            line-height: 1.4;
+        }
+        
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        .code-label {
+            background: #4361ee;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px 3px 0 0;
+            font-size: 10pt;
+            display: inline-block;
+            margin-bottom: -5px;
+        }
+        
+        .file-path {
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 10pt;
+            border-left: 3px solid #4361ee;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            border: 1px solid #f5c2c7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .info {
+            background: #cff4fc;
+            border: 1px solid #b6effb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #4361ee;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .feature-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .feature-box h3 {
+            color: white;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, #4361ee, #764ba2);
+            margin: 30px 0;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h2 {
+            border: none;
+            background: none;
+            padding: 0;
+            margin-top: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+        }
+        
+        .toc a {
+            color: #4361ee;
+            text-decoration: none;
+        }
+        
+        .header-info {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4361ee;
+        }
+        
+        .header-info p {
+            color: #666;
+        }
+        
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            
+            h1 {
+                font-size: 24pt;
+            }
+            
+            h2 {
+                font-size: 16pt;
+                page-break-after: avoid;
+            }
+            
+            pre {
+                page-break-inside: avoid;
+            }
+            
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-info">
+            <h1>Système de Gestion de Maintenance d'Équipement</h1>
+            <p><strong>Complete Web Development Guide</strong></p>
+            <p>Next.js 16 • Prisma • NextAuth • TailwindCSS • Supabase</p>
+            <p>Version 1.0 | March 2026</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📋 Table of Contents</h2>
+            <ul>
+                <li><a href="#intro">1. Introduction</a></li>
+                <li><a href="#project-structure">2. Project Structure</a></li>
+                <li><a href="#configuration">3. Configuration Files</a>
+                    <ul>
+                        <li><a href="#package-json">3.1 package.json</a></li>
+                        <li><a href="#next-config">3.2 next.config.ts</a></li>
+                        <li><a href="#tsconfig">3.3 tsconfig.json</a></li>
+                        <li><a href="#tailwind">3.4 TailwindCSS Configuration</a></li>
+                        <li><a href="#postcss">3.5 PostCSS Configuration</a></li>
+                    </ul>
+                </li>
+                <li><a href="#environment">4. Environment Variables</a></li>
+                <li><a href="#prisma">5. Prisma Database Setup</a>
+                    <ul>
+                        <li><a href="#prisma-schema">5.1 Schema Definition</a></li>
+                        <li><a href="#prisma-client">5.2 Prisma Client</a></li>
+                        <li><a href="#prisma-config">5.3 Prisma Config</a></li>
+                    </ul>
+                </li>
+                <li><a href="#nextauth">6. NextAuth Authentication</a>
+                    <ul>
+                        <li><a href="#auth-setup">6.1 Auth Configuration</a></li>
+                        <li><a href="#auth-route">6.2 Auth API Route</a></li>
+                    </ul>
+                </li>
+                <li><a href="#api-routes">7. API Routes</a>
+                    <ul>
+                        <li><a href="#register-route">7.1 Registration Route</a></li>
+                        <li><a href="#push-schema">7.2 Schema Push Script</a></li>
+                    </ul>
+                </li>
+                <li><a href="#components">8. Components</a>
+                    <ul>
+                        <li><a href="#ui-components">8.1 UI Components</a></li>
+                        <li><a href="#auth-forms">8.2 Authentication Forms</a></li>
+                    </ul>
+                </li>
+                <li><a href="#pages">9. Pages</a>
+                    <ul>
+                        <li><a href="#layout">9.1 Root Layout</a></li>
+                        <li><a href="#home-page">9.2 Home Page</a></li>
+                        <li><a href="#login-page">9.3 Login Page</a></li>
+                        <li><a href="#register-page">9.4 Register Page</a></li>
+                    </ul>
+                </li>
+                <li><a href="#getting-started">10. Getting Started Guide</a></li>
+            </ul>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 1: Introduction -->
+        <section id="intro">
+            <h2>1. Introduction</h2>
+            
+            <p>Welcome to the complete documentation for the <strong>SGME (Système de Gestion de Maintenance d'Équipement)</strong> web application. This project is a full-stack web application built with modern technologies including Next.js 16, Prisma, NextAuth, TailwindCSS, and Supabase.</p>
+            
+            <div class="feature-box">
+                <h3>🚀 Key Features</h3>
+                <ul>
+                    <li>User authentication with email/password and Google OAuth</li>
+                    <li>PostgreSQL database with Prisma ORM</li>
+                    <li>Modern UI with TailwindCSS and shadcn/ui components</li>
+                    <li>Server-side rendering with Next.js App Router</li>
+                    <li>Secure password hashing with bcryptjs</li>
+                </ul>
+            </div>
+            
+            <p>This guide will walk you through every aspect of the codebase, explaining how each component works and how they connect together to create a complete authentication system.</p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 2: Project Structure -->
+        <section id="project-structure">
+            <h2>2. Project Structure</h2>
+            
+            <p>The project follows a modern Next.js App Router structure with clear separation of concerns:</p>
+            
+            <pre><code>sgme/
+├── app/                          # Next.js App Router pages
+│   ├── api/                      # API routes
+│   │   ├── auth/                # NextAuth routes
+│   │   │   └── [...nextauth]/
+│   │   │       └── route.ts     # Auth handler
+│   │   └── register/
+│   │       └── route.ts         # User registration
+│   ├── login/                   # Login page
+│   │   └── page.tsx
+│   ├── register/                # Registration page
+│   │   └── page.tsx
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx               # Root layout
+│   └── page.tsx                 # Home page
+├── components/                   # React components
+│   ├── ui/                      # shadcn/ui components
+│   ├── login-form.tsx           # Login form
+│   └── register-form.tsx        # Registration form
+├── lib/                          # Utility libraries
+│   ├── auth.ts                  # NextAuth config
+│   ├── prisma.ts                # Prisma client
+│   └── utils.ts                 # Utility functions
+├── prisma/                      # Database schema
+│   └── schema.prisma            # Database models
+├── public/                      # Static assets
+├── scripts/                     # Utility scripts
+│   └── push-schema.ts          # DB schema push
+├── package.json                 # Dependencies
+├── next.config.ts               # Next.js config
+├── tsconfig.json                # TypeScript config
+├── tailwind.config.ts           # Tailwind config
+└── .env.local                   # Environment variables</code></pre>
+            
+            <div class="info">
+                <strong>💡 Note:</strong> This structure follows Next.js 14+ App Router conventions, where each folder represents a route and contains a page.tsx file.
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 3: Configuration Files -->
+        <section id="configuration">
+            <h2>3. Configuration Files</h2>
+
+            <!-- 3.1 package.json -->
+            <section id="package-json">
+                <h3>3.1 package.json</h3>
+                
+                <p>The package.json file contains all the project dependencies. Let's break down each dependency:</p>
+                
+                <div class="file-path">package.json</div>
+                
+                <h4>Production Dependencies:</h4>
+                <table>
+                    <tr>
+                        <th>Package</th>
+                        <th>Version</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td><code>next</code></td>
+                        <td>16.2.1</td>
+                        <td>React framework with App Router</td>
+                    </tr>
+                    <tr>
+                        <td><code>react</code></td>
+                        <td>19.2.4</td>
+                        <td>React library</td>
+                    </tr>
+                    <tr>
+                        <td><code>next-auth</code></td>
+                        <td>5.0.0-beta.30</td>
+                        <td>Authentication solution</td>
+                    </tr>
+                    <tr>
+                        <td><code>@prisma/client</code></td>
+                        <td>7.5.0</td>
+                        <td>Database ORM client</td>
+                    </tr>
+                    <tr>
+                        <td><code>bcryptjs</code></td>
+                        <td>3.0.3</td>
+                        <td>Password hashing</td>
+                    </tr>
+                    <tr>
+                        <td><code>zod</code></td>
+                        <td>4.3.6</td>
+                        <td>Schema validation</td>
+                    </tr>
+                    <tr>
+                        <td><code>@supabase/supabase-js</code></td>
+                        <td>2.99.3</td>
+                        <td>Supabase client</td>
+                    </tr>
+                    <tr>
+                        <td><code>tailwindcss</code></td>
+                        <td>4.2.2</td>
+                        <td>CSS framework</td>
+                    </tr>
+                    <tr>
+                        <td><code>shadcn</code></td>
+                        <td>4.1.0</td>
+                        <td>UI component library</td>
+                    </tr>
+                </table>
+                
+                <h4>Key Scripts:</h4>
+                <pre><code>"scripts": {
+  "dev": "next dev",           # Start development server
+  "build": "next build",       # Build for production
+  "start": "next start",      # Start production server
+  "lint": "eslint"            # Run ESLint
+}</code></pre>
+            </section>
+
+            <!-- 3.2 next.config.ts -->
+            <section id="next-config">
+                <h3>3.2 next.config.ts</h3>
+                
+                <p>Next.js configuration file. This is a minimal configuration:</p>
+                
+                <div class="code-label">next.config.ts</div>
+                <pre><code>import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;</code></pre>
+                
+                <div class="note">
+                    <strong>💡 Tip:</strong> You can add various configuration options here like images domains, rewrites, redirects, etc.
+                </div>
+            </section>
+
+            <!-- 3.3 tsconfig.json -->
+            <section id="tsconfig">
+                <h3>3.3 tsconfig.json</h3>
+                
+                <p>TypeScript configuration that enables strict type checking and path aliases:</p>
+                
+                <div class="code-label">tsconfig.json</div>
+                <pre><code>{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./*"]  // Path alias: @/components = ./components
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}</code></pre>
+                
+                <h4>Key Configurations:</h4>
+                <ul>
+                    <li><code>strict: true</code> - Enables strict type checking</li>
+                    <li><code>moduleResolution: "bundler"</code> - Uses Next.js bundler resolution</li>
+                    <li><code>"@/*": ["./*"]</code> - Creates @/ alias for root directory</li>
+                </ul>
+            </section>
+
+            <!-- 3.4 TailwindCSS -->
+            <section id="tailwind">
+                <h3>3.4 TailwindCSS Configuration</h3>
+                
+                <p>TailwindCSS v4 uses a CSS-based configuration. The configuration is in <code>components.json</code>:</p>
+                
+                <div class="code-label">components.json</div>
+                <pre><code>{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui"
+  }
+}</code></pre>
+                
+                <p>Key points:</p>
+                <ul>
+                    <li><code>style: "base-nova"</code> - Uses Nova style components</li>
+                    <li><code>rsc: true</code> - Enables React Server Components</li>
+                    <li><code>cssVariables: true</code> - Uses CSS variables for theming</li>
+                    <li><code>baseColor: "neutral"</code> - Uses neutral color palette</li>
+                </ul>
+            </section>
+
+            <!-- 3.5 PostCSS -->
+            <section id="postcss">
+                <h3>3.5 PostCSS Configuration</h3>
+                
+                <p>PostCSS is configured to work with TailwindCSS:</p>
+                
+                <div class="code-label">postcss.config.mjs</div>
+                <pre><code>const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;</code></pre>
+                
+                <p>This configuration enables TailwindCSS v4's new PostCSS plugin for processing utility classes.</p>
+            </section>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 4: Environment Variables -->
+        <section id="environment">
+            <h2>4. Environment Variables</h2>
+            
+            <p>The project uses several environment variables defined in <code>.env.local</code>:</p>
+            
+            <div class="code-label">.env.local</div>
+            <pre><code># Google OAuth Credentials
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+
+# NextAuth Secret (generate with: openssl rand -base64 32)
+AUTH_SECRET=your_generated_secret_here
+
+# Database URL (Supabase PostgreSQL with connection pooling)
+DATABASE_URL="postgresql://postgres.xxx:password@aws-1-eu-west-1.pooler.supabase.com:5432/postgres?schema=public"
+
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://triqnsotvtjiazjsywxl.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+
+# App URL
+NEXT_PUBLIC_APP_URL="http://localhost:3000"</code></pre>
+            
+            <div class="warning">
+                <strong>⚠️ Important:</strong> Never commit .env.local to version control. Add it to .gitignore.
+            </div>
+            
+            <h4>How to Get These Credentials:</h4>
+            <ol>
+                <li><strong>Google OAuth:</strong> Go to <a href="https://console.cloud.google.com/apis/credentials">Google Cloud Console</a> and create OAuth 2.0 credentials</li>
+                <li><strong>AUTH_SECRET:</strong> Run <code>openssl rand -base64 32</code> in terminal</li>
+                <li><strong>Supabase:</strong> Create a project at <a href="https://supabase.com">supabase.com</a> and get connection details from Settings > Database</li>
+            </ol>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 5: Prisma -->
+        <section id="prisma">
+            <h2>5. Prisma Database Setup</h2>
+            
+            <p>Prisma is an ORM (Object-Relational Mapper) that provides type-safe database access. This project uses Prisma 7 with PostgreSQL.</p>
+
+            <!-- 5.1 Schema -->
+            <section id="prisma-schema">
+                <h3>5.1 Database Schema (schema.prisma)</h3>
+                
+                <p>The schema defines all database models required for authentication:</p>
+                
+                <div class="code-label">prisma/schema.prisma</div>
+                <pre><code>// Database provider
+datasource db {
+  provider = "postgresql"
+}
+
+// Prisma Client generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ============================================
+// USER MODEL - Main user table
+// ============================================
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // Hashed password (for credentials auth)
+  
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+}
+
+// ============================================
+// ACCOUNT MODEL - OAuth accounts
+// ============================================
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  
+  // Relation to User
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Constraints
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+// ============================================
+// SESSION MODEL - User sessions
+// ============================================
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+}
+
+// ============================================
+// VERIFICATION TOKEN MODEL - Email verification
+// ============================================
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  
+  @@unique([identifier, token])
+}</code></pre>
+                
+                <h4>Model Relationships:</h4>
+                <pre><code>User (1) ──────< (N) Account
+User (1) ──────< (N) Session</code></pre>
+                
+                <div class="info">
+                    <strong>📝 Note:</strong> The password field is optional because users can also register via Google OAuth, which doesn't store a password.
+                </div>
+            </section>
+
+            <!-- 5.2 Prisma Client -->
+            <section id="prisma-client">
+                <h3>5.2 Prisma Client (lib/prisma.ts)</h3>
+                
+                <p>This file creates a singleton Prisma client to prevent multiple connections during development:</p>
+                
+                <div class="code-label">lib/prisma.ts</div>
+                <pre><code>import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+import pg from "pg"
+
+const { Pool } = pg
+
+// Singleton pattern to prevent multiple DB connections
+const prismaClientSingleton = () => {
+  const connectionString = process.env.DATABASE_URL
+  
+  if (!connectionString) {
+    throw new Error("DATABASE_URL is not defined")
+  }
+  
+  // Create a connection pool
+  const pool = new Pool({ connectionString })
+  
+  // Create Prisma adapter for PostgreSQL
+  const adapter = new PrismaPg(pool)
+  
+  // Return Prisma client with adapter
+  return new PrismaClient({ adapter })
+}
+
+// TypeScript declaration for global prisma
+declare const globalThis: {
+  prismaGlobal: ReturnType<typeof prismaClientSingleton>
+} & typeof global
+
+// Use existing instance in dev, create new in prod
+export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+
+// Save instance to global in development
+if (process.env.NODE_ENV !== "production") {
+  globalThis.prismaGlobal = prisma
+}</code></pre>
+                
+                <h4>Why Singleton Pattern?</h4>
+                <ul>
+                    <li>Prevents exhausting database connections during hot reload</li>
+                    <li>Maintains connection pool efficiency</li>
+                    <li>Works across Next.js serverless functions</li>
+                </ul>
+            </section>
+
+            <!-- 5.3 Prisma Config -->
+            <section id="prisma-config">
+                <h3>5.3 Prisma Configuration (prisma.config.ts)</h3>
+                
+                <p>Prisma 7 introduced a new configuration file:</p>
+                
+                <div class="code-label">prisma.config.ts</div>
+                <pre><code>import path from "node:path"
+import { defineConfig } from "prisma/config"
+
+export default defineConfig({
+  schema: path.join(__dirname, "prisma", "schema.prisma"),
+  datasource: {
+    url: process.env.DATABASE_URL,
+  },
+})</code></pre>
+            </section>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 6: NextAuth -->
+        <section id="nextauth">
+            <h2>6. NextAuth Authentication</h2>
+            
+            <p>NextAuth.js (now Auth.js) provides authentication for the application. This project supports two authentication methods:</p>
+            
+            <ol>
+                <li><strong>Credentials Provider</strong> - Email/password login</li>
+                <li><strong>Google Provider</strong> - OAuth with Google</li>
+            </ol>
+
+            <!-- 6.1 Auth Configuration -->
+            <section id="auth-setup">
+                <h3>6.1 Auth Configuration (lib/auth.ts)</h3>
+                
+                <p>This is the main authentication configuration file:</p>
+                
+                <div class="code-label">lib/auth.ts</div>
+                <pre><code>import NextAuth from "next-auth"
+import Google from "next-auth/providers/google"
+import Credentials from "next-auth/providers/credentials"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/lib/prisma"
+import bcrypt from "bcryptjs"
+import { z } from "zod"
+
+// ============================================
+// SCHEMA VALIDATION
+// ============================================
+// Define expected shape of credentials
+const credentialsSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+})
+
+// ============================================
+// NEXTAUTH CONFIGURATION
+// ============================================
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  // Use Prisma adapter for database sessions
+  adapter: PrismaAdapter(prisma),
+  
+  // Configure authentication providers
+  providers: [
+    // ----------------------------------------
+    // GOOGLE OAUTH PROVIDER
+    // ----------------------------------------
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    
+    // ----------------------------------------
+    // CREDENTIALS PROVIDER (Email/Password)
+    // ----------------------------------------
+    Credentials({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      
+      // This function validates user credentials
+      async authorize(credentials) {
+        // Validate input format
+        const parsedCredentials = credentialsSchema.safeParse(credentials)
+        
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data
+          
+          // Find user by email
+          const user = await prisma.user.findUnique({
+            where: { email },
+          })
+          
+          // Check if user exists and has password
+          if (!user || !user.password) {
+            return null
+          }
+          
+          // Verify password hash
+          const passwordsMatch = await bcrypt.compare(password, user.password)
+          if (passwordsMatch) {
+            return user
+          }
+        }
+        
+        return null
+      },
+    }),
+  ],
+  
+  // Custom sign-in page
+  pages: {
+    signIn: "/login",
+  },
+  
+  // Use database sessions (not JWT)
+  session: {
+    strategy: "database",
+  },
+  
+  // Custom callbacks
+  callbacks: {
+    // Add user ID to session
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id
+      }
+      return session
+    },
+  },
+})</code></pre>
+                
+                <h4>How Authentication Flow Works:</h4>
+                <pre><code>┌─────────────────────────────────────────────────────────┐
+│                    LOGIN FLOW                             │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  1. User submits form at /login                         │
+│     ↓                                                   │
+│  2. handleCredentialsLogin() called                     │
+│     ↓                                                   │
+│  3. signIn("credentials", {email, password})          │
+│     ↓                                                   │
+│  4. NextAuth validates credentials                     │
+│     ├── Find user in database                           │
+│     ├── Compare password with bcrypt                    │
+│     └── Return user object if valid                     │
+│     ↓                                                   │
+│  5. Create session in database                          │
+│     ↓                                                   │
+│  6. Redirect to /                                       │
+│                                                         │
+└─────────────────────────────────────────────────────────┘</code></pre>
+            </section>
+
+            <!-- 6.2 Auth Route -->
+            <section id="auth-route">
+                <h3>6.2 Auth API Route (app/api/auth/[...nextauth]/route.ts)</h3>
+                
+                <p>This route handles all NextAuth requests (GET and POST):</p>
+                
+                <div class="code-label">app/api/auth/[...nextauth]/route.ts</div>
+                <pre><code>import { handlers } from "@/lib/auth"
+
+// Enable Node.js runtime
+export const runtime = "nodejs"
+
+// Make route dynamic (not static)
+export const dynamic = "force-dynamic"
+
+// Export GET and POST handlers from NextAuth
+export const { GET, POST } = handlers</code></pre>
+                
+                <div class="note">
+                    <strong>📝 How it works:</strong> The [...nextauth] catch-all route captures all /api/auth/* requests and delegates them to NextAuth handlers.
+                </div>
+            </section>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 7: API Routes -->
+        <section id="api-routes">
+            <h2>7. API Routes</h2>
+
+            <!-- 7.1 Registration Route -->
+            <section id="register-route">
+                <h3>7.1 User Registration API (app/api/register/route.ts)</h3>
+                
+                <p>This endpoint handles new user registration:</p>
+                
+                <div class="code-label">app/api/register/route.ts</div>
+                <pre><code>import { NextResponse } from "next/server"
+import { prisma } from "@/lib/prisma"
+import bcrypt from "bcryptjs"
+import { z } from "zod"
+
+// ============================================
+// INPUT VALIDATION SCHEMA
+// ============================================
+const registerSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+})
+
+// ============================================
+// POST handler - Create new user
+// ============================================
+export async function POST(request: Request) {
+  try {
+    // 1. Parse request body
+    const body = await request.json()
+    
+    // 2. Validate input
+    const parsedData = registerSchema.safeParse(body)
+    
+    if (!parsedData.success) {
+      // Return validation errors
+      return NextResponse.json(
+        { error: parsedData.error.issues[0].message },
+        { status: 400 }
+      )
+    }
+    
+    const { name, email, password } = parsedData.data
+    
+    // 3. Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    })
+    
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User with this email already exists" },
+        { status: 400 }
+      )
+    }
+    
+    // 4. Hash password (12 rounds = good security)
+    const hashedPassword = await bcrypt.hash(password, 12)
+    
+    // 5. Create user in database
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+      },
+    })
+    
+    // 6. Return success
+    return NextResponse.json(
+      { message: "User created successfully", user: { id: user.id, name: user.name, email: user.email } },
+      { status: 201 }
+    )
+    
+  } catch (error) {
+    console.error("Registration error:", error)
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    )
+  }
+}</code></pre>
+                
+                <h4>Registration Flow:</h4>
+                <pre><code>┌─────────────────────────────────────────────────────────┐
+│               REGISTRATION FLOW                           │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  1. User fills registration form                        │
+│     ├── Name (required)                                  │
+│     ├── Email (required, unique)                         │
+│     └── Password (min 8 chars)                          │
+│     ↓                                                   │
+│  2. Form submits to /api/register                       │
+│     ↓                                                   │
+│  3. Validate with Zod schema                            │
+│     ├── Check email format                              │
+│     └── Check password length                           │
+│     ↓                                                   │
+│  4. Check if email exists in DB                        │
+│     ↓                                                   │
+│  5. Hash password with bcrypt (12 rounds)              │
+│     ↓                                                   │
+│  6. Create user in database                             │
+│     ↓                                                   │
+│  7. Auto sign-in and redirect to /                      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘</code></pre>
+            </section>
+
+            <!-- 7.2 Schema Push Script -->
+            <section id="push-schema">
+                <h3>7.2 Database Schema Push Script</h3>
+                
+                <p>Due to Prisma 7 configuration issues, a manual script was created to set up the database:</p>
+                
+                <div class="code-label">scripts/push-schema.ts</div>
+                <pre><code>import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+import pg from "pg"
+
+const { Pool } = pg
+
+async function main() {
+  // Connect to database
+  const connectionString = process.env.DATABASE_URL || "postgresql://..."
+  const pool = new Pool({ connectionString })
+  const adapter = new PrismaPg(pool)
+  const prisma = new PrismaClient({ adapter })
+  
+  console.log("Pushing schema to database...")
+  
+  // Create tables manually with raw SQL
+  await prisma.$executeRaw`
+    CREATE TABLE IF NOT EXISTS "Account" (
+      "id" TEXT NOT NULL PRIMARY KEY,
+      "userId" TEXT NOT NULL,
+      "type" TEXT NOT NULL,
+      "provider" TEXT NOT NULL,
+      "providerAccountId" TEXT NOT NULL,
+      "refresh_token" TEXT,
+      "access_token" TEXT,
+      "expires_at" INTEGER,
+      "token_type" TEXT,
+      "scope" TEXT,
+      "id_token" TEXT,
+      "session_state" TEXT
+    );
+  `
+  
+  // ... Create other tables (Session, User, VerificationToken)
+  
+  // Add foreign key constraints
+  await prisma.$executeRaw`
+    ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" 
+    FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE;
+  `
+  
+  // Create indexes
+  await prisma.$executeRaw`
+    CREATE UNIQUE INDEX IF NOT EXISTS "Account_provider_providerAccountId_key" 
+    ON "Account"("provider", "providerAccountId");
+  `
+  
+  console.log("Schema pushed successfully!")
+  
+  await prisma.$disconnect()
+}
+
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})</code></pre>
+                
+                <div class="warning">
+                    <strong>⚠️ Run this script:</strong> Execute with <code>npx tsx scripts/push-schema.ts</code> to set up your database tables.
+                </div>
+            </section>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 8: Components -->
+        <section id="components">
+            <h2>8. React Components</h2>
+
+            <!-- 8.1 UI Components -->
+            <section id="ui-components">
+                <h3>8.1 UI Components (shadcn/ui)</h3>
+                
+                <p>The project uses shadcn/ui components built on top of Base UI and Radix primitives:</p>
+                
+                <h4>Button Component:</h4>
+                <div class="code-label">components/ui/button.tsx</div>
+                <pre><code>"use client"
+
+import { Button as ButtonPrimitive } from "@base-ui/react/button"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+
+// Button variants using CVA (Class Variance Authority)
+const buttonVariants = cva(
+  "group/button inline-flex items-center justify-center rounded-lg...",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground",
+        outline: "border-border bg-background hover:bg-muted",
+        secondary: "bg-secondary text-secondary-foreground",
+        ghost: "hover:bg-muted hover:text-foreground",
+        destructive: "bg-destructive/10 text-destructive...",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-8 px-2.5",
+        sm: "h-7 px-2.5",
+        lg: "h-9 px-2.5",
+        icon: "size-8",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+function Button({ className, variant, size, ...props }: ButtonPrimitive.Props) {
+  return (
+    <ButtonPrimitive
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+export { Button, buttonVariants }</code></pre>
+                
+                <h4>Card Component:</h4>
+                <div class="code-label">components/ui/card.tsx</div>
+                <pre><code>// Card components for content containers
+function Card({ className, size, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card"
+      className={cn(
+        "group/card flex flex-col gap-4 rounded-xl bg-card...",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return <div data-slot="card-header" className={cn(...)} {...props} />
+}
+
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+  return <div data-slot="card-title" className={cn(...)} {...props} />
+}
+
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return <div data-slot="card-content" className={cn(...)} {...props} />
+}
+
+export { Card, CardHeader, CardTitle, CardContent }</code></pre>
+                
+                <h4>Input Component:</h4>
+                <div class="code-label">components/ui/input.tsx</div>
+                <pre><code>"use client"
+
+import { Input as InputPrimitive } from "@base-ui/react/input"
+import { cn } from "@/lib/utils"
+
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+  return (
+    <InputPrimitive
+      type={type}
+      data-slot="input"
+      className={cn(
+        "h-8 w-full rounded-lg border border-input bg-transparent...",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Input }</code></pre>
+                
+                <h4>Field Component (Form Wrapper):</h4>
+                <div class="code-label">components/ui/field.tsx</div>
+                <pre><code>// Comprehensive form field component
+function Field({ className, orientation, ...props }) {
+  return (
+    <div
+      role="group"
+      data-slot="field"
+      data-orientation={orientation}
+      className={cn(fieldVariants({ orientation }), className)}
+      {...props}
+    />
+  )
+}
+
+function FieldLabel({ className, ...props }) {
+  return <Label data-slot="field-label" className={cn(...)} {...props} />
+}
+
+function FieldDescription({ className, ...props }) {
+  return <p data-slot="field-description" className={cn(...)} {...props} />
+}
+
+export { Field, FieldLabel, FieldDescription, FieldGroup, FieldSeparator }</code></pre>
+            </section>
+
+            <!-- 8.2 Auth Forms -->
+            <section id="auth-forms">
+                <h3>8.2 Authentication Forms</h3>
+                
+                <h4>Login Form:</h4>
+                <div class="code-label">components/login-form.tsx</div>
+                <pre><code>import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Field, FieldLabel, FieldDescription, FieldGroup, FieldSeparator } from "@/components/ui/field"
+import { signIn } from "@/lib/auth"
+
+export function LoginForm({ className, ...props }) {
+  
+  // Server Action: Handle email/password login
+  async function handleCredentialsLogin(formData: FormData) {
+    "use server"
+    await signIn("credentials", {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirectTo: "/",
+    })
+  }
+  
+  // Server Action: Handle Google login
+  async function handleGoogleLogin() {
+    "use server"
+    await signIn("google", { redirectTo: "/" })
+  }
+  
+  return (
+    <div className={cn("flex flex-col gap-6", className)}>
+      <Card className="overflow-hidden p-0">
+        <CardContent className="grid p-0 md:grid-cols-2">
+          {/* Form Section */}
+          <div className="p-6 md:p-8">
+            <FieldGroup>
+              <h1>Welcome back</h1>
+              
+              {/* Email/Password Form */}
+              <form action={handleCredentialsLogin}>
+                <Field>
+                  <FieldLabel>Email</FieldLabel>
+                  <Input name="email" type="email" required />
+                </Field>
+                <Field>
+                  <FieldLabel>Password</FieldLabel>
+                  <Input name="password" type="password" required />
+                </Field>
+                <Button type="submit">Sign in with Email</Button>
+              </form>
+              
+              <FieldSeparator>Or continue with</FieldSeparator>
+              
+              {/* Google Login */}
+              <form action={handleGoogleLogin}>
+                <Button type="submit" variant="outline">
+                  Sign in with Google
+                </Button>
+              </form>
+            </FieldGroup>
+          </div>
+          
+          {/* Image Section */}
+          <div className="relative hidden bg-muted md:block">
+            <img src="..." alt="Login" className="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}</code></pre>
+                
+                <h4>Registration Form:</h4>
+                <div class="code-label">components/register-form.tsx</div>
+                <pre><code>import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Field, FieldLabel, FieldDescription, FieldGroup, FieldSeparator } from "@/components/ui/field"
+import { signIn } from "@/lib/auth"
+
+export function RegisterForm({ className, ...props }) {
+  
+  // Server Action: Handle registration
+  async function handleRegister(formData: FormData) {
+    "use server"
+    
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
+    const confirmPassword = formData.get("confirmPassword") as string
+    
+    // Check password match
+    if (password !== confirmPassword) {
+      throw new Error("Passwords do not match")
+    }
+    
+    // Call registration API
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    const response = await fetch(new URL("/api/register", baseUrl).toString(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    })
+    
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.error || "Registration failed")
+    }
+    
+    // Auto sign-in after successful registration
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: "/",
+    })
+  }
+  
+  return (
+    <div className={cn("flex flex-col gap-6", className)}>
+      <Card>
+        <CardContent className="grid p-0 md:grid-cols-2">
+          <div className="p-6 md:p-8">
+            <FieldGroup>
+              <h1>Create an account</h1>
+              
+              <form action={handleRegister}>
+                <Field>
+                  <FieldLabel>Name</FieldLabel>
+                  <Input name="name" type="text" required />
+                </Field>
+                <Field>
+                  <FieldLabel>Email</FieldLabel>
+                  <Input name="email" type="email" required />
+                </Field>
+                <Field>
+                  <FieldLabel>Password</FieldLabel>
+                  <Input name="password" type="password" required minLength={6} />
+                </Field>
+                <Field>
+                  <FieldLabel>Confirm Password</FieldLabel>
+                  <Input name="confirmPassword" type="password" required />
+                </Field>
+                <Button type="submit">Create Account</Button>
+              </form>
+              
+              <FieldSeparator>Or continue with</FieldSeparator>
+              
+              {/* Google Sign-up */}
+              <form action={async () => {
+                "use server"
+                await signIn("google", { redirectTo: "/" })
+              }}>
+                <Button type="submit" variant="outline">Sign up with Google</Button>
+              </form>
+            </FieldGroup>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}</code></pre>
+            </section>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 9: Pages -->
+        <section id="pages">
+            <h2>9. Application Pages</h2>
+
+            <!-- 9.1 Layout -->
+            <section id="layout">
+                <h3>9.1 Root Layout (app/layout.tsx)</h3>
+                
+                <p>The root layout defines the HTML structure and global styles:</p>
+                
+                <div class="code-label">app/layout.tsx</div>
+                <pre><code>import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css"
+
+// Load Google Fonts
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
+
+// Page metadata
+export const metadata: Metadata = {
+  title: "SGME - Système de Gestion de Maintenance d'Équipement",
+  description: "Plateforme de gestion de maintenance d'équipements",
+}
+
+// Root layout component
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html
+      lang="fr"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        {children}
+      </body>
+    </html>
+  )
+}</code></pre>
+            </section>
+
+            <!-- 9.2 Home Page -->
+            <section id="home-page">
+                <h3>9.2 Home Page (app/page.tsx)</h3>
+                
+                <p>The main page that displays user session status:</p>
+                
+                <div class="code-label">app/page.tsx</div>
+                <pre><code>import { auth, signOut } from "@/lib/auth"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+
+export default async function Home() {
+  // Get current session
+  const session = await auth()
+  
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-muted p-6 md:p-10">
+      <div className="w-full max-w-md">
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle>Système de Gestion de Maintenance d'Équipement</CardTitle>
+            <CardDescription>Bienvenue sur la plateforme SGME</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            {session?.user ? (
+              // Logged in state
+              <div className="grid gap-4">
+                <div className="flex items-center gap-4 justify-center">
+                  {session.user.image && (
+                    <img src={session.user.image} alt="User" className="h-16 w-16 rounded-full" />
+                  )}
+                  <div>
+                    <p>{session.user.name}</p>
+                    <p>{session.user.email}</p>
+                  </div>
+                </div>
+                
+                {/* Sign Out Form */}
+                <form action={async () => {
+                  "use server"
+                  await signOut({ redirectTo: "/login" })
+                }}>
+                  <Button type="submit" variant="destructive">Sign out</Button>
+                </form>
+              </div>
+            ) : (
+              // Not logged in state
+              <p>Veuillez vous connecter pour accéder à la plateforme.</p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}</code></pre>
+            </section>
+
+            <!-- 9.3 Login Page -->
+            <section id="login-page">
+                <h3>9.3 Login Page (app/login/page.tsx)</h3>
+                
+                <div class="code-label">app/login/page.tsx</div>
+                <pre><code>import { LoginForm } from "@/components/login-form"
+
+export default function LoginPage() {
+  return (
+    <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-4xl">
+        <LoginForm />
+      </div>
+    </div>
+  )
+}</code></pre>
+            </section>
+
+            <!-- 9.4 Register Page -->
+            <section id="register-page">
+                <h3>9.4 Register Page (app/register/page.tsx)</h3>
+                
+                <div class="code-label">app/register/page.tsx</div>
+                <pre><code>import { RegisterForm } from "@/components/register-form"
+
+export default function RegisterPage() {
+  return (
+    <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-4xl">
+        <RegisterForm />
+      </div>
+    </div>
+  )
+}</code></pre>
+            </section>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Section 10: Getting Started -->
+        <section id="getting-started">
+            <h2>10. Getting Started Guide</h2>
+            
+            <h3>Step 1: Install Dependencies</h3>
+            <pre><code>npm install</code></pre>
+            
+            <h3>Step 2: Configure Environment Variables</h3>
+            <p>Create a <code>.env.local</code> file with your credentials:</p>
+            <pre><code># Generate AUTH_SECRET
+openssl rand -base64 32
+
+# Get Google OAuth credentials from:
+# https://console.cloud.google.com/apis/credentials
+
+# Get Supabase credentials from:
+# https://supabase.com/dashboard</code></pre>
+            
+            <h3>Step 3: Push Database Schema</h3>
+            <pre><code># Using the manual script (recommended for Prisma 7)
+npx tsx scripts/push-schema.ts
+
+# Or using Prisma CLI
+npx prisma db push</code></pre>
+            
+            <h3>Step 4: Run Development Server</h3>
+            <pre><code>npm run dev</code></pre>
+            
+            <p>The application will be available at <code>http://localhost:3000</code></p>
+            
+            <div class="success">
+                <strong>✅ You're all set!</strong> The application is now running with:
+                <ul>
+                    <li>User registration at /register</li>
+                    <li>User login at /login</li>
+                    <li>Home page at / showing session status</li>
+                    <li>Google OAuth authentication</li>
+                    <li>Email/password authentication</li>
+                </ul>
+            </div>
+            
+            <h3>Project Commands Summary:</h3>
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>npm run dev</code></td>
+                    <td>Start development server</td>
+                </tr>
+                <tr>
+                    <td><code>npm run build</code></td>
+                    <td>Build for production</td>
+                </tr>
+                <tr>
+                    <td><code>npm run start</code></td>
+                    <td>Start production server</td>
+                </tr>
+                <tr>
+                    <td><code>npm run lint</code></td>
+                    <td>Run ESLint</td>
+                </tr>
+                <tr>
+                    <td><code>npx prisma studio</code></td>
+                    <td>Open Prisma database GUI</td>
+                </tr>
+                <tr>
+                    <td><code>npx tsx scripts/push-schema.ts</code></td>
+                    <td>Push schema to database</td>
+                </tr>
+            </table>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section>
+            <h2>📚 Conclusion</h2>
+            
+            <p>This guide covered all aspects of the SGME web application:</p>
+            
+            <ol>
+                <li><strong>Project Configuration</strong> - Next.js, TypeScript, TailwindCSS</li>
+                <li><strong>Database Setup</strong> - Prisma ORM with PostgreSQL/Supabase</li>
+                <li><strong>Authentication</strong> - NextAuth with credentials and Google OAuth</li>
+                <li><strong>API Routes</strong> - Registration endpoint</li>
+                <li><strong>UI Components</strong> - shadcn/ui components</li>
+                <li><strong>Pages</strong> - Login, Register, Home</li>
+            </ol>
+            
+            <div class="feature-box">
+                <h3>🎉 Happy Coding!</h3>
+                <p>This project provides a solid foundation for building a full-stack web application with modern technologies. Feel free to extend it with more features!</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px; color: #666;">
+                <em>Document generated for SGME Web Development Project</em><br>
+                <em>Next.js 16 • Prisma • NextAuth • TailwindCSS • Supabase</em>
+            </p>
+        </section>
+    </div>
+</body>
+</html>

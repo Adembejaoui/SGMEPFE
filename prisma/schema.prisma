@@ -1,0 +1,202 @@
+// =============================================================================
+// PRISMA SCHEMA - SGME (Système de Gestion de Maintenance d'Équipement)
+// =============================================================================
+// This file defines the database structure for the SGME application.
+// It includes:
+// - User model with role-based access control
+// - Role enum for ADMIN, EMPLOYE, and TECHNICIEN
+// - Account and Session models for NextAuth authentication
+// - VerificationToken model for email verification
+//
+// The schema uses PostgreSQL (Supabase) as the database provider.
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =============================================================================
+// ROLE ENUM
+// =============================================================================
+// Defines the three user roles in the system:
+// - ADMIN: Full access to all features, can manage other users
+// - EMPLOYE: Limited access, can only view own profile
+// - TECHNICIEN: Limited access, can only view own profile
+// =============================================================================
+enum Role {
+  ADMIN
+  EMPLOYE
+  TECHNICIEN
+}
+
+// =============================================================================
+// EQUIPMENT STATE ENUM
+// =============================================================================
+// Defines the possible states for equipment:
+// - DISPONIBLE: Available for use
+// - EN_PANNE: Broken/Out of service
+// - EN_MAINTENANCE: Under maintenance
+// - HORS_SERVICE: Permanently out of service
+// =============================================================================
+enum EtatEquipement {
+  DISPONIBLE
+  EN_PANNE
+  EN_MAINTENANCE
+  HORS_SERVICE
+}
+
+// =============================================================================
+// EQUIPMENT MODEL
+// =============================================================================
+// Stores equipment information for maintenance management.
+// Key fields:
+// - numeroSerie: Unique serial number
+// - etat: Current state (DISPONIBLE, EN_PANNE, EN_MAINTENANCE, HORS_SERVICE)
+// - adminId: Reference to the admin who manages this equipment
+// =============================================================================
+model Equipement {
+  id                Int              @id @default(autoincrement())
+  nom               String
+  type              String
+  marque            String
+  modele            String
+  numeroSerie       String           @unique
+  etat              EtatEquipement   @default(DISPONIBLE)
+  localisation      String
+  adminId           String?
+
+  // Relations
+  admin             User?            @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  demandesMaintenance DemandeMaintenance[]
+
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@map("equipements")
+}
+
+// =============================================================================
+// MAINTENANCE REQUEST MODEL
+// =============================================================================
+// Stores maintenance requests for equipment.
+// Key fields:
+// - equipementId: Reference to the equipment
+// - employeId: Reference to the employee who created the request
+// - statut: Current status of the request
+// =============================================================================
+model DemandeMaintenance {
+  id                Int              @id @default(autoincrement())
+  titre             String
+  description       String?
+  priorite          String           @default("MOYENNE")
+  statut            String           @default("EN_ATTENTE")
+  dateDemande       DateTime         @default(now())
+  dateEcheance      DateTime?
+  dateResolution    DateTime?
+  equipementId      Int
+  employeId         String?
+
+  // Relations
+  equipement        Equipement       @relation(fields: [equipementId], references: [id], onDelete: Cascade)
+  employe           User?            @relation(fields: [employeId], references: [id], onDelete: SetNull)
+
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@map("demandes_maintenance")
+}
+
+// =============================================================================
+// USER MODEL
+// =============================================================================
+// Stores user information and authentication details.
+// Key fields:
+// - role: Determines user permissions (ADMIN, EMPLOYE, TECHNICIEN)
+// - mustChangePassword: Forces password change on first login
+// - isActive: Allows admin to enable/disable user accounts
+// =============================================================================
+model User {
+  id                String    @id @default(cuid())
+  firstName         String
+  lastName          String
+  email             String    @unique
+  password          String
+  phone             String
+  image             String?
+  role              Role      @default(EMPLOYE)
+  isActive          Boolean   @default(true)
+  mustChangePassword Boolean  @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  accounts          Account[]
+  sessions          Session[]
+  equipementsGestion Equipement[]
+  demandesMaintenanceCrees DemandeMaintenance[]
+
+  @@map("users")
+}
+
+// =============================================================================
+// ACCOUNT MODEL
+// =============================================================================
+// Stores OAuth account information (e.g., Google login).
+// This is used by NextAuth to link users to their OAuth providers.
+// =============================================================================
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+// =============================================================================
+// SESSION MODEL
+// =============================================================================
+// Stores user session information.
+// This is used by NextAuth to manage user sessions.
+// =============================================================================
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// =============================================================================
+// VERIFICATION TOKEN MODEL
+// =============================================================================
+// Stores email verification tokens.
+// This is used by NextAuth for email verification flows.
+// =============================================================================
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
