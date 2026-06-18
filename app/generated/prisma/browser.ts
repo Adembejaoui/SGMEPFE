@@ -18,6 +18,21 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model Materiel
+ * 
+ */
+export type Materiel = Prisma.MaterielModel
+/**
+ * Model UtilisationMateriel
+ * 
+ */
+export type UtilisationMateriel = Prisma.UtilisationMaterielModel
+/**
+ * Model CommandeStock
+ * 
+ */
+export type CommandeStock = Prisma.CommandeStockModel
+/**
  * Model Equipement
  * 
  */
@@ -47,6 +62,21 @@ export type Session = Prisma.SessionModel
  * 
  */
 export type Intervention = Prisma.InterventionModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model AiChatSession
+ * 
+ */
+export type AiChatSession = Prisma.AiChatSessionModel
+/**
+ * Model AiMessage
+ * 
+ */
+export type AiMessage = Prisma.AiMessageModel
 /**
  * Model RapportMaintenance
  * 

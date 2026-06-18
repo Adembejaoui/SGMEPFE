@@ -246,6 +246,9 @@ export type InterventionWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Intervention"> | Date | string
   demande?: Prisma.XOR<Prisma.DemandeMaintenanceScalarRelationFilter, Prisma.DemandeMaintenanceWhereInput>
   technician?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  messages?: Prisma.MessageListRelationFilter
+  aiChatSessions?: Prisma.AiChatSessionListRelationFilter
+  utilisationsMateriel?: Prisma.UtilisationMaterielListRelationFilter
 }
 
 export type InterventionOrderByWithRelationInput = {
@@ -259,6 +262,9 @@ export type InterventionOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   demande?: Prisma.DemandeMaintenanceOrderByWithRelationInput
   technician?: Prisma.UserOrderByWithRelationInput
+  messages?: Prisma.MessageOrderByRelationAggregateInput
+  aiChatSessions?: Prisma.AiChatSessionOrderByRelationAggregateInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielOrderByRelationAggregateInput
 }
 
 export type InterventionWhereUniqueInput = Prisma.AtLeast<{
@@ -275,6 +281,9 @@ export type InterventionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Intervention"> | Date | string
   demande?: Prisma.XOR<Prisma.DemandeMaintenanceScalarRelationFilter, Prisma.DemandeMaintenanceWhereInput>
   technician?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  messages?: Prisma.MessageListRelationFilter
+  aiChatSessions?: Prisma.AiChatSessionListRelationFilter
+  utilisationsMateriel?: Prisma.UtilisationMaterielListRelationFilter
 }, "idIntervention">
 
 export type InterventionOrderByWithAggregationInput = {
@@ -315,6 +324,9 @@ export type InterventionCreateInput = {
   updatedAt?: Date | string
   demande: Prisma.DemandeMaintenanceCreateNestedOneWithoutInterventionsInput
   technician: Prisma.UserCreateNestedOneWithoutInterventionsInput
+  messages?: Prisma.MessageCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielCreateNestedManyWithoutInterventionInput
 }
 
 export type InterventionUncheckedCreateInput = {
@@ -326,6 +338,9 @@ export type InterventionUncheckedCreateInput = {
   statut?: $Enums.StatutIntervention
   createdAt?: Date | string
   updatedAt?: Date | string
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedCreateNestedManyWithoutInterventionInput
 }
 
 export type InterventionUpdateInput = {
@@ -336,6 +351,9 @@ export type InterventionUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demande?: Prisma.DemandeMaintenanceUpdateOneRequiredWithoutInterventionsNestedInput
   technician?: Prisma.UserUpdateOneRequiredWithoutInterventionsNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUpdateManyWithoutInterventionNestedInput
 }
 
 export type InterventionUncheckedUpdateInput = {
@@ -347,6 +365,9 @@ export type InterventionUncheckedUpdateInput = {
   statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedUpdateManyWithoutInterventionNestedInput
 }
 
 export type InterventionCreateManyInput = {
@@ -377,6 +398,11 @@ export type InterventionUncheckedUpdateManyInput = {
   statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InterventionScalarRelationFilter = {
+  is?: Prisma.InterventionWhereInput
+  isNot?: Prisma.InterventionWhereInput
 }
 
 export type InterventionListRelationFilter = {
@@ -430,6 +456,20 @@ export type InterventionMinOrderByAggregateInput = {
 export type InterventionSumOrderByAggregateInput = {
   idIntervention?: Prisma.SortOrder
   demandeId?: Prisma.SortOrder
+}
+
+export type InterventionCreateNestedOneWithoutUtilisationsMaterielInput = {
+  create?: Prisma.XOR<Prisma.InterventionCreateWithoutUtilisationsMaterielInput, Prisma.InterventionUncheckedCreateWithoutUtilisationsMaterielInput>
+  connectOrCreate?: Prisma.InterventionCreateOrConnectWithoutUtilisationsMaterielInput
+  connect?: Prisma.InterventionWhereUniqueInput
+}
+
+export type InterventionUpdateOneRequiredWithoutUtilisationsMaterielNestedInput = {
+  create?: Prisma.XOR<Prisma.InterventionCreateWithoutUtilisationsMaterielInput, Prisma.InterventionUncheckedCreateWithoutUtilisationsMaterielInput>
+  connectOrCreate?: Prisma.InterventionCreateOrConnectWithoutUtilisationsMaterielInput
+  upsert?: Prisma.InterventionUpsertWithoutUtilisationsMaterielInput
+  connect?: Prisma.InterventionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InterventionUpdateToOneWithWhereWithoutUtilisationsMaterielInput, Prisma.InterventionUpdateWithoutUtilisationsMaterielInput>, Prisma.InterventionUncheckedUpdateWithoutUtilisationsMaterielInput>
 }
 
 export type InterventionCreateNestedManyWithoutDemandeInput = {
@@ -520,6 +560,100 @@ export type EnumStatutInterventionFieldUpdateOperationsInput = {
   set?: $Enums.StatutIntervention
 }
 
+export type InterventionCreateNestedOneWithoutMessagesInput = {
+  create?: Prisma.XOR<Prisma.InterventionCreateWithoutMessagesInput, Prisma.InterventionUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.InterventionCreateOrConnectWithoutMessagesInput
+  connect?: Prisma.InterventionWhereUniqueInput
+}
+
+export type InterventionUpdateOneRequiredWithoutMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.InterventionCreateWithoutMessagesInput, Prisma.InterventionUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.InterventionCreateOrConnectWithoutMessagesInput
+  upsert?: Prisma.InterventionUpsertWithoutMessagesInput
+  connect?: Prisma.InterventionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InterventionUpdateToOneWithWhereWithoutMessagesInput, Prisma.InterventionUpdateWithoutMessagesInput>, Prisma.InterventionUncheckedUpdateWithoutMessagesInput>
+}
+
+export type InterventionCreateNestedOneWithoutAiChatSessionsInput = {
+  create?: Prisma.XOR<Prisma.InterventionCreateWithoutAiChatSessionsInput, Prisma.InterventionUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.InterventionCreateOrConnectWithoutAiChatSessionsInput
+  connect?: Prisma.InterventionWhereUniqueInput
+}
+
+export type InterventionUpdateOneRequiredWithoutAiChatSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.InterventionCreateWithoutAiChatSessionsInput, Prisma.InterventionUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.InterventionCreateOrConnectWithoutAiChatSessionsInput
+  upsert?: Prisma.InterventionUpsertWithoutAiChatSessionsInput
+  connect?: Prisma.InterventionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InterventionUpdateToOneWithWhereWithoutAiChatSessionsInput, Prisma.InterventionUpdateWithoutAiChatSessionsInput>, Prisma.InterventionUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type InterventionCreateWithoutUtilisationsMaterielInput = {
+  description?: string
+  observation?: string | null
+  statut?: $Enums.StatutIntervention
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  demande: Prisma.DemandeMaintenanceCreateNestedOneWithoutInterventionsInput
+  technician: Prisma.UserCreateNestedOneWithoutInterventionsInput
+  messages?: Prisma.MessageCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutInterventionInput
+}
+
+export type InterventionUncheckedCreateWithoutUtilisationsMaterielInput = {
+  idIntervention?: number
+  demandeId: number
+  technicianId: string
+  description?: string
+  observation?: string | null
+  statut?: $Enums.StatutIntervention
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutInterventionInput
+}
+
+export type InterventionCreateOrConnectWithoutUtilisationsMaterielInput = {
+  where: Prisma.InterventionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InterventionCreateWithoutUtilisationsMaterielInput, Prisma.InterventionUncheckedCreateWithoutUtilisationsMaterielInput>
+}
+
+export type InterventionUpsertWithoutUtilisationsMaterielInput = {
+  update: Prisma.XOR<Prisma.InterventionUpdateWithoutUtilisationsMaterielInput, Prisma.InterventionUncheckedUpdateWithoutUtilisationsMaterielInput>
+  create: Prisma.XOR<Prisma.InterventionCreateWithoutUtilisationsMaterielInput, Prisma.InterventionUncheckedCreateWithoutUtilisationsMaterielInput>
+  where?: Prisma.InterventionWhereInput
+}
+
+export type InterventionUpdateToOneWithWhereWithoutUtilisationsMaterielInput = {
+  where?: Prisma.InterventionWhereInput
+  data: Prisma.XOR<Prisma.InterventionUpdateWithoutUtilisationsMaterielInput, Prisma.InterventionUncheckedUpdateWithoutUtilisationsMaterielInput>
+}
+
+export type InterventionUpdateWithoutUtilisationsMaterielInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  observation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  demande?: Prisma.DemandeMaintenanceUpdateOneRequiredWithoutInterventionsNestedInput
+  technician?: Prisma.UserUpdateOneRequiredWithoutInterventionsNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutInterventionNestedInput
+}
+
+export type InterventionUncheckedUpdateWithoutUtilisationsMaterielInput = {
+  idIntervention?: Prisma.IntFieldUpdateOperationsInput | number
+  demandeId?: Prisma.IntFieldUpdateOperationsInput | number
+  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  observation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutInterventionNestedInput
+}
+
 export type InterventionCreateWithoutDemandeInput = {
   description?: string
   observation?: string | null
@@ -527,6 +661,9 @@ export type InterventionCreateWithoutDemandeInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   technician: Prisma.UserCreateNestedOneWithoutInterventionsInput
+  messages?: Prisma.MessageCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielCreateNestedManyWithoutInterventionInput
 }
 
 export type InterventionUncheckedCreateWithoutDemandeInput = {
@@ -537,6 +674,9 @@ export type InterventionUncheckedCreateWithoutDemandeInput = {
   statut?: $Enums.StatutIntervention
   createdAt?: Date | string
   updatedAt?: Date | string
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedCreateNestedManyWithoutInterventionInput
 }
 
 export type InterventionCreateOrConnectWithoutDemandeInput = {
@@ -586,6 +726,9 @@ export type InterventionCreateWithoutTechnicianInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   demande: Prisma.DemandeMaintenanceCreateNestedOneWithoutInterventionsInput
+  messages?: Prisma.MessageCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielCreateNestedManyWithoutInterventionInput
 }
 
 export type InterventionUncheckedCreateWithoutTechnicianInput = {
@@ -596,6 +739,9 @@ export type InterventionUncheckedCreateWithoutTechnicianInput = {
   statut?: $Enums.StatutIntervention
   createdAt?: Date | string
   updatedAt?: Date | string
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterventionInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedCreateNestedManyWithoutInterventionInput
 }
 
 export type InterventionCreateOrConnectWithoutTechnicianInput = {
@@ -624,6 +770,138 @@ export type InterventionUpdateManyWithWhereWithoutTechnicianInput = {
   data: Prisma.XOR<Prisma.InterventionUpdateManyMutationInput, Prisma.InterventionUncheckedUpdateManyWithoutTechnicianInput>
 }
 
+export type InterventionCreateWithoutMessagesInput = {
+  description?: string
+  observation?: string | null
+  statut?: $Enums.StatutIntervention
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  demande: Prisma.DemandeMaintenanceCreateNestedOneWithoutInterventionsInput
+  technician: Prisma.UserCreateNestedOneWithoutInterventionsInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielCreateNestedManyWithoutInterventionInput
+}
+
+export type InterventionUncheckedCreateWithoutMessagesInput = {
+  idIntervention?: number
+  demandeId: number
+  technicianId: string
+  description?: string
+  observation?: string | null
+  statut?: $Enums.StatutIntervention
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedCreateNestedManyWithoutInterventionInput
+}
+
+export type InterventionCreateOrConnectWithoutMessagesInput = {
+  where: Prisma.InterventionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InterventionCreateWithoutMessagesInput, Prisma.InterventionUncheckedCreateWithoutMessagesInput>
+}
+
+export type InterventionUpsertWithoutMessagesInput = {
+  update: Prisma.XOR<Prisma.InterventionUpdateWithoutMessagesInput, Prisma.InterventionUncheckedUpdateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.InterventionCreateWithoutMessagesInput, Prisma.InterventionUncheckedCreateWithoutMessagesInput>
+  where?: Prisma.InterventionWhereInput
+}
+
+export type InterventionUpdateToOneWithWhereWithoutMessagesInput = {
+  where?: Prisma.InterventionWhereInput
+  data: Prisma.XOR<Prisma.InterventionUpdateWithoutMessagesInput, Prisma.InterventionUncheckedUpdateWithoutMessagesInput>
+}
+
+export type InterventionUpdateWithoutMessagesInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  observation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  demande?: Prisma.DemandeMaintenanceUpdateOneRequiredWithoutInterventionsNestedInput
+  technician?: Prisma.UserUpdateOneRequiredWithoutInterventionsNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUpdateManyWithoutInterventionNestedInput
+}
+
+export type InterventionUncheckedUpdateWithoutMessagesInput = {
+  idIntervention?: Prisma.IntFieldUpdateOperationsInput | number
+  demandeId?: Prisma.IntFieldUpdateOperationsInput | number
+  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  observation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedUpdateManyWithoutInterventionNestedInput
+}
+
+export type InterventionCreateWithoutAiChatSessionsInput = {
+  description?: string
+  observation?: string | null
+  statut?: $Enums.StatutIntervention
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  demande: Prisma.DemandeMaintenanceCreateNestedOneWithoutInterventionsInput
+  technician: Prisma.UserCreateNestedOneWithoutInterventionsInput
+  messages?: Prisma.MessageCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielCreateNestedManyWithoutInterventionInput
+}
+
+export type InterventionUncheckedCreateWithoutAiChatSessionsInput = {
+  idIntervention?: number
+  demandeId: number
+  technicianId: string
+  description?: string
+  observation?: string | null
+  statut?: $Enums.StatutIntervention
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterventionInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedCreateNestedManyWithoutInterventionInput
+}
+
+export type InterventionCreateOrConnectWithoutAiChatSessionsInput = {
+  where: Prisma.InterventionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InterventionCreateWithoutAiChatSessionsInput, Prisma.InterventionUncheckedCreateWithoutAiChatSessionsInput>
+}
+
+export type InterventionUpsertWithoutAiChatSessionsInput = {
+  update: Prisma.XOR<Prisma.InterventionUpdateWithoutAiChatSessionsInput, Prisma.InterventionUncheckedUpdateWithoutAiChatSessionsInput>
+  create: Prisma.XOR<Prisma.InterventionCreateWithoutAiChatSessionsInput, Prisma.InterventionUncheckedCreateWithoutAiChatSessionsInput>
+  where?: Prisma.InterventionWhereInput
+}
+
+export type InterventionUpdateToOneWithWhereWithoutAiChatSessionsInput = {
+  where?: Prisma.InterventionWhereInput
+  data: Prisma.XOR<Prisma.InterventionUpdateWithoutAiChatSessionsInput, Prisma.InterventionUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type InterventionUpdateWithoutAiChatSessionsInput = {
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  observation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  demande?: Prisma.DemandeMaintenanceUpdateOneRequiredWithoutInterventionsNestedInput
+  technician?: Prisma.UserUpdateOneRequiredWithoutInterventionsNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUpdateManyWithoutInterventionNestedInput
+}
+
+export type InterventionUncheckedUpdateWithoutAiChatSessionsInput = {
+  idIntervention?: Prisma.IntFieldUpdateOperationsInput | number
+  demandeId?: Prisma.IntFieldUpdateOperationsInput | number
+  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  observation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedUpdateManyWithoutInterventionNestedInput
+}
+
 export type InterventionCreateManyDemandeInput = {
   idIntervention?: number
   technicianId: string
@@ -641,6 +919,9 @@ export type InterventionUpdateWithoutDemandeInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   technician?: Prisma.UserUpdateOneRequiredWithoutInterventionsNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUpdateManyWithoutInterventionNestedInput
 }
 
 export type InterventionUncheckedUpdateWithoutDemandeInput = {
@@ -651,6 +932,9 @@ export type InterventionUncheckedUpdateWithoutDemandeInput = {
   statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedUpdateManyWithoutInterventionNestedInput
 }
 
 export type InterventionUncheckedUpdateManyWithoutDemandeInput = {
@@ -680,6 +964,9 @@ export type InterventionUpdateWithoutTechnicianInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demande?: Prisma.DemandeMaintenanceUpdateOneRequiredWithoutInterventionsNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUpdateManyWithoutInterventionNestedInput
 }
 
 export type InterventionUncheckedUpdateWithoutTechnicianInput = {
@@ -690,6 +977,9 @@ export type InterventionUncheckedUpdateWithoutTechnicianInput = {
   statut?: Prisma.EnumStatutInterventionFieldUpdateOperationsInput | $Enums.StatutIntervention
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutInterventionNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutInterventionNestedInput
+  utilisationsMateriel?: Prisma.UtilisationMaterielUncheckedUpdateManyWithoutInterventionNestedInput
 }
 
 export type InterventionUncheckedUpdateManyWithoutTechnicianInput = {
@@ -703,6 +993,53 @@ export type InterventionUncheckedUpdateManyWithoutTechnicianInput = {
 }
 
 
+/**
+ * Count Type InterventionCountOutputType
+ */
+
+export type InterventionCountOutputType = {
+  messages: number
+  aiChatSessions: number
+  utilisationsMateriel: number
+}
+
+export type InterventionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  messages?: boolean | InterventionCountOutputTypeCountMessagesArgs
+  aiChatSessions?: boolean | InterventionCountOutputTypeCountAiChatSessionsArgs
+  utilisationsMateriel?: boolean | InterventionCountOutputTypeCountUtilisationsMaterielArgs
+}
+
+/**
+ * InterventionCountOutputType without action
+ */
+export type InterventionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InterventionCountOutputType
+   */
+  select?: Prisma.InterventionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * InterventionCountOutputType without action
+ */
+export type InterventionCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * InterventionCountOutputType without action
+ */
+export type InterventionCountOutputTypeCountAiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiChatSessionWhereInput
+}
+
+/**
+ * InterventionCountOutputType without action
+ */
+export type InterventionCountOutputTypeCountUtilisationsMaterielArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UtilisationMaterielWhereInput
+}
+
 
 export type InterventionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   idIntervention?: boolean
@@ -715,6 +1052,10 @@ export type InterventionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   updatedAt?: boolean
   demande?: boolean | Prisma.DemandeMaintenanceDefaultArgs<ExtArgs>
   technician?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  messages?: boolean | Prisma.Intervention$messagesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.Intervention$aiChatSessionsArgs<ExtArgs>
+  utilisationsMateriel?: boolean | Prisma.Intervention$utilisationsMaterielArgs<ExtArgs>
+  _count?: boolean | Prisma.InterventionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intervention"]>
 
 export type InterventionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -758,6 +1099,10 @@ export type InterventionOmit<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type InterventionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demande?: boolean | Prisma.DemandeMaintenanceDefaultArgs<ExtArgs>
   technician?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  messages?: boolean | Prisma.Intervention$messagesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.Intervention$aiChatSessionsArgs<ExtArgs>
+  utilisationsMateriel?: boolean | Prisma.Intervention$utilisationsMaterielArgs<ExtArgs>
+  _count?: boolean | Prisma.InterventionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InterventionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   demande?: boolean | Prisma.DemandeMaintenanceDefaultArgs<ExtArgs>
@@ -773,6 +1118,9 @@ export type $InterventionPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     demande: Prisma.$DemandeMaintenancePayload<ExtArgs>
     technician: Prisma.$UserPayload<ExtArgs>
+    messages: Prisma.$MessagePayload<ExtArgs>[]
+    aiChatSessions: Prisma.$AiChatSessionPayload<ExtArgs>[]
+    utilisationsMateriel: Prisma.$UtilisationMaterielPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idIntervention: number
@@ -1179,6 +1527,9 @@ export interface Prisma__InterventionClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   demande<T extends Prisma.DemandeMaintenanceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DemandeMaintenanceDefaultArgs<ExtArgs>>): Prisma.Prisma__DemandeMaintenanceClient<runtime.Types.Result.GetResult<Prisma.$DemandeMaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   technician<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  messages<T extends Prisma.Intervention$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Intervention$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiChatSessions<T extends Prisma.Intervention$aiChatSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Intervention$aiChatSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiChatSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  utilisationsMateriel<T extends Prisma.Intervention$utilisationsMaterielArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Intervention$utilisationsMaterielArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UtilisationMaterielPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1614,6 +1965,78 @@ export type InterventionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Interventions to delete.
    */
   limit?: number
+}
+
+/**
+ * Intervention.messages
+ */
+export type Intervention$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * Intervention.aiChatSessions
+ */
+export type Intervention$aiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiChatSession
+   */
+  select?: Prisma.AiChatSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiChatSession
+   */
+  omit?: Prisma.AiChatSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiChatSessionInclude<ExtArgs> | null
+  where?: Prisma.AiChatSessionWhereInput
+  orderBy?: Prisma.AiChatSessionOrderByWithRelationInput | Prisma.AiChatSessionOrderByWithRelationInput[]
+  cursor?: Prisma.AiChatSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiChatSessionScalarFieldEnum | Prisma.AiChatSessionScalarFieldEnum[]
+}
+
+/**
+ * Intervention.utilisationsMateriel
+ */
+export type Intervention$utilisationsMaterielArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UtilisationMateriel
+   */
+  select?: Prisma.UtilisationMaterielSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UtilisationMateriel
+   */
+  omit?: Prisma.UtilisationMaterielOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UtilisationMaterielInclude<ExtArgs> | null
+  where?: Prisma.UtilisationMaterielWhereInput
+  orderBy?: Prisma.UtilisationMaterielOrderByWithRelationInput | Prisma.UtilisationMaterielOrderByWithRelationInput[]
+  cursor?: Prisma.UtilisationMaterielWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UtilisationMaterielScalarFieldEnum | Prisma.UtilisationMaterielScalarFieldEnum[]
 }
 
 /**

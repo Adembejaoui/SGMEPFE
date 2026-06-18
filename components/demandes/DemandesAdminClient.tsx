@@ -192,79 +192,68 @@ export function DemandesAdminClient() {
           ) : (
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>#</TableHead>
-                    <TableHead>Créé par</TableHead>
-                    <TableHead>Équipement</TableHead>
-                    <TableHead>Description</TableHead>
-                    <TableHead>type</TableHead>
-                    <TableHead>Priorité</TableHead>
-                    <TableHead>Statut</TableHead>
-                    <TableHead>Technicien</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredDemandes.map((demande) => (
-                    <TableRow key={demande.idDemande}>
-                      <TableCell className="font-medium">{demande.idDemande}</TableCell>
-                      <TableCell>
-                        {demande.client.firstName} {demande.client.lastName}
-                      </TableCell>
-                       <TableCell>{demande.equipement.nom}</TableCell>
-                       <TableCell className="max-w-xs truncate">
-                         {demande.description.length > 50
-                           ? `${demande.description.substring(0, 50)}...`
-                           : demande.description}
-                       </TableCell>
-                       <TableCell>
-                         <EquipementTypeBadge type={demande.equipement.type as EquipmentType} />
-                       </TableCell>
-                       <TableCell>
-                         <PrioriteBadge priorite={demande.priorite} />
-                       </TableCell>
-                      <TableCell>
-                        <StatutBadge statut={demande.statut} />
-                      </TableCell>
-
-                        <TableCell className="font-medium">{demande.technician?.firstName} {demande.technician?.lastName}</TableCell>
-                      <TableCell>
-                        {new Date(demande.dateDemande).toLocaleDateString('fr-FR')}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm" asChild>
-                            <Link href={`/dashboard/admin/demandes/${demande.idDemande}`}>
-                              <Eye className="w-4 h-4" />
-                            </Link>
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => {
-                              setSelectedDemande(demande)
-                              setDrawerOpen(true)
-                            }}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-destructive hover:text-destructive"
-                            onClick={() => {
-                              setSelectedDemande(demande)
-                              setDeleteDialogOpen(true)
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden sm:table-cell">#</TableHead>
+                      <TableHead className="hidden sm:table-cell">Créé par</TableHead>
+                      <TableHead>Équipement</TableHead>
+                      <TableHead className="hidden sm:table-cell">type</TableHead>
+                      <TableHead className="hidden sm:table-cell">Technicien</TableHead>
+                      <TableHead className="hidden sm:table-cell">Date</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
-                  ))}
+                  </TableHeader>
+                <TableBody>
+                    {filteredDemandes.map((demande) => (
+                      <TableRow key={demande.idDemande}>
+                        <TableCell className="font-medium hidden sm:table-cell">{demande.idDemande}</TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          {demande.client.firstName} {demande.client.lastName}
+                        </TableCell>
+                         <TableCell>{demande.equipement.nom}</TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          <EquipementTypeBadge type={demande.equipement.type as EquipmentType} />
+                        </TableCell>
+                       <TableCell>
+                         <StatutBadge statut={demande.statut} />
+                       </TableCell>
+
+                         <TableCell className="font-medium hidden sm:table-cell">{demande.technician?.firstName} {demande.technician?.lastName}</TableCell>
+                       <TableCell className="hidden sm:table-cell">
+                         {new Date(demande.dateDemande).toLocaleDateString('fr-FR')}
+                       </TableCell>
+                       <TableCell>
+                         <div className="flex items-center gap-2">
+                           <Button variant="ghost" size="sm" asChild>
+                             <Link href={`/dashboard/admin/demandes/${demande.idDemande}`}>
+                               <Eye className="w-4 h-4" />
+                             </Link>
+                           </Button>
+                           <Button
+                             variant="ghost"
+                             size="sm"
+                             onClick={() => {
+                               setSelectedDemande(demande)
+                               setDrawerOpen(true)
+                             }}
+                           >
+                             <Edit className="w-4 h-4" />
+                           </Button>
+                           <Button
+                             variant="ghost"
+                             size="sm"
+                             className="text-destructive hover:text-destructive"
+                             onClick={() => {
+                               setSelectedDemande(demande)
+                               setDeleteDialogOpen(true)
+                             }}
+                           >
+                             <Trash2 className="w-4 h-4" />
+                           </Button>
+                         </div>
+                       </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </div>

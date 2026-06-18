@@ -257,6 +257,7 @@ export async function GET(
           include: {
             client: {
               select: {
+                id: true,
                 firstName: true,
                 lastName: true,
                 email: true,
@@ -320,9 +321,7 @@ export async function GET(
 
         client: {
           nom: intervention.demande.client.lastName,
-
           prenom: intervention.demande.client.firstName,
-
           email: intervention.demande.client.email,
         },
 

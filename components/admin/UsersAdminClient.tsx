@@ -61,39 +61,39 @@ export function UsersAdminClient({ initialUsers }: UsersAdminClientProps) {
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">User Management</h1>
-          <p className="text-muted-foreground">Manage all users in the system</p>
-        </div>
-        <Link href="/dashboard/admin/users/create">
-          <Button>
-            <UserPlus className="w-4 h-4 mr-2" />
-            Create User
-          </Button>
-        </Link>
-      </div>
+       {/* Page header */}
+       <div className="flex flex-col items-center justify-between lg:flex-row lg:items-start">
+         <div className="w-full lg:w-auto mb-4 lg:mb-0">
+           <h1 className="text-3xl font-bold tracking-tight text-center lg:text-left">User Management</h1>
+           <p className="text-muted-foreground text-center lg:text-left">Manage all users in the system</p>
+         </div>
+         <Link href="/dashboard/admin/users/create" className="lg:ml-auto">
+           <Button>
+             <UserPlus className="w-4 h-4 mr-2" />
+             Create User
+           </Button>
+         </Link>
+       </div>
 
-      {/* Search and filter */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Search Users</CardTitle>
-          <CardDescription>Search by name, email or role</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input type="search" placeholder="Search..." className="pl-10" />
-            </div>
-            <Button variant="outline">
-              <Filter className="w-4 h-4 mr-2" />
-              Filter
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+       {/* Search and filter */}
+       <Card>
+         <CardHeader>
+           <CardTitle>Search Users</CardTitle>
+           <CardDescription>Search by name, email or role</CardDescription>
+         </CardHeader>
+         <CardContent>
+           <div className="w-full space-y-4 lg:flex lg:items-center lg:gap-4">
+             <div className="flex-1 lg:flex-1 relative lg:w-[300px]">
+               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+               <Input type="search" placeholder="Search..." className="pl-10 w-full" />
+             </div>
+             <Button variant="outline" className="lg:w-auto">
+               <Filter className="w-4 h-4 mr-2" />
+               Filter
+             </Button>
+           </div>
+         </CardContent>
+       </Card>
 
       {/* Users table */}
       <Card>
@@ -103,18 +103,18 @@ export function UsersAdminClient({ initialUsers }: UsersAdminClientProps) {
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 font-medium">User</th>
-                  <th className="text-left py-3 px-4 font-medium">Email</th>
-                  <th className="text-left py-3 px-4 font-medium">Role</th>
-                  <th className="text-left py-3 px-4 font-medium">Status</th>
-                  <th className="text-left py-3 px-4 font-medium">Password</th>
-                  <th className="text-left py-3 px-4 font-medium">Created</th>
-                  <th className="text-right py-3 px-4 font-medium">Actions</th>
-                </tr>
-              </thead>
+             <table className="w-full">
+               <thead>
+                 <tr className="border-b border-border">
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">User</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Email</th>
+                   <th className="text-left py-3 px-4 font-medium">Role</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Status</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Password</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Created</th>
+                   <th className="text-right py-3 px-4 font-medium">Actions</th>
+                 </tr>
+               </thead>
               <tbody>
                 {users.map((user) => (
                   <tr key={user.id} className="border-b border-border hover:bg-muted/50">

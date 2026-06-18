@@ -20,7 +20,6 @@ import { EquipmentType } from '@/types/equipement'
 export function DemandesEmployeClient() {
   const [searchQuery, setSearchQuery] = useState('')
   const [drawerOpen, setDrawerOpen] = useState(false)
-
   const { demandes, isLoading, error, mutate } = useDemandes()
 
   const filteredDemandes = useMemo(() => {
@@ -127,16 +126,16 @@ export function DemandesEmployeClient() {
           ) : (
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Équipement</TableHead>
-                    <TableHead>Description</TableHead>
-                    <TableHead>Priorité</TableHead>
-                    <TableHead>Statut</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
+                 <TableHeader>
+                   <TableRow>
+                     <TableHead>Équipement</TableHead>
+                     <TableHead>Description</TableHead>
+                     <TableHead className="hidden sm:table-cell">Priorité</TableHead>
+                     <TableHead className="hidden sm:table-cell">Statut</TableHead>
+                     <TableHead className="hidden sm:table-cell">Date</TableHead>
+                     <TableHead>Actions</TableHead>
+                   </TableRow>
+                 </TableHeader>
                 <TableBody>
                   {filteredDemandes.map((demande) => (
                     <TableRow key={demande.idDemande}>

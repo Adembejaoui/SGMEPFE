@@ -239,73 +239,73 @@ export function EquipmentListClient({ initialEquipements }: EquipmentListClientP
           </div>
 
           <div className="hidden md:block overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 font-medium">Équipement</th>
-                  <th className="text-left py-3 px-4 font-medium">Type</th>
-                  <th className="text-left py-3 px-4 font-medium">Marque</th>
-                  <th className="text-left py-3 px-4 font-medium">Modèle</th>
-                  <th className="text-left py-3 px-4 font-medium">N° Série</th>
-                  <th className="text-left py-3 px-4 font-medium">Localisation</th>
-                  <th className="text-left py-3 px-4 font-medium">Statut</th>
-                  <th className="text-left py-3 px-4 font-medium">Dossiers</th>
-                  <th className="text-left py-3 px-4 font-medium">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedEquipements.map((equipment) => (
-                  <tr key={equipment.id} className="border-b border-border hover:bg-muted/50">
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <Package className="w-5 h-5 text-primary" />
-                        </div>
-                        <div>
-                          <p className="font-medium">{equipment.nom}</p>
-                          <p className="text-sm text-muted-foreground">{equipment.numeroSerie}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">{equipment.type}</td>
-                    <td className="py-3 px-4">{equipment.marque}</td>
-                    <td className="py-3 px-4">{equipment.modele}</td>
-                    <td className="py-3 px-4">
-                      <Badge variant="secondary">{equipment.numeroSerie}</Badge>
-                    </td>
-                    <td className="py-3 px-4">{equipment.localisation}</td>
-                    <td className="py-3 px-4">
-                      <StatusBadge status={equipment.etat} />
-                    </td>
-                    <td className="py-3 px-4">
-                      <Badge variant="secondary">{equipment.demandesMaintenance.length}</Badge>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link href={`/dashboard/admin/equipment/${equipment.id}`}>
-                            <Eye className="w-4 h-4" />
-                          </Link>
-                        </Button>
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link href={`/dashboard/admin/equipment/${equipment.id}/edit`}>
-                            <Edit className="w-4 h-4" />
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-destructive hover:text-destructive"
-                          onClick={() => handleDelete(equipment.id, equipment.nom)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+             <table className="w-full">
+               <thead>
+                 <tr className="border-b border-border">
+                   <th className="text-left py-3 px-4 font-medium">Équipement</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Type</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Marque</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Modèle</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">N° Série</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Localisation</th>
+                   <th className="text-left py-3 px-4 font-medium">Statut</th>
+                   <th className="text-left py-3 px-4 font-medium hidden sm:table-cell">Dossiers</th>
+                   <th className="text-left py-3 px-4 font-medium">Actions</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 {paginatedEquipements.map((equipment) => (
+                   <tr key={equipment.id} className="border-b border-border hover:bg-muted/50">
+                     <td className="py-3 px-4">
+                       <div className="flex items-center gap-3">
+                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                           <Package className="w-5 h-5 text-primary" />
+                         </div>
+                         <div>
+                           <p className="font-medium">{equipment.nom}</p>
+                           <p className="text-sm text-muted-foreground">{equipment.numeroSerie}</p>
+                         </div>
+                       </div>
+                     </td>
+                     <td className="py-3 px-4 {equipment.type} hidden sm:table-cell">{equipment.type}</td>
+                     <td className="py-3 px-4 {equipment.marque} hidden sm:table-cell">{equipment.marque}</td>
+                     <td className="py-3 px-4 {equipment.modele} hidden sm:table-cell">{equipment.modele}</td>
+                     <td className="py-3 px-4 hidden sm:table-cell">
+                       <Badge variant="secondary">{equipment.numeroSerie}</Badge>
+                     </td>
+                     <td className="py-3 px-4 hidden sm:table-cell">{equipment.localisation}</td>
+                     <td className="py-3 px-4">
+                       <StatusBadge status={equipment.etat} />
+                     </td>
+                     <td className="py-3 px-4 hidden sm:table-cell">
+                       <Badge variant="secondary">{equipment.demandesMaintenance.length}</Badge>
+                     </td>
+                     <td className="py-3 px-4">
+                       <div className="flex items-center gap-2">
+                         <Button variant="ghost" size="sm" asChild>
+                           <Link href={`/dashboard/admin/equipment/${equipment.id}`}>
+                             <Eye className="w-4 h-4" />
+                           </Link>
+                         </Button>
+                         <Button variant="ghost" size="sm" asChild>
+                           <Link href={`/dashboard/admin/equipment/${equipment.id}/edit`}>
+                             <Edit className="w-4 h-4" />
+                           </Link>
+                         </Button>
+                         <Button
+                           variant="ghost"
+                           size="sm"
+                           className="text-destructive hover:text-destructive"
+                           onClick={() => handleDelete(equipment.id, equipment.nom)}
+                         >
+                           <Trash2 className="w-4 h-4" />
+                         </Button>
+                       </div>
+                     </td>
+                   </tr>
+                 ))}
+               </tbody>
+             </table>
           </div>
 
           {totalPages > 1 && (

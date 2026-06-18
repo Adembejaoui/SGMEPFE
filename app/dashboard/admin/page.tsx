@@ -91,21 +91,21 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Tableau de bord</h1>
-          <p className="text-muted-foreground">
-            Bienvenue, {session.user.name || session.user.email}
-          </p>
-        </div>
-        <Link href="/dashboard/admin/users/create">
-          <Button>
-            <Users className="w-4 h-4 mr-2" />
-            Créer un utilisateur
-          </Button>
-        </Link>
-      </div>
+       {/* Page header */}
+       <div className="flex flex-col items-center justify-between lg:flex-row lg:items-start">
+         <div className="w-full lg:w-auto mb-4 lg:mb-0">
+           <h1 className="text-3xl font-bold tracking-tight text-center lg:text-left">Tableau de bord</h1>
+           <p className="text-muted-foreground text-center lg:text-left">
+             Bienvenue, {session.user.name || session.user.email}
+           </p>
+         </div>
+         <Link href="/dashboard/admin/users/create" className="lg:ml-auto">
+           <Button>
+             <Users className="w-4 h-4 mr-2" />
+             Créer un utilisateur
+           </Button>
+         </Link>
+       </div>
 
       {/* Statistics cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -240,56 +240,56 @@ export default async function AdminDashboardPage() {
         </Card>
       </div>
 
-      {/* Recent users */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Utilisateurs récents</CardTitle>
-          <CardDescription>
-            Les 5 derniers utilisateurs créés
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {recentUsers.map((user : any) => (
-              <div key={user.id} className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-sm font-medium text-primary">
-                      {user.firstName[0]}{user.lastName[0]}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="font-medium">
-                      {user.firstName} {user.lastName}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    user.role === "ADMIN" 
-                      ? "bg-primary/10 text-primary"
-                      : user.role === "EMPLOYE"
-                      ? "bg-blue-500/10 text-blue-500"
-                      : "bg-green-500/10 text-green-500"
-                  }`}>
-                    {user.role}
-                  </span>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    user.isActive 
-                      ? "bg-green-500/10 text-green-500"
-                      : "bg-destructive/10 text-destructive"
-                  }`}>
-                    {user.isActive ? "Actif" : "Inactif"}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+       {/* Recent users */}
+       <Card>
+         <CardHeader>
+           <CardTitle>Utilisateurs récents</CardTitle>
+           <CardDescription>
+             Les 5 derniers utilisateurs créés
+           </CardDescription>
+         </CardHeader>
+         <CardContent>
+           <div className="space-y-4">
+             {recentUsers.map((user : any) => (
+               <div key={user.id} className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between">
+                 <div className="flex items-center gap-4">
+                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                     <span className="text-sm font-medium text-primary">
+                       {user.firstName[0]}{user.lastName[0]}
+                     </span>
+                   </div>
+                   <div>
+                     <p className="font-medium">
+                       {user.firstName} {user.lastName}
+                     </p>
+                     <p className="text-sm text-muted-foreground">
+                       {user.email}
+                     </p>
+                   </div>
+                 </div>
+                 <div className="flex items-center gap-4">
+                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                     user.role === "ADMIN" 
+                       ? "bg-primary/10 text-primary"
+                       : user.role === "EMPLOYE"
+                       ? "bg-blue-500/10 text-blue-500"
+                       : "bg-green-500/10 text-green-500"
+                   }`}>
+                     {user.role}
+                   </span>
+                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                     user.isActive 
+                       ? "bg-green-500/10 text-green-500"
+                       : "bg-destructive/10 text-destructive"
+                   }`}>
+                     {user.isActive ? "Actif" : "Inactif"}
+                   </span>
+                 </div>
+               </div>
+             ))}
+           </div>
+         </CardContent>
+       </Card>
     </div>
   )
 }

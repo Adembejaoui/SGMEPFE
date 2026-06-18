@@ -51,12 +51,18 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Materiel: 'Materiel',
+  UtilisationMateriel: 'UtilisationMateriel',
+  CommandeStock: 'CommandeStock',
   Equipement: 'Equipement',
   DemandeMaintenance: 'DemandeMaintenance',
   User: 'User',
   Account: 'Account',
   Session: 'Session',
   Intervention: 'Intervention',
+  Message: 'Message',
+  AiChatSession: 'AiChatSession',
+  AiMessage: 'AiMessage',
   RapportMaintenance: 'RapportMaintenance',
   VerificationToken: 'VerificationToken'
 } as const
@@ -77,10 +83,55 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const MaterielScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  nom: 'nom',
+  description: 'description',
+  type: 'type',
+  quantiteStock: 'quantiteStock',
+  seuilAlerte: 'seuilAlerte',
+  unite: 'unite',
+  emplacement: 'emplacement',
+  prixUnitaire: 'prixUnitaire',
+  adminId: 'adminId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterielScalarFieldEnum = (typeof MaterielScalarFieldEnum)[keyof typeof MaterielScalarFieldEnum]
+
+
+export const UtilisationMaterielScalarFieldEnum = {
+  id: 'id',
+  materielId: 'materielId',
+  interventionId: 'interventionId',
+  quantiteUtilisee: 'quantiteUtilisee',
+  motif: 'motif',
+  createdAt: 'createdAt'
+} as const
+
+export type UtilisationMaterielScalarFieldEnum = (typeof UtilisationMaterielScalarFieldEnum)[keyof typeof UtilisationMaterielScalarFieldEnum]
+
+
+export const CommandeStockScalarFieldEnum = {
+  id: 'id',
+  materielId: 'materielId',
+  quantiteCommandee: 'quantiteCommandee',
+  fournisseur: 'fournisseur',
+  statut: 'statut',
+  dateCommande: 'dateCommande',
+  dateReception: 'dateReception',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CommandeStockScalarFieldEnum = (typeof CommandeStockScalarFieldEnum)[keyof typeof CommandeStockScalarFieldEnum]
+
+
 export const EquipementScalarFieldEnum = {
   id: 'id',
   nom: 'nom',
-  type: 'type',
   marque: 'marque',
   modele: 'modele',
   numeroSerie: 'numeroSerie',
@@ -88,23 +139,24 @@ export const EquipementScalarFieldEnum = {
   localisation: 'localisation',
   adminId: 'adminId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  type: 'type'
 } as const
 
 export type EquipementScalarFieldEnum = (typeof EquipementScalarFieldEnum)[keyof typeof EquipementScalarFieldEnum]
 
 
 export const DemandeMaintenanceScalarFieldEnum = {
-  idDemande: 'idDemande',
-  dateDemande: 'dateDemande',
   description: 'description',
+  dateDemande: 'dateDemande',
+  equipementId: 'equipementId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  clientId: 'clientId',
+  idDemande: 'idDemande',
   priorite: 'priorite',
   statut: 'statut',
-  clientId: 'clientId',
-  equipementId: 'equipementId',
-  technicianId: 'technicianId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  technicianId: 'technicianId'
 } as const
 
 export type DemandeMaintenanceScalarFieldEnum = (typeof DemandeMaintenanceScalarFieldEnum)[keyof typeof DemandeMaintenanceScalarFieldEnum]
@@ -121,9 +173,9 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isActive: 'isActive',
   mustChangePassword: 'mustChangePassword',
-  specialization: 'specialization',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  specialization: 'specialization'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -169,6 +221,43 @@ export const InterventionScalarFieldEnum = {
 } as const
 
 export type InterventionScalarFieldEnum = (typeof InterventionScalarFieldEnum)[keyof typeof InterventionScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  interventionId: 'interventionId',
+  senderId: 'senderId',
+  contenu: 'contenu',
+  lu: 'lu',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const AiChatSessionScalarFieldEnum = {
+  id: 'id',
+  interventionId: 'interventionId',
+  technicianId: 'technicianId',
+  isResolved: 'isResolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiChatSessionScalarFieldEnum = (typeof AiChatSessionScalarFieldEnum)[keyof typeof AiChatSessionScalarFieldEnum]
+
+
+export const AiMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  role: 'role',
+  contenu: 'contenu',
+  diagnostic: 'diagnostic',
+  suggestedActions: 'suggestedActions',
+  createdAt: 'createdAt'
+} as const
+
+export type AiMessageScalarFieldEnum = (typeof AiMessageScalarFieldEnum)[keyof typeof AiMessageScalarFieldEnum]
 
 
 export const RapportMaintenanceScalarFieldEnum = {

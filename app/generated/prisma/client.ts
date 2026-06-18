@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Equipements
- * const equipements = await prisma.equipement.findMany()
+ * // Fetch zero or more Materiels
+ * const materiels = await prisma.materiel.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,6 +41,21 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Materiel
+ * 
+ */
+export type Materiel = Prisma.MaterielModel
+/**
+ * Model UtilisationMateriel
+ * 
+ */
+export type UtilisationMateriel = Prisma.UtilisationMaterielModel
+/**
+ * Model CommandeStock
+ * 
+ */
+export type CommandeStock = Prisma.CommandeStockModel
 /**
  * Model Equipement
  * 
@@ -71,6 +86,21 @@ export type Session = Prisma.SessionModel
  * 
  */
 export type Intervention = Prisma.InterventionModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model AiChatSession
+ * 
+ */
+export type AiChatSession = Prisma.AiChatSessionModel
+/**
+ * Model AiMessage
+ * 
+ */
+export type AiMessage = Prisma.AiMessageModel
 /**
  * Model RapportMaintenance
  * 

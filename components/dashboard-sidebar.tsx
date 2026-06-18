@@ -30,7 +30,8 @@ import {
   FileText,
   LogOut,
   Sun,
-  Moon
+  Moon,
+  Package
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -94,13 +95,30 @@ export const menuByRole = {
          },
        ],
      },
-     {
-       title: "Gestion des équipements",
-       href: "/dashboard/admin/equipment",
-       icon: Wrench,
-     },
-     {
-       title: "Supervision des maintenances",
+      {
+        title: "Gestion des équipements",
+        href: "/dashboard/admin/equipment",
+        icon: Wrench,
+      },
+      {
+        title: "Gestion du Stock",
+        href: "/dashboard/admin/stock",
+        icon: Package,
+        submenu: [
+          {
+            title: "Inventaire",
+            href: "/dashboard/admin/stock",
+            icon: Package,
+          },
+          {
+            title: "Commandes",
+            href: "/dashboard/admin/stock/commandes",
+            icon: ClipboardList,
+          },
+        ],
+      },
+      {
+        title: "Supervision des maintenances",
        href: "/dashboard/admin/demandes",
        icon: ClipboardList,
      },
@@ -116,24 +134,29 @@ export const menuByRole = {
      },
    ],
 
-   TECHNICIEN: [
-     {
-       title: "Tableau de board",
-       href: "/dashboard/technicien",
-       icon: LayoutDashboard,
-     },
-     {
-       title: "Mes interventions",
-       href: "/dashboard/technicien/interventions",
-       icon: ClipboardList,
-     },
-     {
-       title: "demandes assignées",
-       href: "/dashboard/technicien/demandes",
-       icon: Wrench,
-     },
-     {
-       title: "Rapports d'intervention",
+    TECHNICIEN: [
+      {
+        title: "Tableau de board",
+        href: "/dashboard/technicien",
+        icon: LayoutDashboard,
+      },
+      {
+        title: "Mes interventions",
+        href: "/dashboard/technicien/interventions",
+        icon: ClipboardList,
+      },
+      {
+        title: "demandes assignées",
+        href: "/dashboard/technicien/demandes",
+        icon: Wrench,
+      },
+      {
+        title: "Gestion du Stock",
+        href: "/dashboard/admin/stock",
+        icon: Package,
+      },
+      {
+        title: "Rapports d'intervention",
        href: "/dashboard/technicien/rapports",
        icon: FileText,
      },
@@ -338,13 +361,15 @@ export function DashboardSidebar({ role, session }: DashboardSidebarProps) {
         />
       )}
 
-      {/* Sidebar */}
-      <aside
-        className={cn(
-          "fixed top-0 left-0 z-40 h-screen w-64 bg-background border-r border-border transition-transform duration-300 ease-in-out",
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        )}
-      >
+       {/* Sidebar */}
+       <aside
+         className={cn(
+           "fixed top-0 left-0 z-40 h-screen bg-background border-r border-border transition-transform duration-300 ease-in-out",
+           "lg:translate-x-0 lg:w-64",
+           !mobileMenuOpen ? "-translate-x-full" : "translate-x-0",
+           "w-[90%] lg:w-64"
+         )}
+       >
         <div className="flex flex-col h-full">
           {/* Sidebar header */}
           <div className="p-4 border-b border-border flex items-center justify-between">

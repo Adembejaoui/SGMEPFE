@@ -3,8 +3,6 @@ import { prisma } from "@/lib/prisma"
 import { UsersAdminClient } from "@/components/admin/UsersAdminClient"
 
 export default async function UserListPage() {
-  const session = await auth()
-
   const users = await prisma.user.findMany({
     orderBy: { createdAt: "desc" },
     select: {

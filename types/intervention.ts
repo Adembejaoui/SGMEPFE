@@ -8,6 +8,32 @@ import type { StatutIntervention, PrioriteDemande, StatutDemande } from "@/types
 import type { EtatEquipement, EquipmentType } from "@/types/equipement"
 
 // =============================================================================
+// MESSAGE TYPES
+// =============================================================================
+export type Message = {
+  id: string
+  interventionId: number
+  senderId: string
+  contenu: string
+  lu: boolean
+  createdAt: Date
+}
+
+export type MessageWithSender = Message & {
+  sender: {
+    id: string
+    firstName: string
+    lastName: string
+    role: "ADMIN" | "EMPLOYE" | "TECHNICIEN"
+    image: string | null
+  }
+}
+
+export type SendMessageInput = {
+  contenu: string
+}
+
+// =============================================================================
 // INTERVENTION BASE TYPE
 // =============================================================================
 export type Intervention = {
@@ -96,7 +122,7 @@ export type RapportResultat =
 // =============================================================================
 export type RapportWithRelations = RapportMaintenance & {
   demande: {
-    interventions: any
+    interventions: Intervention[]
     idDemande: number
     description: string
     priorite: PrioriteDemande
@@ -113,13 +139,60 @@ export type RapportWithRelations = RapportMaintenance & {
       email: string
     }
      equipement: {
-       idEquipement: number
-       nom: string
-       type: EquipmentType
-       marque: string
-       modele: string
-       numeroSerie: string
-       localisation: string
-     }
-   }
- }
+        idEquipement: number
+        nom: string
+        type: EquipmentType
+        marque: string
+        modele: string
+        numeroSerie: string
+        localisation: string
+      }
+    }
+  }
+
+export type AiMessage = {
+  id: string
+  sessionId: string
+  role: "TECHNICIEN" | "ASSISTANT"
+  contenu: string
+  diagnostic?: string | null
+  suggestedActions?: string | null
+  createdAt: Date
+}
+
+export type AiMessageWithSession = AiMessage & {
+  session: {
+    id: string
+    interventionId: number
+  }
+}
+
+export type AiChatSessionWithMessages = {
+  id: string
+  interventionId: number
+  technicianId: string
+  isResolved: boolean
+  createdAt: Date
+  updatedAt: Date
+  intervention: {
+    idIntervention: number
+    demande: {
+      idDemande: number
+      description: string
+      equipement: {
+        nom: string
+        type: string
+      }
+    }
+  }
+  messages: AiMessage[]
+}
+
+export type CreateAiChatSessionInput = {
+  interventionId: number
+  technicianId: string
+}
+
+export type SendAiMessageInput = {
+  contenu: string
+}

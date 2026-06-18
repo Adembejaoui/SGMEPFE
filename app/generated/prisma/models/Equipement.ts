@@ -37,7 +37,6 @@ export type EquipementSumAggregateOutputType = {
 export type EquipementMinAggregateOutputType = {
   id: number | null
   nom: string | null
-  type: $Enums.EquipmentType | null
   marque: string | null
   modele: string | null
   numeroSerie: string | null
@@ -46,12 +45,12 @@ export type EquipementMinAggregateOutputType = {
   adminId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  type: $Enums.EquipmentType | null
 }
 
 export type EquipementMaxAggregateOutputType = {
   id: number | null
   nom: string | null
-  type: $Enums.EquipmentType | null
   marque: string | null
   modele: string | null
   numeroSerie: string | null
@@ -60,12 +59,12 @@ export type EquipementMaxAggregateOutputType = {
   adminId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  type: $Enums.EquipmentType | null
 }
 
 export type EquipementCountAggregateOutputType = {
   id: number
   nom: number
-  type: number
   marque: number
   modele: number
   numeroSerie: number
@@ -74,6 +73,7 @@ export type EquipementCountAggregateOutputType = {
   adminId: number
   createdAt: number
   updatedAt: number
+  type: number
   _all: number
 }
 
@@ -89,7 +89,6 @@ export type EquipementSumAggregateInputType = {
 export type EquipementMinAggregateInputType = {
   id?: true
   nom?: true
-  type?: true
   marque?: true
   modele?: true
   numeroSerie?: true
@@ -98,12 +97,12 @@ export type EquipementMinAggregateInputType = {
   adminId?: true
   createdAt?: true
   updatedAt?: true
+  type?: true
 }
 
 export type EquipementMaxAggregateInputType = {
   id?: true
   nom?: true
-  type?: true
   marque?: true
   modele?: true
   numeroSerie?: true
@@ -112,12 +111,12 @@ export type EquipementMaxAggregateInputType = {
   adminId?: true
   createdAt?: true
   updatedAt?: true
+  type?: true
 }
 
 export type EquipementCountAggregateInputType = {
   id?: true
   nom?: true
-  type?: true
   marque?: true
   modele?: true
   numeroSerie?: true
@@ -126,6 +125,7 @@ export type EquipementCountAggregateInputType = {
   adminId?: true
   createdAt?: true
   updatedAt?: true
+  type?: true
   _all?: true
 }
 
@@ -218,7 +218,6 @@ export type EquipementGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type EquipementGroupByOutputType = {
   id: number
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -227,6 +226,7 @@ export type EquipementGroupByOutputType = {
   adminId: string | null
   createdAt: Date
   updatedAt: Date
+  type: $Enums.EquipmentType
   _count: EquipementCountAggregateOutputType | null
   _avg: EquipementAvgAggregateOutputType | null
   _sum: EquipementSumAggregateOutputType | null
@@ -255,7 +255,6 @@ export type EquipementWhereInput = {
   NOT?: Prisma.EquipementWhereInput | Prisma.EquipementWhereInput[]
   id?: Prisma.IntFilter<"Equipement"> | number
   nom?: Prisma.StringFilter<"Equipement"> | string
-  type?: Prisma.EnumEquipmentTypeFilter<"Equipement"> | $Enums.EquipmentType
   marque?: Prisma.StringFilter<"Equipement"> | string
   modele?: Prisma.StringFilter<"Equipement"> | string
   numeroSerie?: Prisma.StringFilter<"Equipement"> | string
@@ -264,14 +263,14 @@ export type EquipementWhereInput = {
   adminId?: Prisma.StringNullableFilter<"Equipement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Equipement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Equipement"> | Date | string
-  admin?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  type?: Prisma.EnumEquipmentTypeFilter<"Equipement"> | $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceListRelationFilter
+  admin?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type EquipementOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nom?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   marque?: Prisma.SortOrder
   modele?: Prisma.SortOrder
   numeroSerie?: Prisma.SortOrder
@@ -280,8 +279,9 @@ export type EquipementOrderByWithRelationInput = {
   adminId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  admin?: Prisma.UserOrderByWithRelationInput
+  type?: Prisma.SortOrder
   demandesMaintenance?: Prisma.DemandeMaintenanceOrderByRelationAggregateInput
+  admin?: Prisma.UserOrderByWithRelationInput
 }
 
 export type EquipementWhereUniqueInput = Prisma.AtLeast<{
@@ -291,7 +291,6 @@ export type EquipementWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.EquipementWhereInput[]
   NOT?: Prisma.EquipementWhereInput | Prisma.EquipementWhereInput[]
   nom?: Prisma.StringFilter<"Equipement"> | string
-  type?: Prisma.EnumEquipmentTypeFilter<"Equipement"> | $Enums.EquipmentType
   marque?: Prisma.StringFilter<"Equipement"> | string
   modele?: Prisma.StringFilter<"Equipement"> | string
   etat?: Prisma.EnumEtatEquipementFilter<"Equipement"> | $Enums.EtatEquipement
@@ -299,14 +298,14 @@ export type EquipementWhereUniqueInput = Prisma.AtLeast<{
   adminId?: Prisma.StringNullableFilter<"Equipement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Equipement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Equipement"> | Date | string
-  admin?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  type?: Prisma.EnumEquipmentTypeFilter<"Equipement"> | $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceListRelationFilter
+  admin?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "numeroSerie">
 
 export type EquipementOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nom?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   marque?: Prisma.SortOrder
   modele?: Prisma.SortOrder
   numeroSerie?: Prisma.SortOrder
@@ -315,6 +314,7 @@ export type EquipementOrderByWithAggregationInput = {
   adminId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   _count?: Prisma.EquipementCountOrderByAggregateInput
   _avg?: Prisma.EquipementAvgOrderByAggregateInput
   _max?: Prisma.EquipementMaxOrderByAggregateInput
@@ -328,7 +328,6 @@ export type EquipementScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EquipementScalarWhereWithAggregatesInput | Prisma.EquipementScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Equipement"> | number
   nom?: Prisma.StringWithAggregatesFilter<"Equipement"> | string
-  type?: Prisma.EnumEquipmentTypeWithAggregatesFilter<"Equipement"> | $Enums.EquipmentType
   marque?: Prisma.StringWithAggregatesFilter<"Equipement"> | string
   modele?: Prisma.StringWithAggregatesFilter<"Equipement"> | string
   numeroSerie?: Prisma.StringWithAggregatesFilter<"Equipement"> | string
@@ -337,11 +336,11 @@ export type EquipementScalarWhereWithAggregatesInput = {
   adminId?: Prisma.StringNullableWithAggregatesFilter<"Equipement"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Equipement"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Equipement"> | Date | string
+  type?: Prisma.EnumEquipmentTypeWithAggregatesFilter<"Equipement"> | $Enums.EquipmentType
 }
 
 export type EquipementCreateInput = {
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -349,14 +348,14 @@ export type EquipementCreateInput = {
   localisation: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  admin?: Prisma.UserCreateNestedOneWithoutEquipementsGestionInput
+  type: $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceCreateNestedManyWithoutEquipementInput
+  admin?: Prisma.UserCreateNestedOneWithoutEquipementsGestionInput
 }
 
 export type EquipementUncheckedCreateInput = {
   id?: number
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -365,12 +364,12 @@ export type EquipementUncheckedCreateInput = {
   adminId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutEquipementInput
 }
 
 export type EquipementUpdateInput = {
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -378,14 +377,14 @@ export type EquipementUpdateInput = {
   localisation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  admin?: Prisma.UserUpdateOneWithoutEquipementsGestionNestedInput
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceUpdateManyWithoutEquipementNestedInput
+  admin?: Prisma.UserUpdateOneWithoutEquipementsGestionNestedInput
 }
 
 export type EquipementUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -394,13 +393,13 @@ export type EquipementUncheckedUpdateInput = {
   adminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutEquipementNestedInput
 }
 
 export type EquipementCreateManyInput = {
   id?: number
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -409,11 +408,11 @@ export type EquipementCreateManyInput = {
   adminId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
 }
 
 export type EquipementUpdateManyMutationInput = {
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -421,12 +420,12 @@ export type EquipementUpdateManyMutationInput = {
   localisation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
 }
 
 export type EquipementUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -435,12 +434,12 @@ export type EquipementUncheckedUpdateManyInput = {
   adminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
 }
 
 export type EquipementCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nom?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   marque?: Prisma.SortOrder
   modele?: Prisma.SortOrder
   numeroSerie?: Prisma.SortOrder
@@ -449,6 +448,7 @@ export type EquipementCountOrderByAggregateInput = {
   adminId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type EquipementAvgOrderByAggregateInput = {
@@ -458,7 +458,6 @@ export type EquipementAvgOrderByAggregateInput = {
 export type EquipementMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nom?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   marque?: Prisma.SortOrder
   modele?: Prisma.SortOrder
   numeroSerie?: Prisma.SortOrder
@@ -467,12 +466,12 @@ export type EquipementMaxOrderByAggregateInput = {
   adminId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type EquipementMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nom?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   marque?: Prisma.SortOrder
   modele?: Prisma.SortOrder
   numeroSerie?: Prisma.SortOrder
@@ -481,6 +480,7 @@ export type EquipementMinOrderByAggregateInput = {
   adminId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type EquipementSumOrderByAggregateInput = {
@@ -502,32 +502,12 @@ export type EquipementOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type EnumEquipmentTypeFieldUpdateOperationsInput = {
-  set?: $Enums.EquipmentType
-}
-
 export type EnumEtatEquipementFieldUpdateOperationsInput = {
   set?: $Enums.EtatEquipement
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type EnumEquipmentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.EquipmentType
 }
 
 export type EquipementCreateNestedOneWithoutDemandesMaintenanceInput = {
@@ -588,7 +568,6 @@ export type EquipementUncheckedUpdateManyWithoutAdminNestedInput = {
 
 export type EquipementCreateWithoutDemandesMaintenanceInput = {
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -596,13 +575,13 @@ export type EquipementCreateWithoutDemandesMaintenanceInput = {
   localisation: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
   admin?: Prisma.UserCreateNestedOneWithoutEquipementsGestionInput
 }
 
 export type EquipementUncheckedCreateWithoutDemandesMaintenanceInput = {
   id?: number
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -611,6 +590,7 @@ export type EquipementUncheckedCreateWithoutDemandesMaintenanceInput = {
   adminId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
 }
 
 export type EquipementCreateOrConnectWithoutDemandesMaintenanceInput = {
@@ -631,7 +611,6 @@ export type EquipementUpdateToOneWithWhereWithoutDemandesMaintenanceInput = {
 
 export type EquipementUpdateWithoutDemandesMaintenanceInput = {
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -639,13 +618,13 @@ export type EquipementUpdateWithoutDemandesMaintenanceInput = {
   localisation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   admin?: Prisma.UserUpdateOneWithoutEquipementsGestionNestedInput
 }
 
 export type EquipementUncheckedUpdateWithoutDemandesMaintenanceInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -654,11 +633,11 @@ export type EquipementUncheckedUpdateWithoutDemandesMaintenanceInput = {
   adminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
 }
 
 export type EquipementCreateWithoutAdminInput = {
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -666,13 +645,13 @@ export type EquipementCreateWithoutAdminInput = {
   localisation: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceCreateNestedManyWithoutEquipementInput
 }
 
 export type EquipementUncheckedCreateWithoutAdminInput = {
   id?: number
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -680,6 +659,7 @@ export type EquipementUncheckedCreateWithoutAdminInput = {
   localisation: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutEquipementInput
 }
 
@@ -715,7 +695,6 @@ export type EquipementScalarWhereInput = {
   NOT?: Prisma.EquipementScalarWhereInput | Prisma.EquipementScalarWhereInput[]
   id?: Prisma.IntFilter<"Equipement"> | number
   nom?: Prisma.StringFilter<"Equipement"> | string
-  type?: Prisma.EnumEquipmentTypeFilter<"Equipement"> | $Enums.EquipmentType
   marque?: Prisma.StringFilter<"Equipement"> | string
   modele?: Prisma.StringFilter<"Equipement"> | string
   numeroSerie?: Prisma.StringFilter<"Equipement"> | string
@@ -724,12 +703,12 @@ export type EquipementScalarWhereInput = {
   adminId?: Prisma.StringNullableFilter<"Equipement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Equipement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Equipement"> | Date | string
+  type?: Prisma.EnumEquipmentTypeFilter<"Equipement"> | $Enums.EquipmentType
 }
 
 export type EquipementCreateManyAdminInput = {
   id?: number
   nom: string
-  type: $Enums.EquipmentType
   marque: string
   modele: string
   numeroSerie: string
@@ -737,11 +716,11 @@ export type EquipementCreateManyAdminInput = {
   localisation: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  type: $Enums.EquipmentType
 }
 
 export type EquipementUpdateWithoutAdminInput = {
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -749,13 +728,13 @@ export type EquipementUpdateWithoutAdminInput = {
   localisation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceUpdateManyWithoutEquipementNestedInput
 }
 
 export type EquipementUncheckedUpdateWithoutAdminInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -763,13 +742,13 @@ export type EquipementUncheckedUpdateWithoutAdminInput = {
   localisation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   demandesMaintenance?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutEquipementNestedInput
 }
 
 export type EquipementUncheckedUpdateManyWithoutAdminInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nom?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
   marque?: Prisma.StringFieldUpdateOperationsInput | string
   modele?: Prisma.StringFieldUpdateOperationsInput | string
   numeroSerie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -777,6 +756,7 @@ export type EquipementUncheckedUpdateManyWithoutAdminInput = {
   localisation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType
 }
 
 
@@ -813,7 +793,6 @@ export type EquipementCountOutputTypeCountDemandesMaintenanceArgs<ExtArgs extend
 export type EquipementSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nom?: boolean
-  type?: boolean
   marque?: boolean
   modele?: boolean
   numeroSerie?: boolean
@@ -822,15 +801,15 @@ export type EquipementSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   adminId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  admin?: boolean | Prisma.Equipement$adminArgs<ExtArgs>
+  type?: boolean
   demandesMaintenance?: boolean | Prisma.Equipement$demandesMaintenanceArgs<ExtArgs>
+  admin?: boolean | Prisma.Equipement$adminArgs<ExtArgs>
   _count?: boolean | Prisma.EquipementCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["equipement"]>
 
 export type EquipementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nom?: boolean
-  type?: boolean
   marque?: boolean
   modele?: boolean
   numeroSerie?: boolean
@@ -839,13 +818,13 @@ export type EquipementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   adminId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
   admin?: boolean | Prisma.Equipement$adminArgs<ExtArgs>
 }, ExtArgs["result"]["equipement"]>
 
 export type EquipementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nom?: boolean
-  type?: boolean
   marque?: boolean
   modele?: boolean
   numeroSerie?: boolean
@@ -854,13 +833,13 @@ export type EquipementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   adminId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
   admin?: boolean | Prisma.Equipement$adminArgs<ExtArgs>
 }, ExtArgs["result"]["equipement"]>
 
 export type EquipementSelectScalar = {
   id?: boolean
   nom?: boolean
-  type?: boolean
   marque?: boolean
   modele?: boolean
   numeroSerie?: boolean
@@ -869,12 +848,13 @@ export type EquipementSelectScalar = {
   adminId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  type?: boolean
 }
 
-export type EquipementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nom" | "type" | "marque" | "modele" | "numeroSerie" | "etat" | "localisation" | "adminId" | "createdAt" | "updatedAt", ExtArgs["result"]["equipement"]>
+export type EquipementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nom" | "marque" | "modele" | "numeroSerie" | "etat" | "localisation" | "adminId" | "createdAt" | "updatedAt" | "type", ExtArgs["result"]["equipement"]>
 export type EquipementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  admin?: boolean | Prisma.Equipement$adminArgs<ExtArgs>
   demandesMaintenance?: boolean | Prisma.Equipement$demandesMaintenanceArgs<ExtArgs>
+  admin?: boolean | Prisma.Equipement$adminArgs<ExtArgs>
   _count?: boolean | Prisma.EquipementCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EquipementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -887,13 +867,12 @@ export type EquipementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $EquipementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Equipement"
   objects: {
-    admin: Prisma.$UserPayload<ExtArgs> | null
     demandesMaintenance: Prisma.$DemandeMaintenancePayload<ExtArgs>[]
+    admin: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     nom: string
-    type: $Enums.EquipmentType
     marque: string
     modele: string
     numeroSerie: string
@@ -902,6 +881,7 @@ export type $EquipementPayload<ExtArgs extends runtime.Types.Extensions.Internal
     adminId: string | null
     createdAt: Date
     updatedAt: Date
+    type: $Enums.EquipmentType
   }, ExtArgs["result"]["equipement"]>
   composites: {}
 }
@@ -1296,8 +1276,8 @@ readonly fields: EquipementFieldRefs;
  */
 export interface Prisma__EquipementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  admin<T extends Prisma.Equipement$adminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipement$adminArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   demandesMaintenance<T extends Prisma.Equipement$demandesMaintenanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipement$demandesMaintenanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemandeMaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  admin<T extends Prisma.Equipement$adminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipement$adminArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,7 +1309,6 @@ export interface Prisma__EquipementClient<T, Null = never, ExtArgs extends runti
 export interface EquipementFieldRefs {
   readonly id: Prisma.FieldRef<"Equipement", 'Int'>
   readonly nom: Prisma.FieldRef<"Equipement", 'String'>
-  readonly type: Prisma.FieldRef<"Equipement", 'EquipmentType'>
   readonly marque: Prisma.FieldRef<"Equipement", 'String'>
   readonly modele: Prisma.FieldRef<"Equipement", 'String'>
   readonly numeroSerie: Prisma.FieldRef<"Equipement", 'String'>
@@ -1338,6 +1317,7 @@ export interface EquipementFieldRefs {
   readonly adminId: Prisma.FieldRef<"Equipement", 'String'>
   readonly createdAt: Prisma.FieldRef<"Equipement", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Equipement", 'DateTime'>
+  readonly type: Prisma.FieldRef<"Equipement", 'EquipmentType'>
 }
     
 
@@ -1739,25 +1719,6 @@ export type EquipementDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * Equipement.admin
- */
-export type Equipement$adminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
  * Equipement.demandesMaintenance
  */
 export type Equipement$demandesMaintenanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1779,6 +1740,25 @@ export type Equipement$demandesMaintenanceArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.DemandeMaintenanceScalarFieldEnum | Prisma.DemandeMaintenanceScalarFieldEnum[]
+}
+
+/**
+ * Equipement.admin
+ */
+export type Equipement$adminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

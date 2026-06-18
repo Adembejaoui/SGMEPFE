@@ -157,20 +157,20 @@ export function InterventionsTechnicienClient() {
           ) : (
             <div className="overflow-x-auto">
               <Table>
-                 <TableHeader>
-                   <TableRow>
-                     <TableHead>Demande #</TableHead>
-                     <TableHead>Équipement</TableHead>
-                     <TableHead>Type</TableHead>
-                     <TableHead>Client</TableHead>
-                     <TableHead>Priorité</TableHead>
-                     <TableHead>Statut intervention</TableHead>
-                     <TableHead>Description</TableHead>
-                     <TableHead>Date</TableHead>
-                     <TableHead>Action</TableHead>
-                     <TableHead>Details</TableHead>
-                   </TableRow>
-                 </TableHeader>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden sm:table-cell">Demande #</TableHead>
+                      <TableHead>Équipement</TableHead>
+                      <TableHead className="hidden sm:table-cell">Type</TableHead>
+                      <TableHead className="hidden sm:table-cell">Client</TableHead>
+                      <TableHead>Priorité</TableHead>
+                      <TableHead>Statut intervention</TableHead>
+                      <TableHead className="max-w-xs truncate">Description</TableHead>
+                      <TableHead className="hidden sm:table-cell">Date</TableHead>
+                      <TableHead>Action</TableHead>
+                      <TableHead className="hidden sm:table-cell">Details</TableHead>
+                    </TableRow>
+                  </TableHeader>
                 <TableBody>
                   {filteredInterventions.map((intervention) => {
                     const statutConfig = statutInterventionConfig[intervention.statut as StatutIntervention]

@@ -8,12 +8,18 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Materiel'
+export type * from './models/UtilisationMateriel'
+export type * from './models/CommandeStock'
 export type * from './models/Equipement'
 export type * from './models/DemandeMaintenance'
 export type * from './models/User'
 export type * from './models/Account'
 export type * from './models/Session'
 export type * from './models/Intervention'
+export type * from './models/Message'
+export type * from './models/AiChatSession'
+export type * from './models/AiMessage'
 export type * from './models/RapportMaintenance'
 export type * from './models/VerificationToken'
 export type * from './commonInputTypes'

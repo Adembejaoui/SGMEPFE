@@ -47,8 +47,8 @@ export default async function DashboardLayout({
         <DashboardSidebar role={session.user.role} session={session} />
         
         {/* Main content area */}
-        <main className="flex-1 p-6 lg:p-8 ml-0 lg:ml-64">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 flex-col min-h-[calc(100vh-4rem)] p-4 lg:p-6 ml-0 lg:ml-64">
+          <div className="w-full max-w-7xl mx-auto flex-1">
             {children}
           </div>
         </main>

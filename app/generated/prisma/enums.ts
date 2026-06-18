@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const AiMessageRole = {
+  TECHNICIEN: 'TECHNICIEN',
+  ASSISTANT: 'ASSISTANT'
+} as const
+
+export type AiMessageRole = (typeof AiMessageRole)[keyof typeof AiMessageRole]
+
+
 export const Role = {
   ADMIN: 'ADMIN',
   EMPLOYE: 'EMPLOYE',
@@ -59,6 +67,24 @@ export const EtatEquipement = {
 } as const
 
 export type EtatEquipement = (typeof EtatEquipement)[keyof typeof EtatEquipement]
+
+
+export const MaterielType = {
+  PIECE_DETACHEE: 'PIECE_DETACHEE',
+  CONSOMMABLE: 'CONSOMMABLE',
+  OUTIL: 'OUTIL'
+} as const
+
+export type MaterielType = (typeof MaterielType)[keyof typeof MaterielType]
+
+
+export const StatutCommande = {
+  EN_ATTENTE: 'EN_ATTENTE',
+  RECUE: 'RECUE',
+  ANNULEE: 'ANNULEE'
+} as const
+
+export type StatutCommande = (typeof StatutCommande)[keyof typeof StatutCommande]
 
 
 export const StatutIntervention = {

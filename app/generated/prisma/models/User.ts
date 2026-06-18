@@ -35,9 +35,9 @@ export type UserMinAggregateOutputType = {
   role: $Enums.Role | null
   isActive: boolean | null
   mustChangePassword: boolean | null
-  specialization: $Enums.EquipmentType | null
   createdAt: Date | null
   updatedAt: Date | null
+  specialization: $Enums.EquipmentType | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -51,9 +51,9 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.Role | null
   isActive: boolean | null
   mustChangePassword: boolean | null
-  specialization: $Enums.EquipmentType | null
   createdAt: Date | null
   updatedAt: Date | null
+  specialization: $Enums.EquipmentType | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -67,9 +67,9 @@ export type UserCountAggregateOutputType = {
   role: number
   isActive: number
   mustChangePassword: number
-  specialization: number
   createdAt: number
   updatedAt: number
+  specialization: number
   _all: number
 }
 
@@ -85,9 +85,9 @@ export type UserMinAggregateInputType = {
   role?: true
   isActive?: true
   mustChangePassword?: true
-  specialization?: true
   createdAt?: true
   updatedAt?: true
+  specialization?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -101,9 +101,9 @@ export type UserMaxAggregateInputType = {
   role?: true
   isActive?: true
   mustChangePassword?: true
-  specialization?: true
   createdAt?: true
   updatedAt?: true
+  specialization?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -117,9 +117,9 @@ export type UserCountAggregateInputType = {
   role?: true
   isActive?: true
   mustChangePassword?: true
-  specialization?: true
   createdAt?: true
   updatedAt?: true
+  specialization?: true
   _all?: true
 }
 
@@ -206,9 +206,9 @@ export type UserGroupByOutputType = {
   role: $Enums.Role
   isActive: boolean
   mustChangePassword: boolean
-  specialization: $Enums.EquipmentType | null
   createdAt: Date
   updatedAt: Date
+  specialization: $Enums.EquipmentType | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -243,15 +243,18 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"User"> | boolean
   mustChangePassword?: Prisma.BoolFilter<"User"> | boolean
-  specialization?: Prisma.EnumEquipmentTypeNullableFilter<"User"> | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  specialization?: Prisma.EnumEquipmentTypeNullableFilter<"User"> | $Enums.EquipmentType | null
   accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
-  equipementsGestion?: Prisma.EquipementListRelationFilter
   demandesCrees?: Prisma.DemandeMaintenanceListRelationFilter
   technicianDemandes?: Prisma.DemandeMaintenanceListRelationFilter
+  equipementsGestion?: Prisma.EquipementListRelationFilter
   interventions?: Prisma.InterventionListRelationFilter
+  materielsGestion?: Prisma.MaterielListRelationFilter
+  messagesEnvoyes?: Prisma.MessageListRelationFilter
+  aiChatSessions?: Prisma.AiChatSessionListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -265,15 +268,18 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   mustChangePassword?: Prisma.SortOrder
-  specialization?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  specialization?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
-  sessions?: Prisma.SessionOrderByRelationAggregateInput
-  equipementsGestion?: Prisma.EquipementOrderByRelationAggregateInput
   demandesCrees?: Prisma.DemandeMaintenanceOrderByRelationAggregateInput
   technicianDemandes?: Prisma.DemandeMaintenanceOrderByRelationAggregateInput
+  equipementsGestion?: Prisma.EquipementOrderByRelationAggregateInput
   interventions?: Prisma.InterventionOrderByRelationAggregateInput
+  materielsGestion?: Prisma.MaterielOrderByRelationAggregateInput
+  messagesEnvoyes?: Prisma.MessageOrderByRelationAggregateInput
+  aiChatSessions?: Prisma.AiChatSessionOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -290,15 +296,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"User"> | boolean
   mustChangePassword?: Prisma.BoolFilter<"User"> | boolean
-  specialization?: Prisma.EnumEquipmentTypeNullableFilter<"User"> | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  specialization?: Prisma.EnumEquipmentTypeNullableFilter<"User"> | $Enums.EquipmentType | null
   accounts?: Prisma.AccountListRelationFilter
-  sessions?: Prisma.SessionListRelationFilter
-  equipementsGestion?: Prisma.EquipementListRelationFilter
   demandesCrees?: Prisma.DemandeMaintenanceListRelationFilter
   technicianDemandes?: Prisma.DemandeMaintenanceListRelationFilter
+  equipementsGestion?: Prisma.EquipementListRelationFilter
   interventions?: Prisma.InterventionListRelationFilter
+  materielsGestion?: Prisma.MaterielListRelationFilter
+  messagesEnvoyes?: Prisma.MessageListRelationFilter
+  aiChatSessions?: Prisma.AiChatSessionListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -312,9 +321,9 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   mustChangePassword?: Prisma.SortOrder
-  specialization?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  specialization?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -334,9 +343,9 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   mustChangePassword?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
-  specialization?: Prisma.EnumEquipmentTypeNullableWithAggregatesFilter<"User"> | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  specialization?: Prisma.EnumEquipmentTypeNullableWithAggregatesFilter<"User"> | $Enums.EquipmentType | null
 }
 
 export type UserCreateInput = {
@@ -350,15 +359,18 @@ export type UserCreateInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -372,15 +384,18 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -394,15 +409,18 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -416,15 +434,18 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -438,9 +459,9 @@ export type UserCreateManyInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -454,9 +475,9 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -470,19 +491,19 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
 }
 
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -496,9 +517,9 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   mustChangePassword?: Prisma.SortOrder
-  specialization?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  specialization?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -512,9 +533,9 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   mustChangePassword?: Prisma.SortOrder
-  specialization?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  specialization?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -528,9 +549,23 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   mustChangePassword?: Prisma.SortOrder
-  specialization?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  specialization?: Prisma.SortOrder
+}
+
+export type UserCreateNestedOneWithoutMaterielsGestionInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMaterielsGestionInput, Prisma.UserUncheckedCreateWithoutMaterielsGestionInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMaterielsGestionInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMaterielsGestionNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMaterielsGestionInput, Prisma.UserUncheckedCreateWithoutMaterielsGestionInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMaterielsGestionInput
+  upsert?: Prisma.UserUpsertWithoutMaterielsGestionInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMaterielsGestionInput, Prisma.UserUpdateWithoutMaterielsGestionInput>, Prisma.UserUncheckedUpdateWithoutMaterielsGestionInput>
 }
 
 export type UserCreateNestedOneWithoutEquipementsGestionInput = {
@@ -633,6 +668,146 @@ export type UserUpdateOneRequiredWithoutInterventionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInterventionsInput, Prisma.UserUpdateWithoutInterventionsInput>, Prisma.UserUncheckedUpdateWithoutInterventionsInput>
 }
 
+export type UserCreateNestedOneWithoutMessagesEnvoyesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesEnvoyesInput, Prisma.UserUncheckedCreateWithoutMessagesEnvoyesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesEnvoyesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessagesEnvoyesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesEnvoyesInput, Prisma.UserUncheckedCreateWithoutMessagesEnvoyesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesEnvoyesInput
+  upsert?: Prisma.UserUpsertWithoutMessagesEnvoyesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesEnvoyesInput, Prisma.UserUpdateWithoutMessagesEnvoyesInput>, Prisma.UserUncheckedUpdateWithoutMessagesEnvoyesInput>
+}
+
+export type UserCreateNestedOneWithoutAiChatSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiChatSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiChatSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiChatSessionsInput
+  upsert?: Prisma.UserUpsertWithoutAiChatSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiChatSessionsInput, Prisma.UserUpdateWithoutAiChatSessionsInput>, Prisma.UserUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type UserCreateWithoutMaterielsGestionInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
+  technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
+  interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMaterielsGestionInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
+  interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMaterielsGestionInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMaterielsGestionInput, Prisma.UserUncheckedCreateWithoutMaterielsGestionInput>
+}
+
+export type UserUpsertWithoutMaterielsGestionInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMaterielsGestionInput, Prisma.UserUncheckedUpdateWithoutMaterielsGestionInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMaterielsGestionInput, Prisma.UserUncheckedCreateWithoutMaterielsGestionInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMaterielsGestionInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMaterielsGestionInput, Prisma.UserUncheckedUpdateWithoutMaterielsGestionInput>
+}
+
+export type UserUpdateWithoutMaterielsGestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
+  interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMaterielsGestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
+  interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutEquipementsGestionInput = {
   id?: string
   firstName: string
@@ -644,14 +819,17 @@ export type UserCreateWithoutEquipementsGestionInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEquipementsGestionInput = {
@@ -665,14 +843,17 @@ export type UserUncheckedCreateWithoutEquipementsGestionInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEquipementsGestionInput = {
@@ -702,14 +883,17 @@ export type UserUpdateWithoutEquipementsGestionInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEquipementsGestionInput = {
@@ -723,14 +907,17 @@ export type UserUncheckedUpdateWithoutEquipementsGestionInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDemandesCreesInput = {
@@ -744,14 +931,17 @@ export type UserCreateWithoutDemandesCreesInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDemandesCreesInput = {
@@ -765,14 +955,17 @@ export type UserUncheckedCreateWithoutDemandesCreesInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDemandesCreesInput = {
@@ -791,14 +984,17 @@ export type UserCreateWithoutTechnicianDemandesInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTechnicianDemandesInput = {
@@ -812,14 +1008,17 @@ export type UserUncheckedCreateWithoutTechnicianDemandesInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTechnicianDemandesInput = {
@@ -849,14 +1048,17 @@ export type UserUpdateWithoutDemandesCreesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDemandesCreesInput = {
@@ -870,14 +1072,17 @@ export type UserUncheckedUpdateWithoutDemandesCreesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTechnicianDemandesInput = {
@@ -902,14 +1107,17 @@ export type UserUpdateWithoutTechnicianDemandesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTechnicianDemandesInput = {
@@ -923,14 +1131,17 @@ export type UserUncheckedUpdateWithoutTechnicianDemandesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -944,14 +1155,17 @@ export type UserCreateWithoutAccountsInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
+  specialization?: $Enums.EquipmentType | null
   demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -965,14 +1179,17 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
+  specialization?: $Enums.EquipmentType | null
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1002,14 +1219,17 @@ export type UserUpdateWithoutAccountsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1023,14 +1243,17 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1044,14 +1267,17 @@ export type UserCreateWithoutSessionsInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1065,14 +1291,17 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1102,14 +1331,17 @@ export type UserUpdateWithoutSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1123,14 +1355,17 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
 export type UserCreateWithoutInterventionsInput = {
@@ -1144,14 +1379,17 @@ export type UserCreateWithoutInterventionsInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInterventionsInput = {
@@ -1165,14 +1403,17 @@ export type UserUncheckedCreateWithoutInterventionsInput = {
   role?: $Enums.Role
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: $Enums.EquipmentType | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInterventionsInput = {
@@ -1202,14 +1443,17 @@ export type UserUpdateWithoutInterventionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInterventionsInput = {
@@ -1223,14 +1467,241 @@ export type UserUncheckedUpdateWithoutInterventionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
   demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
   technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMessagesEnvoyesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
+  technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
+  interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  aiChatSessions?: Prisma.AiChatSessionCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMessagesEnvoyesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
+  interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedCreateNestedManyWithoutTechnicianInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMessagesEnvoyesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesEnvoyesInput, Prisma.UserUncheckedCreateWithoutMessagesEnvoyesInput>
+}
+
+export type UserUpsertWithoutMessagesEnvoyesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesEnvoyesInput, Prisma.UserUncheckedUpdateWithoutMessagesEnvoyesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesEnvoyesInput, Prisma.UserUncheckedCreateWithoutMessagesEnvoyesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesEnvoyesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesEnvoyesInput, Prisma.UserUncheckedUpdateWithoutMessagesEnvoyesInput>
+}
+
+export type UserUpdateWithoutMessagesEnvoyesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
+  interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesEnvoyesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
+  interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  aiChatSessions?: Prisma.AiChatSessionUncheckedUpdateManyWithoutTechnicianNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAiChatSessionsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  demandesCrees?: Prisma.DemandeMaintenanceCreateNestedManyWithoutClientInput
+  technicianDemandes?: Prisma.DemandeMaintenanceCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementCreateNestedManyWithoutAdminInput
+  interventions?: Prisma.InterventionCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAiChatSessionsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  specialization?: $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  demandesCrees?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutClientInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUncheckedCreateNestedManyWithoutTechnicianInput
+  equipementsGestion?: Prisma.EquipementUncheckedCreateNestedManyWithoutAdminInput
+  interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutTechnicianInput
+  materielsGestion?: Prisma.MaterielUncheckedCreateNestedManyWithoutAdminInput
+  messagesEnvoyes?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAiChatSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+}
+
+export type UserUpsertWithoutAiChatSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiChatSessionsInput, Prisma.UserUncheckedUpdateWithoutAiChatSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiChatSessionsInput, Prisma.UserUncheckedCreateWithoutAiChatSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiChatSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiChatSessionsInput, Prisma.UserUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type UserUpdateWithoutAiChatSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  demandesCrees?: Prisma.DemandeMaintenanceUpdateManyWithoutClientNestedInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUpdateManyWithoutAdminNestedInput
+  interventions?: Prisma.InterventionUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiChatSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  specialization?: Prisma.NullableEnumEquipmentTypeFieldUpdateOperationsInput | $Enums.EquipmentType | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  demandesCrees?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutClientNestedInput
+  technicianDemandes?: Prisma.DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianNestedInput
+  equipementsGestion?: Prisma.EquipementUncheckedUpdateManyWithoutAdminNestedInput
+  interventions?: Prisma.InterventionUncheckedUpdateManyWithoutTechnicianNestedInput
+  materielsGestion?: Prisma.MaterielUncheckedUpdateManyWithoutAdminNestedInput
+  messagesEnvoyes?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1240,20 +1711,26 @@ export type UserUncheckedUpdateWithoutInterventionsInput = {
 
 export type UserCountOutputType = {
   accounts: number
-  sessions: number
-  equipementsGestion: number
   demandesCrees: number
   technicianDemandes: number
+  equipementsGestion: number
   interventions: number
+  materielsGestion: number
+  messagesEnvoyes: number
+  aiChatSessions: number
+  sessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
-  equipementsGestion?: boolean | UserCountOutputTypeCountEquipementsGestionArgs
   demandesCrees?: boolean | UserCountOutputTypeCountDemandesCreesArgs
   technicianDemandes?: boolean | UserCountOutputTypeCountTechnicianDemandesArgs
+  equipementsGestion?: boolean | UserCountOutputTypeCountEquipementsGestionArgs
   interventions?: boolean | UserCountOutputTypeCountInterventionsArgs
+  materielsGestion?: boolean | UserCountOutputTypeCountMaterielsGestionArgs
+  messagesEnvoyes?: boolean | UserCountOutputTypeCountMessagesEnvoyesArgs
+  aiChatSessions?: boolean | UserCountOutputTypeCountAiChatSessionsArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
 }
 
 /**
@@ -1276,20 +1753,6 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SessionWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountEquipementsGestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EquipementWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountDemandesCreesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DemandeMaintenanceWhereInput
 }
@@ -1304,8 +1767,43 @@ export type UserCountOutputTypeCountTechnicianDemandesArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountEquipementsGestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EquipementWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountInterventionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.InterventionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMaterielsGestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterielWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesEnvoyesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiChatSessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
 }
 
 
@@ -1320,15 +1818,18 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  specialization?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
-  equipementsGestion?: boolean | Prisma.User$equipementsGestionArgs<ExtArgs>
   demandesCrees?: boolean | Prisma.User$demandesCreesArgs<ExtArgs>
   technicianDemandes?: boolean | Prisma.User$technicianDemandesArgs<ExtArgs>
+  equipementsGestion?: boolean | Prisma.User$equipementsGestionArgs<ExtArgs>
   interventions?: boolean | Prisma.User$interventionsArgs<ExtArgs>
+  materielsGestion?: boolean | Prisma.User$materielsGestionArgs<ExtArgs>
+  messagesEnvoyes?: boolean | Prisma.User$messagesEnvoyesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.User$aiChatSessionsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1343,9 +1844,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  specialization?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1359,9 +1860,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  specialization?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1375,19 +1876,22 @@ export type UserSelectScalar = {
   role?: boolean
   isActive?: boolean
   mustChangePassword?: boolean
-  specialization?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  specialization?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "phone" | "image" | "role" | "isActive" | "mustChangePassword" | "specialization" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "phone" | "image" | "role" | "isActive" | "mustChangePassword" | "createdAt" | "updatedAt" | "specialization", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
-  equipementsGestion?: boolean | Prisma.User$equipementsGestionArgs<ExtArgs>
   demandesCrees?: boolean | Prisma.User$demandesCreesArgs<ExtArgs>
   technicianDemandes?: boolean | Prisma.User$technicianDemandesArgs<ExtArgs>
+  equipementsGestion?: boolean | Prisma.User$equipementsGestionArgs<ExtArgs>
   interventions?: boolean | Prisma.User$interventionsArgs<ExtArgs>
+  materielsGestion?: boolean | Prisma.User$materielsGestionArgs<ExtArgs>
+  messagesEnvoyes?: boolean | Prisma.User$messagesEnvoyesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.User$aiChatSessionsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1397,11 +1901,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
-    sessions: Prisma.$SessionPayload<ExtArgs>[]
-    equipementsGestion: Prisma.$EquipementPayload<ExtArgs>[]
     demandesCrees: Prisma.$DemandeMaintenancePayload<ExtArgs>[]
     technicianDemandes: Prisma.$DemandeMaintenancePayload<ExtArgs>[]
+    equipementsGestion: Prisma.$EquipementPayload<ExtArgs>[]
     interventions: Prisma.$InterventionPayload<ExtArgs>[]
+    materielsGestion: Prisma.$MaterielPayload<ExtArgs>[]
+    messagesEnvoyes: Prisma.$MessagePayload<ExtArgs>[]
+    aiChatSessions: Prisma.$AiChatSessionPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1414,9 +1921,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     isActive: boolean
     mustChangePassword: boolean
-    specialization: $Enums.EquipmentType | null
     createdAt: Date
     updatedAt: Date
+    specialization: $Enums.EquipmentType | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1812,11 +2319,14 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  equipementsGestion<T extends Prisma.User$equipementsGestionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$equipementsGestionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   demandesCrees<T extends Prisma.User$demandesCreesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$demandesCreesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemandeMaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   technicianDemandes<T extends Prisma.User$technicianDemandesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$technicianDemandesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemandeMaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  equipementsGestion<T extends Prisma.User$equipementsGestionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$equipementsGestionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   interventions<T extends Prisma.User$interventionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$interventionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InterventionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  materielsGestion<T extends Prisma.User$materielsGestionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materielsGestionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterielPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesEnvoyes<T extends Prisma.User$messagesEnvoyesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesEnvoyesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiChatSessions<T extends Prisma.User$aiChatSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiChatSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiChatSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1856,9 +2366,9 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
   readonly mustChangePassword: Prisma.FieldRef<"User", 'Boolean'>
-  readonly specialization: Prisma.FieldRef<"User", 'EquipmentType'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly specialization: Prisma.FieldRef<"User", 'EquipmentType'>
 }
     
 
@@ -2276,54 +2786,6 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * User.sessions
- */
-export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Session
-   */
-  select?: Prisma.SessionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Session
-   */
-  omit?: Prisma.SessionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SessionInclude<ExtArgs> | null
-  where?: Prisma.SessionWhereInput
-  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
-  cursor?: Prisma.SessionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
-}
-
-/**
- * User.equipementsGestion
- */
-export type User$equipementsGestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Equipement
-   */
-  select?: Prisma.EquipementSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Equipement
-   */
-  omit?: Prisma.EquipementOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EquipementInclude<ExtArgs> | null
-  where?: Prisma.EquipementWhereInput
-  orderBy?: Prisma.EquipementOrderByWithRelationInput | Prisma.EquipementOrderByWithRelationInput[]
-  cursor?: Prisma.EquipementWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EquipementScalarFieldEnum | Prisma.EquipementScalarFieldEnum[]
-}
-
-/**
  * User.demandesCrees
  */
 export type User$demandesCreesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2372,6 +2834,30 @@ export type User$technicianDemandesArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
+ * User.equipementsGestion
+ */
+export type User$equipementsGestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Equipement
+   */
+  select?: Prisma.EquipementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Equipement
+   */
+  omit?: Prisma.EquipementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EquipementInclude<ExtArgs> | null
+  where?: Prisma.EquipementWhereInput
+  orderBy?: Prisma.EquipementOrderByWithRelationInput | Prisma.EquipementOrderByWithRelationInput[]
+  cursor?: Prisma.EquipementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EquipementScalarFieldEnum | Prisma.EquipementScalarFieldEnum[]
+}
+
+/**
  * User.interventions
  */
 export type User$interventionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2393,6 +2879,102 @@ export type User$interventionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.InterventionScalarFieldEnum | Prisma.InterventionScalarFieldEnum[]
+}
+
+/**
+ * User.materielsGestion
+ */
+export type User$materielsGestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Materiel
+   */
+  select?: Prisma.MaterielSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Materiel
+   */
+  omit?: Prisma.MaterielOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterielInclude<ExtArgs> | null
+  where?: Prisma.MaterielWhereInput
+  orderBy?: Prisma.MaterielOrderByWithRelationInput | Prisma.MaterielOrderByWithRelationInput[]
+  cursor?: Prisma.MaterielWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterielScalarFieldEnum | Prisma.MaterielScalarFieldEnum[]
+}
+
+/**
+ * User.messagesEnvoyes
+ */
+export type User$messagesEnvoyesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.aiChatSessions
+ */
+export type User$aiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiChatSession
+   */
+  select?: Prisma.AiChatSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiChatSession
+   */
+  omit?: Prisma.AiChatSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiChatSessionInclude<ExtArgs> | null
+  where?: Prisma.AiChatSessionWhereInput
+  orderBy?: Prisma.AiChatSessionOrderByWithRelationInput | Prisma.AiChatSessionOrderByWithRelationInput[]
+  cursor?: Prisma.AiChatSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiChatSessionScalarFieldEnum | Prisma.AiChatSessionScalarFieldEnum[]
+}
+
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
 }
 
 /**

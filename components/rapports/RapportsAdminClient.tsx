@@ -242,17 +242,17 @@ export function RapportsAdminClient() {
               </div>
             ) : (
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>#</TableHead>
-                    <TableHead>Équipement</TableHead>
-                    <TableHead>Client</TableHead>
-                    <TableHead>Technicien</TableHead>
-                    <TableHead>Résultat</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Action</TableHead>
-                  </TableRow>
-                </TableHeader>
+                 <TableHeader>
+                   <TableRow>
+                     <TableHead>#</TableHead>
+                     <TableHead>Équipement</TableHead>
+                     <TableHead className="hidden sm:table-cell">Client</TableHead>
+                     <TableHead className="hidden sm:table-cell">Technicien</TableHead>
+                     <TableHead>Résultat</TableHead>
+                     <TableHead>Date</TableHead>
+                     <TableHead>Action</TableHead>
+                   </TableRow>
+                 </TableHeader>
                   <TableBody>
                     {rapports.map((rapport) => (
                       <TableRow

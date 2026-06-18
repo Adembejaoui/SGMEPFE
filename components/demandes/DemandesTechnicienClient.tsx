@@ -161,18 +161,18 @@ export function DemandesTechnicienClient() {
            ) : (
              <div className="overflow-x-auto">
                <Table>
-                 <TableHeader>
-                   <TableRow>
-                     <TableHead>Équipement</TableHead>
-                     <TableHead>Type</TableHead>
-                     <TableHead>Description</TableHead>
-                     <TableHead>Priorité</TableHead>
-                     <TableHead>Statut actuel</TableHead>
-                     <TableHead>Compatibilité</TableHead>
-                     <TableHead>Action</TableHead>
-                     <TableHead>Date intervention</TableHead>
-                   </TableRow>
-                 </TableHeader>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden sm:table-cell">Équipement</TableHead>
+                      <TableHead className="hidden sm:table-cell">Type</TableHead>
+                      <TableHead>Description</TableHead>
+                      <TableHead>Priorité</TableHead>
+                      <TableHead>Statut actuel</TableHead>
+                      <TableHead className="hidden sm:table-cell">Compatibilité</TableHead>
+                      <TableHead>Action</TableHead>
+                      <TableHead className="hidden sm:table-cell">Date intervention</TableHead>
+                    </TableRow>
+                  </TableHeader>
                  <TableBody>
                    {filteredDemandes.map((demande) => {
                      // Determine compatibility status

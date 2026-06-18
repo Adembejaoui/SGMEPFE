@@ -27,103 +27,103 @@ export type AggregateDemandeMaintenance = {
 }
 
 export type DemandeMaintenanceAvgAggregateOutputType = {
-  idDemande: number | null
   equipementId: number | null
+  idDemande: number | null
 }
 
 export type DemandeMaintenanceSumAggregateOutputType = {
-  idDemande: number | null
   equipementId: number | null
+  idDemande: number | null
 }
 
 export type DemandeMaintenanceMinAggregateOutputType = {
-  idDemande: number | null
-  dateDemande: Date | null
   description: string | null
-  priorite: $Enums.PrioriteDemande | null
-  statut: $Enums.StatutDemande | null
-  clientId: string | null
+  dateDemande: Date | null
   equipementId: number | null
-  technicianId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  clientId: string | null
+  idDemande: number | null
+  priorite: $Enums.PrioriteDemande | null
+  statut: $Enums.StatutDemande | null
+  technicianId: string | null
 }
 
 export type DemandeMaintenanceMaxAggregateOutputType = {
-  idDemande: number | null
-  dateDemande: Date | null
   description: string | null
-  priorite: $Enums.PrioriteDemande | null
-  statut: $Enums.StatutDemande | null
-  clientId: string | null
+  dateDemande: Date | null
   equipementId: number | null
-  technicianId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  clientId: string | null
+  idDemande: number | null
+  priorite: $Enums.PrioriteDemande | null
+  statut: $Enums.StatutDemande | null
+  technicianId: string | null
 }
 
 export type DemandeMaintenanceCountAggregateOutputType = {
-  idDemande: number
-  dateDemande: number
   description: number
-  priorite: number
-  statut: number
-  clientId: number
+  dateDemande: number
   equipementId: number
-  technicianId: number
   createdAt: number
   updatedAt: number
+  clientId: number
+  idDemande: number
+  priorite: number
+  statut: number
+  technicianId: number
   _all: number
 }
 
 
 export type DemandeMaintenanceAvgAggregateInputType = {
-  idDemande?: true
   equipementId?: true
+  idDemande?: true
 }
 
 export type DemandeMaintenanceSumAggregateInputType = {
-  idDemande?: true
   equipementId?: true
+  idDemande?: true
 }
 
 export type DemandeMaintenanceMinAggregateInputType = {
-  idDemande?: true
-  dateDemande?: true
   description?: true
-  priorite?: true
-  statut?: true
-  clientId?: true
+  dateDemande?: true
   equipementId?: true
-  technicianId?: true
   createdAt?: true
   updatedAt?: true
+  clientId?: true
+  idDemande?: true
+  priorite?: true
+  statut?: true
+  technicianId?: true
 }
 
 export type DemandeMaintenanceMaxAggregateInputType = {
-  idDemande?: true
-  dateDemande?: true
   description?: true
-  priorite?: true
-  statut?: true
-  clientId?: true
+  dateDemande?: true
   equipementId?: true
-  technicianId?: true
   createdAt?: true
   updatedAt?: true
+  clientId?: true
+  idDemande?: true
+  priorite?: true
+  statut?: true
+  technicianId?: true
 }
 
 export type DemandeMaintenanceCountAggregateInputType = {
-  idDemande?: true
-  dateDemande?: true
   description?: true
-  priorite?: true
-  statut?: true
-  clientId?: true
+  dateDemande?: true
   equipementId?: true
-  technicianId?: true
   createdAt?: true
   updatedAt?: true
+  clientId?: true
+  idDemande?: true
+  priorite?: true
+  statut?: true
+  technicianId?: true
   _all?: true
 }
 
@@ -214,16 +214,16 @@ export type DemandeMaintenanceGroupByArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 export type DemandeMaintenanceGroupByOutputType = {
-  idDemande: number
-  dateDemande: Date
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut: $Enums.StatutDemande
-  clientId: string
+  dateDemande: Date
   equipementId: number
-  technicianId: string | null
   createdAt: Date
   updatedAt: Date
+  clientId: string
+  idDemande: number
+  priorite: $Enums.PrioriteDemande
+  statut: $Enums.StatutDemande
+  technicianId: string | null
   _count: DemandeMaintenanceCountAggregateOutputType | null
   _avg: DemandeMaintenanceAvgAggregateOutputType | null
   _sum: DemandeMaintenanceSumAggregateOutputType | null
@@ -250,16 +250,16 @@ export type DemandeMaintenanceWhereInput = {
   AND?: Prisma.DemandeMaintenanceWhereInput | Prisma.DemandeMaintenanceWhereInput[]
   OR?: Prisma.DemandeMaintenanceWhereInput[]
   NOT?: Prisma.DemandeMaintenanceWhereInput | Prisma.DemandeMaintenanceWhereInput[]
-  idDemande?: Prisma.IntFilter<"DemandeMaintenance"> | number
-  dateDemande?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   description?: Prisma.StringFilter<"DemandeMaintenance"> | string
-  priorite?: Prisma.EnumPrioriteDemandeFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFilter<"DemandeMaintenance"> | $Enums.StatutDemande
-  clientId?: Prisma.StringFilter<"DemandeMaintenance"> | string
+  dateDemande?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   equipementId?: Prisma.IntFilter<"DemandeMaintenance"> | number
-  technicianId?: Prisma.StringNullableFilter<"DemandeMaintenance"> | string | null
   createdAt?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
+  clientId?: Prisma.StringFilter<"DemandeMaintenance"> | string
+  idDemande?: Prisma.IntFilter<"DemandeMaintenance"> | number
+  priorite?: Prisma.EnumPrioriteDemandeFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFilter<"DemandeMaintenance"> | $Enums.StatutDemande
+  technicianId?: Prisma.StringNullableFilter<"DemandeMaintenance"> | string | null
   client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   equipement?: Prisma.XOR<Prisma.EquipementScalarRelationFilter, Prisma.EquipementWhereInput>
   technician?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -268,16 +268,16 @@ export type DemandeMaintenanceWhereInput = {
 }
 
 export type DemandeMaintenanceOrderByWithRelationInput = {
-  idDemande?: Prisma.SortOrder
-  dateDemande?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  priorite?: Prisma.SortOrder
-  statut?: Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  dateDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
+  priorite?: Prisma.SortOrder
+  statut?: Prisma.SortOrder
+  technicianId?: Prisma.SortOrderInput | Prisma.SortOrder
   client?: Prisma.UserOrderByWithRelationInput
   equipement?: Prisma.EquipementOrderByWithRelationInput
   technician?: Prisma.UserOrderByWithRelationInput
@@ -290,15 +290,15 @@ export type DemandeMaintenanceWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.DemandeMaintenanceWhereInput | Prisma.DemandeMaintenanceWhereInput[]
   OR?: Prisma.DemandeMaintenanceWhereInput[]
   NOT?: Prisma.DemandeMaintenanceWhereInput | Prisma.DemandeMaintenanceWhereInput[]
-  dateDemande?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   description?: Prisma.StringFilter<"DemandeMaintenance"> | string
-  priorite?: Prisma.EnumPrioriteDemandeFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFilter<"DemandeMaintenance"> | $Enums.StatutDemande
-  clientId?: Prisma.StringFilter<"DemandeMaintenance"> | string
+  dateDemande?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   equipementId?: Prisma.IntFilter<"DemandeMaintenance"> | number
-  technicianId?: Prisma.StringNullableFilter<"DemandeMaintenance"> | string | null
   createdAt?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
+  clientId?: Prisma.StringFilter<"DemandeMaintenance"> | string
+  priorite?: Prisma.EnumPrioriteDemandeFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFilter<"DemandeMaintenance"> | $Enums.StatutDemande
+  technicianId?: Prisma.StringNullableFilter<"DemandeMaintenance"> | string | null
   client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   equipement?: Prisma.XOR<Prisma.EquipementScalarRelationFilter, Prisma.EquipementWhereInput>
   technician?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -307,16 +307,16 @@ export type DemandeMaintenanceWhereUniqueInput = Prisma.AtLeast<{
 }, "idDemande">
 
 export type DemandeMaintenanceOrderByWithAggregationInput = {
-  idDemande?: Prisma.SortOrder
-  dateDemande?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  priorite?: Prisma.SortOrder
-  statut?: Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  dateDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
+  priorite?: Prisma.SortOrder
+  statut?: Prisma.SortOrder
+  technicianId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DemandeMaintenanceCountOrderByAggregateInput
   _avg?: Prisma.DemandeMaintenanceAvgOrderByAggregateInput
   _max?: Prisma.DemandeMaintenanceMaxOrderByAggregateInput
@@ -328,25 +328,25 @@ export type DemandeMaintenanceScalarWhereWithAggregatesInput = {
   AND?: Prisma.DemandeMaintenanceScalarWhereWithAggregatesInput | Prisma.DemandeMaintenanceScalarWhereWithAggregatesInput[]
   OR?: Prisma.DemandeMaintenanceScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DemandeMaintenanceScalarWhereWithAggregatesInput | Prisma.DemandeMaintenanceScalarWhereWithAggregatesInput[]
-  idDemande?: Prisma.IntWithAggregatesFilter<"DemandeMaintenance"> | number
-  dateDemande?: Prisma.DateTimeWithAggregatesFilter<"DemandeMaintenance"> | Date | string
   description?: Prisma.StringWithAggregatesFilter<"DemandeMaintenance"> | string
-  priorite?: Prisma.EnumPrioriteDemandeWithAggregatesFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeWithAggregatesFilter<"DemandeMaintenance"> | $Enums.StatutDemande
-  clientId?: Prisma.StringWithAggregatesFilter<"DemandeMaintenance"> | string
+  dateDemande?: Prisma.DateTimeWithAggregatesFilter<"DemandeMaintenance"> | Date | string
   equipementId?: Prisma.IntWithAggregatesFilter<"DemandeMaintenance"> | number
-  technicianId?: Prisma.StringNullableWithAggregatesFilter<"DemandeMaintenance"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"DemandeMaintenance"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DemandeMaintenance"> | Date | string
+  clientId?: Prisma.StringWithAggregatesFilter<"DemandeMaintenance"> | string
+  idDemande?: Prisma.IntWithAggregatesFilter<"DemandeMaintenance"> | number
+  priorite?: Prisma.EnumPrioriteDemandeWithAggregatesFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeWithAggregatesFilter<"DemandeMaintenance"> | $Enums.StatutDemande
+  technicianId?: Prisma.StringNullableWithAggregatesFilter<"DemandeMaintenance"> | string | null
 }
 
 export type DemandeMaintenanceCreateInput = {
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   client: Prisma.UserCreateNestedOneWithoutDemandesCreesInput
   equipement: Prisma.EquipementCreateNestedOneWithoutDemandesMaintenanceInput
   technician?: Prisma.UserCreateNestedOneWithoutTechnicianDemandesInput
@@ -355,27 +355,27 @@ export type DemandeMaintenanceCreateInput = {
 }
 
 export type DemandeMaintenanceUncheckedCreateInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
+  dateDemande?: Date | string
   equipementId: number
-  technicianId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutDemandeInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedCreateNestedOneWithoutDemandeInput
 }
 
 export type DemandeMaintenanceUpdateInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   client?: Prisma.UserUpdateOneRequiredWithoutDemandesCreesNestedInput
   equipement?: Prisma.EquipementUpdateOneRequiredWithoutDemandesMaintenanceNestedInput
   technician?: Prisma.UserUpdateOneWithoutTechnicianDemandesNestedInput
@@ -384,53 +384,53 @@ export type DemandeMaintenanceUpdateInput = {
 }
 
 export type DemandeMaintenanceUncheckedUpdateInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutDemandeNestedInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedUpdateOneWithoutDemandeNestedInput
 }
 
 export type DemandeMaintenanceCreateManyInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
+  dateDemande?: Date | string
   equipementId: number
-  technicianId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
 }
 
 export type DemandeMaintenanceUpdateManyMutationInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
 }
 
 export type DemandeMaintenanceUncheckedUpdateManyInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DemandeMaintenanceListRelationFilter = {
@@ -444,52 +444,52 @@ export type DemandeMaintenanceOrderByRelationAggregateInput = {
 }
 
 export type DemandeMaintenanceCountOrderByAggregateInput = {
-  idDemande?: Prisma.SortOrder
-  dateDemande?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  priorite?: Prisma.SortOrder
-  statut?: Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  dateDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
+  priorite?: Prisma.SortOrder
+  statut?: Prisma.SortOrder
+  technicianId?: Prisma.SortOrder
 }
 
 export type DemandeMaintenanceAvgOrderByAggregateInput = {
-  idDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
 }
 
 export type DemandeMaintenanceMaxOrderByAggregateInput = {
-  idDemande?: Prisma.SortOrder
-  dateDemande?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  priorite?: Prisma.SortOrder
-  statut?: Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  dateDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
+  priorite?: Prisma.SortOrder
+  statut?: Prisma.SortOrder
+  technicianId?: Prisma.SortOrder
 }
 
 export type DemandeMaintenanceMinOrderByAggregateInput = {
-  idDemande?: Prisma.SortOrder
-  dateDemande?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  priorite?: Prisma.SortOrder
-  statut?: Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  dateDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
+  priorite?: Prisma.SortOrder
+  statut?: Prisma.SortOrder
+  technicianId?: Prisma.SortOrder
 }
 
 export type DemandeMaintenanceSumOrderByAggregateInput = {
-  idDemande?: Prisma.SortOrder
   equipementId?: Prisma.SortOrder
+  idDemande?: Prisma.SortOrder
 }
 
 export type DemandeMaintenanceScalarRelationFilter = {
@@ -660,12 +660,12 @@ export type DemandeMaintenanceUpdateOneRequiredWithoutRapportMaintenanceNestedIn
 }
 
 export type DemandeMaintenanceCreateWithoutEquipementInput = {
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   client: Prisma.UserCreateNestedOneWithoutDemandesCreesInput
   technician?: Prisma.UserCreateNestedOneWithoutTechnicianDemandesInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutDemandeInput
@@ -673,15 +673,15 @@ export type DemandeMaintenanceCreateWithoutEquipementInput = {
 }
 
 export type DemandeMaintenanceUncheckedCreateWithoutEquipementInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
-  technicianId?: string | null
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutDemandeInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedCreateNestedOneWithoutDemandeInput
 }
@@ -716,25 +716,25 @@ export type DemandeMaintenanceScalarWhereInput = {
   AND?: Prisma.DemandeMaintenanceScalarWhereInput | Prisma.DemandeMaintenanceScalarWhereInput[]
   OR?: Prisma.DemandeMaintenanceScalarWhereInput[]
   NOT?: Prisma.DemandeMaintenanceScalarWhereInput | Prisma.DemandeMaintenanceScalarWhereInput[]
-  idDemande?: Prisma.IntFilter<"DemandeMaintenance"> | number
-  dateDemande?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   description?: Prisma.StringFilter<"DemandeMaintenance"> | string
-  priorite?: Prisma.EnumPrioriteDemandeFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFilter<"DemandeMaintenance"> | $Enums.StatutDemande
-  clientId?: Prisma.StringFilter<"DemandeMaintenance"> | string
+  dateDemande?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   equipementId?: Prisma.IntFilter<"DemandeMaintenance"> | number
-  technicianId?: Prisma.StringNullableFilter<"DemandeMaintenance"> | string | null
   createdAt?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DemandeMaintenance"> | Date | string
+  clientId?: Prisma.StringFilter<"DemandeMaintenance"> | string
+  idDemande?: Prisma.IntFilter<"DemandeMaintenance"> | number
+  priorite?: Prisma.EnumPrioriteDemandeFilter<"DemandeMaintenance"> | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFilter<"DemandeMaintenance"> | $Enums.StatutDemande
+  technicianId?: Prisma.StringNullableFilter<"DemandeMaintenance"> | string | null
 }
 
 export type DemandeMaintenanceCreateWithoutClientInput = {
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   equipement: Prisma.EquipementCreateNestedOneWithoutDemandesMaintenanceInput
   technician?: Prisma.UserCreateNestedOneWithoutTechnicianDemandesInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutDemandeInput
@@ -742,15 +742,15 @@ export type DemandeMaintenanceCreateWithoutClientInput = {
 }
 
 export type DemandeMaintenanceUncheckedCreateWithoutClientInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   equipementId: number
-  technicianId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutDemandeInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedCreateNestedOneWithoutDemandeInput
 }
@@ -766,12 +766,12 @@ export type DemandeMaintenanceCreateManyClientInputEnvelope = {
 }
 
 export type DemandeMaintenanceCreateWithoutTechnicianInput = {
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   client: Prisma.UserCreateNestedOneWithoutDemandesCreesInput
   equipement: Prisma.EquipementCreateNestedOneWithoutDemandesMaintenanceInput
   interventions?: Prisma.InterventionCreateNestedManyWithoutDemandeInput
@@ -779,15 +779,15 @@ export type DemandeMaintenanceCreateWithoutTechnicianInput = {
 }
 
 export type DemandeMaintenanceUncheckedCreateWithoutTechnicianInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
+  dateDemande?: Date | string
   equipementId: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutDemandeInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedCreateNestedOneWithoutDemandeInput
 }
@@ -835,12 +835,12 @@ export type DemandeMaintenanceUpdateManyWithWhereWithoutTechnicianInput = {
 }
 
 export type DemandeMaintenanceCreateWithoutInterventionsInput = {
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   client: Prisma.UserCreateNestedOneWithoutDemandesCreesInput
   equipement: Prisma.EquipementCreateNestedOneWithoutDemandesMaintenanceInput
   technician?: Prisma.UserCreateNestedOneWithoutTechnicianDemandesInput
@@ -848,16 +848,16 @@ export type DemandeMaintenanceCreateWithoutInterventionsInput = {
 }
 
 export type DemandeMaintenanceUncheckedCreateWithoutInterventionsInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
+  dateDemande?: Date | string
   equipementId: number
-  technicianId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedCreateNestedOneWithoutDemandeInput
 }
 
@@ -878,12 +878,12 @@ export type DemandeMaintenanceUpdateToOneWithWhereWithoutInterventionsInput = {
 }
 
 export type DemandeMaintenanceUpdateWithoutInterventionsInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   client?: Prisma.UserUpdateOneRequiredWithoutDemandesCreesNestedInput
   equipement?: Prisma.EquipementUpdateOneRequiredWithoutDemandesMaintenanceNestedInput
   technician?: Prisma.UserUpdateOneWithoutTechnicianDemandesNestedInput
@@ -891,26 +891,26 @@ export type DemandeMaintenanceUpdateWithoutInterventionsInput = {
 }
 
 export type DemandeMaintenanceUncheckedUpdateWithoutInterventionsInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedUpdateOneWithoutDemandeNestedInput
 }
 
 export type DemandeMaintenanceCreateWithoutRapportMaintenanceInput = {
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
   client: Prisma.UserCreateNestedOneWithoutDemandesCreesInput
   equipement: Prisma.EquipementCreateNestedOneWithoutDemandesMaintenanceInput
   technician?: Prisma.UserCreateNestedOneWithoutTechnicianDemandesInput
@@ -918,16 +918,16 @@ export type DemandeMaintenanceCreateWithoutRapportMaintenanceInput = {
 }
 
 export type DemandeMaintenanceUncheckedCreateWithoutRapportMaintenanceInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
+  dateDemande?: Date | string
   equipementId: number
-  technicianId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
   interventions?: Prisma.InterventionUncheckedCreateNestedManyWithoutDemandeInput
 }
 
@@ -948,12 +948,12 @@ export type DemandeMaintenanceUpdateToOneWithWhereWithoutRapportMaintenanceInput
 }
 
 export type DemandeMaintenanceUpdateWithoutRapportMaintenanceInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   client?: Prisma.UserUpdateOneRequiredWithoutDemandesCreesNestedInput
   equipement?: Prisma.EquipementUpdateOneRequiredWithoutDemandesMaintenanceNestedInput
   technician?: Prisma.UserUpdateOneWithoutTechnicianDemandesNestedInput
@@ -961,38 +961,38 @@ export type DemandeMaintenanceUpdateWithoutRapportMaintenanceInput = {
 }
 
 export type DemandeMaintenanceUncheckedUpdateWithoutRapportMaintenanceInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutDemandeNestedInput
 }
 
 export type DemandeMaintenanceCreateManyEquipementInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
-  technicianId?: string | null
+  dateDemande?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
 }
 
 export type DemandeMaintenanceUpdateWithoutEquipementInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   client?: Prisma.UserUpdateOneRequiredWithoutDemandesCreesNestedInput
   technician?: Prisma.UserUpdateOneWithoutTechnicianDemandesNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutDemandeNestedInput
@@ -1000,62 +1000,62 @@ export type DemandeMaintenanceUpdateWithoutEquipementInput = {
 }
 
 export type DemandeMaintenanceUncheckedUpdateWithoutEquipementInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutDemandeNestedInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedUpdateOneWithoutDemandeNestedInput
 }
 
 export type DemandeMaintenanceUncheckedUpdateManyWithoutEquipementInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DemandeMaintenanceCreateManyClientInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
+  dateDemande?: Date | string
   equipementId: number
-  technicianId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
+  technicianId?: string | null
 }
 
 export type DemandeMaintenanceCreateManyTechnicianInput = {
-  idDemande?: number
-  dateDemande?: Date | string
   description: string
-  priorite: $Enums.PrioriteDemande
-  statut?: $Enums.StatutDemande
-  clientId: string
+  dateDemande?: Date | string
   equipementId: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  clientId: string
+  idDemande?: number
+  priorite: $Enums.PrioriteDemande
+  statut?: $Enums.StatutDemande
 }
 
 export type DemandeMaintenanceUpdateWithoutClientInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   equipement?: Prisma.EquipementUpdateOneRequiredWithoutDemandesMaintenanceNestedInput
   technician?: Prisma.UserUpdateOneWithoutTechnicianDemandesNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutDemandeNestedInput
@@ -1063,38 +1063,38 @@ export type DemandeMaintenanceUpdateWithoutClientInput = {
 }
 
 export type DemandeMaintenanceUncheckedUpdateWithoutClientInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutDemandeNestedInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedUpdateOneWithoutDemandeNestedInput
 }
 
 export type DemandeMaintenanceUncheckedUpdateManyWithoutClientInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
-  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  technicianId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DemandeMaintenanceUpdateWithoutTechnicianInput = {
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   client?: Prisma.UserUpdateOneRequiredWithoutDemandesCreesNestedInput
   equipement?: Prisma.EquipementUpdateOneRequiredWithoutDemandesMaintenanceNestedInput
   interventions?: Prisma.InterventionUpdateManyWithoutDemandeNestedInput
@@ -1102,29 +1102,29 @@ export type DemandeMaintenanceUpdateWithoutTechnicianInput = {
 }
 
 export type DemandeMaintenanceUncheckedUpdateWithoutTechnicianInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
   interventions?: Prisma.InterventionUncheckedUpdateManyWithoutDemandeNestedInput
   rapportMaintenance?: Prisma.RapportMaintenanceUncheckedUpdateOneWithoutDemandeNestedInput
 }
 
 export type DemandeMaintenanceUncheckedUpdateManyWithoutTechnicianInput = {
-  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
-  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
-  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  dateDemande?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   equipementId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  idDemande?: Prisma.IntFieldUpdateOperationsInput | number
+  priorite?: Prisma.EnumPrioriteDemandeFieldUpdateOperationsInput | $Enums.PrioriteDemande
+  statut?: Prisma.EnumStatutDemandeFieldUpdateOperationsInput | $Enums.StatutDemande
 }
 
 
@@ -1159,16 +1159,16 @@ export type DemandeMaintenanceCountOutputTypeCountInterventionsArgs<ExtArgs exte
 
 
 export type DemandeMaintenanceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  idDemande?: boolean
-  dateDemande?: boolean
   description?: boolean
-  priorite?: boolean
-  statut?: boolean
-  clientId?: boolean
+  dateDemande?: boolean
   equipementId?: boolean
-  technicianId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  clientId?: boolean
+  idDemande?: boolean
+  priorite?: boolean
+  statut?: boolean
+  technicianId?: boolean
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   equipement?: boolean | Prisma.EquipementDefaultArgs<ExtArgs>
   technician?: boolean | Prisma.DemandeMaintenance$technicianArgs<ExtArgs>
@@ -1178,51 +1178,51 @@ export type DemandeMaintenanceSelect<ExtArgs extends runtime.Types.Extensions.In
 }, ExtArgs["result"]["demandeMaintenance"]>
 
 export type DemandeMaintenanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  idDemande?: boolean
-  dateDemande?: boolean
   description?: boolean
-  priorite?: boolean
-  statut?: boolean
-  clientId?: boolean
+  dateDemande?: boolean
   equipementId?: boolean
-  technicianId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  clientId?: boolean
+  idDemande?: boolean
+  priorite?: boolean
+  statut?: boolean
+  technicianId?: boolean
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   equipement?: boolean | Prisma.EquipementDefaultArgs<ExtArgs>
   technician?: boolean | Prisma.DemandeMaintenance$technicianArgs<ExtArgs>
 }, ExtArgs["result"]["demandeMaintenance"]>
 
 export type DemandeMaintenanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  idDemande?: boolean
-  dateDemande?: boolean
   description?: boolean
-  priorite?: boolean
-  statut?: boolean
-  clientId?: boolean
+  dateDemande?: boolean
   equipementId?: boolean
-  technicianId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  clientId?: boolean
+  idDemande?: boolean
+  priorite?: boolean
+  statut?: boolean
+  technicianId?: boolean
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   equipement?: boolean | Prisma.EquipementDefaultArgs<ExtArgs>
   technician?: boolean | Prisma.DemandeMaintenance$technicianArgs<ExtArgs>
 }, ExtArgs["result"]["demandeMaintenance"]>
 
 export type DemandeMaintenanceSelectScalar = {
-  idDemande?: boolean
-  dateDemande?: boolean
   description?: boolean
-  priorite?: boolean
-  statut?: boolean
-  clientId?: boolean
+  dateDemande?: boolean
   equipementId?: boolean
-  technicianId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  clientId?: boolean
+  idDemande?: boolean
+  priorite?: boolean
+  statut?: boolean
+  technicianId?: boolean
 }
 
-export type DemandeMaintenanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idDemande" | "dateDemande" | "description" | "priorite" | "statut" | "clientId" | "equipementId" | "technicianId" | "createdAt" | "updatedAt", ExtArgs["result"]["demandeMaintenance"]>
+export type DemandeMaintenanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"description" | "dateDemande" | "equipementId" | "createdAt" | "updatedAt" | "clientId" | "idDemande" | "priorite" | "statut" | "technicianId", ExtArgs["result"]["demandeMaintenance"]>
 export type DemandeMaintenanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   equipement?: boolean | Prisma.EquipementDefaultArgs<ExtArgs>
@@ -1252,16 +1252,16 @@ export type $DemandeMaintenancePayload<ExtArgs extends runtime.Types.Extensions.
     rapportMaintenance: Prisma.$RapportMaintenancePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    idDemande: number
-    dateDemande: Date
     description: string
-    priorite: $Enums.PrioriteDemande
-    statut: $Enums.StatutDemande
-    clientId: string
+    dateDemande: Date
     equipementId: number
-    technicianId: string | null
     createdAt: Date
     updatedAt: Date
+    clientId: string
+    idDemande: number
+    priorite: $Enums.PrioriteDemande
+    statut: $Enums.StatutDemande
+    technicianId: string | null
   }, ExtArgs["result"]["demandeMaintenance"]>
   composites: {}
 }
@@ -1345,8 +1345,8 @@ export interface DemandeMaintenanceDelegate<ExtArgs extends runtime.Types.Extens
    * // Get first 10 DemandeMaintenances
    * const demandeMaintenances = await prisma.demandeMaintenance.findMany({ take: 10 })
    * 
-   * // Only select the `idDemande`
-   * const demandeMaintenanceWithIdDemandeOnly = await prisma.demandeMaintenance.findMany({ select: { idDemande: true } })
+   * // Only select the `description`
+   * const demandeMaintenanceWithDescriptionOnly = await prisma.demandeMaintenance.findMany({ select: { description: true } })
    * 
    */
   findMany<T extends DemandeMaintenanceFindManyArgs>(args?: Prisma.SelectSubset<T, DemandeMaintenanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DemandeMaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1390,9 +1390,9 @@ export interface DemandeMaintenanceDelegate<ExtArgs extends runtime.Types.Extens
    *   ]
    * })
    * 
-   * // Create many DemandeMaintenances and only return the `idDemande`
-   * const demandeMaintenanceWithIdDemandeOnly = await prisma.demandeMaintenance.createManyAndReturn({
-   *   select: { idDemande: true },
+   * // Create many DemandeMaintenances and only return the `description`
+   * const demandeMaintenanceWithDescriptionOnly = await prisma.demandeMaintenance.createManyAndReturn({
+   *   select: { description: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1481,9 +1481,9 @@ export interface DemandeMaintenanceDelegate<ExtArgs extends runtime.Types.Extens
    *   ]
    * })
    * 
-   * // Update zero or more DemandeMaintenances and only return the `idDemande`
-   * const demandeMaintenanceWithIdDemandeOnly = await prisma.demandeMaintenance.updateManyAndReturn({
-   *   select: { idDemande: true },
+   * // Update zero or more DemandeMaintenances and only return the `description`
+   * const demandeMaintenanceWithDescriptionOnly = await prisma.demandeMaintenance.updateManyAndReturn({
+   *   select: { description: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1690,16 +1690,16 @@ export interface Prisma__DemandeMaintenanceClient<T, Null = never, ExtArgs exten
  * Fields of the DemandeMaintenance model
  */
 export interface DemandeMaintenanceFieldRefs {
-  readonly idDemande: Prisma.FieldRef<"DemandeMaintenance", 'Int'>
-  readonly dateDemande: Prisma.FieldRef<"DemandeMaintenance", 'DateTime'>
   readonly description: Prisma.FieldRef<"DemandeMaintenance", 'String'>
-  readonly priorite: Prisma.FieldRef<"DemandeMaintenance", 'PrioriteDemande'>
-  readonly statut: Prisma.FieldRef<"DemandeMaintenance", 'StatutDemande'>
-  readonly clientId: Prisma.FieldRef<"DemandeMaintenance", 'String'>
+  readonly dateDemande: Prisma.FieldRef<"DemandeMaintenance", 'DateTime'>
   readonly equipementId: Prisma.FieldRef<"DemandeMaintenance", 'Int'>
-  readonly technicianId: Prisma.FieldRef<"DemandeMaintenance", 'String'>
   readonly createdAt: Prisma.FieldRef<"DemandeMaintenance", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"DemandeMaintenance", 'DateTime'>
+  readonly clientId: Prisma.FieldRef<"DemandeMaintenance", 'String'>
+  readonly idDemande: Prisma.FieldRef<"DemandeMaintenance", 'Int'>
+  readonly priorite: Prisma.FieldRef<"DemandeMaintenance", 'PrioriteDemande'>
+  readonly statut: Prisma.FieldRef<"DemandeMaintenance", 'StatutDemande'>
+  readonly technicianId: Prisma.FieldRef<"DemandeMaintenance", 'String'>
 }
     
 

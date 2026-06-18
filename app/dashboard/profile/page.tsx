@@ -57,13 +57,15 @@ export default async function DashboardProfilePage() {
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Mon profil</h1>
-        <p className="text-muted-foreground">
-          Gérez vos informations personnelles
-        </p>
-      </div>
+       {/* Page header */}
+       <div className="flex flex-col items-center justify-between lg:flex-row lg:items-start">
+         <div className="w-full lg:w-auto mb-4 lg:mb-0">
+           <h1 className="text-3xl font-bold tracking-tight text-center lg:text-left">Mon profil</h1>
+           <p className="text-muted-foreground text-center lg:text-left">
+             Gérez vos informations personnelles
+           </p>
+         </div>
+       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Profile info card */}

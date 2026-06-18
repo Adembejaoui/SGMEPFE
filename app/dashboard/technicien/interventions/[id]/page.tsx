@@ -107,5 +107,5 @@ const data: InterventionWithRelations = {
 
   const { InterventionDetailClient } = await import('@/components/interventions/InterventionDetailClient')
 
-  return <InterventionDetailClient intervention={data} technicienNom={technicienNom} />
+  return <InterventionDetailClient intervention={data} technicienNom={technicienNom} currentUserId={session.user.id} />
 }
