@@ -159,12 +159,17 @@ export const menuByRole = {
         title: "Rapports d'intervention",
        href: "/dashboard/technicien/rapports",
        icon: FileText,
-     },
-     {
-       title: "Mon profil",
-       href: "/dashboard/profile",
-       icon: User,
-     },
+      },
+      {
+        title: "Mes équipements",
+        href: "/dashboard/technicien/equipements",
+        icon: Package,
+      },
+      {
+        title: "Mon profil",
+        href: "/dashboard/profile",
+        icon: User,
+      },
    ],
 
   EMPLOYE: [

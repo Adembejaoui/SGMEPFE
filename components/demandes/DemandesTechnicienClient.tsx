@@ -99,7 +99,7 @@ export function DemandesTechnicienClient() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Mes interventions</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Mes Demandes</h1>
         <p className="text-muted-foreground">Gérez le statut des demandes assignées</p>
       </div>
 
@@ -140,7 +140,7 @@ export function DemandesTechnicienClient() {
 
        <Card>
          <CardHeader>
-           <CardTitle>Liste des interventions</CardTitle>
+           <CardTitle>Liste des demandes</CardTitle>
            <CardDescription>
              {filteredDemandes.length} demande(s)
            </CardDescription>
