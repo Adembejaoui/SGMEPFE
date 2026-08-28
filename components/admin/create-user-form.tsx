@@ -48,20 +48,19 @@ const createUserSchema = z.object({
    role: z.enum(["ADMIN", "EMPLOYE", "TECHNICIEN"], {
      message: "Veuillez sélectionner un rôle"
    }),
-   // Specialization is required only for TECHNICIEN role
-   specialization: z.nativeEnum(EquipmentType).optional(),
+   specialization: z.nativeEnum(EquipmentType).optional().nullable(),
    password: z.string().min(8, "Le mot de passe doit contenir au moins 8 caractères"),
    isActive: z.boolean(),
-})
-.refine((data) => {
-   if (data.role === "TECHNICIEN") {
-     return data.specialization !== undefined;
-   }
-   return true;
- }, {
-   message: "La spécialisation est requise pour les techniciens",
-   path: ["specialization"],
  })
+ .refine((data) => {
+    if (data.role === "TECHNICIEN") {
+      return data.specialization != null;
+    }
+    return true;
+  }, {
+    message: "La spécialisation est requise pour les techniciens",
+    path: ["specialization"],
+  })
 
 // =============================================================================
 // CREATE USER FORM COMPONENT
@@ -74,6 +73,7 @@ export function CreateUserForm() {
    const [error, setError] = useState("")
    const [success, setSuccess] = useState("")
    const [selectedRole, setSelectedRole] = useState<string>("")
+   const [selectedSpecialization, setSelectedSpecialization] = useState<string>("PRINTER")
 
    // =============================================================================
    // HANDLE FORM SUBMISSION
@@ -90,16 +90,16 @@ export function CreateUserForm() {
      const formData = new FormData(event.currentTarget)
      
      // Extract form data
-     const data = {
-       firstName: formData.get("firstName") as string,
-       lastName: formData.get("lastName") as string,
-       email: formData.get("email") as string,
-       phone: formData.get("phone") as string || undefined,
-       role: formData.get("role") as string,
-       specialization: formData.get("specialization") as EquipmentType || null,
-       password: formData.get("password") as string,
-       isActive: formData.get("isActive") === "true",
-     }
+      const data = {
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
+        email: formData.get("email") as string,
+        phone: formData.get("phone") as string || undefined,
+        role: formData.get("role") as string,
+        specialization: selectedRole === "TECHNICIEN" ? (selectedSpecialization as EquipmentType) : null,
+        password: formData.get("password") as string,
+        isActive: formData.get("isActive") === "true",
+      }
 
      // Validate form data
      const validationResult = createUserSchema.safeParse(data)
@@ -245,15 +245,8 @@ export function CreateUserForm() {
               Spécialisation
             </FieldLabel>
             <Select
-              name="specialization"
-              defaultValue="PRINTER"
-              onValueChange={(value) => {
-                // Handle select value change
-                const select = event?.target as HTMLSelectElement;
-                if (select) {
-                  // Value is handled by the Select component
-                }
-              }}
+              value={selectedSpecialization}
+              onValueChange={setSelectedSpecialization}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Sélectionnez une spécialisation" />
