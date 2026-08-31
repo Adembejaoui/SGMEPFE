@@ -40,5 +40,5 @@ export default async function TechnicienDemandeDetailPage({ params }: { params: 
     redirect('/dashboard/technicien/demandes')
   }
 
-  return <DemandeTechnicienDetailClient demande={demande} />
+  return <DemandeTechnicienDetailClient demande={demande} currentUserId={session.user.id} />
 }

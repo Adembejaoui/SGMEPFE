@@ -33,20 +33,36 @@ export function ChatTab({ interventionId, currentUserId, statut }: ChatTabProps)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const channelRef = useRef<ReturnType<typeof supabase.channel> | null>(null)
   const isTerminatedOrCancelled = statut === "TERMINEE" || statut === "ANNULEE"
+  const initialLoadRef = useRef(true)
 
   useEffect(() => {
     const fetchMessages = async () => {
-      setIsLoading(true)
       try {
         const res = await fetch(`/api/interventions/${interventionId}/messages`)
         if (res.ok) {
           const data = await res.json()
-          setMessages(data)
+          setMessages((prev) => {
+            const merged = [...prev]
+            for (const msg of data) {
+              const idx = merged.findIndex((m) => m.id === msg.id)
+              if (idx >= 0) {
+                merged[idx] = msg
+              } else {
+                merged.push(msg)
+              }
+            }
+            return merged.sort(
+              (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            )
+          })
         }
       } catch (error) {
         console.error("Error fetching messages:", error)
       } finally {
-        setIsLoading(false)
+        if (initialLoadRef.current) {
+          setIsLoading(false)
+          initialLoadRef.current = false
+        }
       }
     }
 
@@ -70,6 +86,18 @@ export function ChatTab({ interventionId, currentUserId, statut }: ChatTabProps)
           })
         }
       )
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "messages",
+          filter: `interventionId=eq.${interventionId}`,
+        },
+        (payload: RealtimePayload<MessageWithSender>) => {
+          setMessages((prev) => prev.map((m) => (m.id === payload.new.id ? payload.new : m)))
+        }
+      )
       .subscribe((status) => {
         if (status === "SUBSCRIBED") {
           setConnectionStatus("open")
@@ -81,8 +109,10 @@ export function ChatTab({ interventionId, currentUserId, statut }: ChatTabProps)
       })
 
     channelRef.current = channel
+    const interval = setInterval(fetchMessages, 2000)
 
     return () => {
+      clearInterval(interval)
       if (channelRef.current) {
         supabase.removeChannel(channelRef.current)
       }
@@ -142,7 +172,7 @@ export function ChatTab({ interventionId, currentUserId, statut }: ChatTabProps)
 
   return (
     <Card className="flex flex-col h-[500px]">
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 shrink-0">
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
             <MessageCircle className="w-5 h-5" />
@@ -167,16 +197,16 @@ export function ChatTab({ interventionId, currentUserId, statut }: ChatTabProps)
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col p-0">
+      <div className="flex-1 min-h-0 overflow-hidden px-4">
         {messages.length === 0 ? (
-          <div className="flex-1 flex flex-col items-center justify-center px-4">
+          <div className="flex flex-col items-center justify-center h-full px-4">
             <MessageCircle className="w-12 h-12 text-muted-foreground mb-3" />
             <p className="text-center text-muted-foreground">
               Aucun message. Démarrez la discussion.
             </p>
           </div>
         ) : (
-          <ScrollArea ref={scrollAreaRef} className="flex-1 px-4">
+          <ScrollArea ref={scrollAreaRef} className="h-full">
             <div className="space-y-4 py-4">
               {messages.map((message) => {
                 const isOwnMessage = message.senderId === currentUserId
@@ -232,32 +262,32 @@ export function ChatTab({ interventionId, currentUserId, statut }: ChatTabProps)
             </div>
           </ScrollArea>
         )}
+      </div>
 
-        <form onSubmit={handleSubmit} className="p-4 border-t">
-          <div className="flex gap-2">
-            <Textarea
-              placeholder={
-                isTerminatedOrCancelled
-                  ? "Chat désactivé - intervention terminée ou annulée"
-                  : "Écrire un message..."
-              }
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              disabled={isSending || isTerminatedOrCancelled}
-              rows={2}
-              className="flex-1 min-h-[40px] resize-none"
-            />
-            <Button
-              type="submit"
-              size="icon"
-              disabled={!newMessage.trim() || isSending || isTerminatedOrCancelled}
-              className="self-end"
-            >
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
-        </form>
-      </CardContent>
+      <form onSubmit={handleSubmit} className="p-4 border-t shrink-0">
+        <div className="flex gap-2">
+          <Textarea
+            placeholder={
+              isTerminatedOrCancelled
+                ? "Chat désactivé - intervention terminée ou annulée"
+                : "Écrire un message..."
+            }
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            disabled={isSending || isTerminatedOrCancelled}
+            rows={2}
+            className="flex-1 min-h-[40px] resize-none"
+          />
+          <Button
+            type="submit"
+            size="icon"
+            disabled={!newMessage.trim() || isSending || isTerminatedOrCancelled}
+            className="self-end"
+          >
+            <Send className="w-4 h-4" />
+          </Button>
+        </div>
+      </form>
     </Card>
   )
 }

@@ -281,6 +281,30 @@ async function main() {
           adminId: admin.id,
         },
       }),
+      prisma.equipement.create({
+        data: {
+          nom: "Thermostat Intelligent",
+          marque: "Honeywell",
+          modele: "T6 Pro Z-Wave",
+          numeroSerie: "EQ-HW-009",
+          etat: "DISPONIBLE",
+          localisation: "Bureau 4 - Étage 2",
+          type: "HVAC",
+          adminId: admin.id,
+        },
+      }),
+      prisma.equipement.create({
+        data: {
+          nom: "Centrale d'Alarme Intrusion",
+          marque: "DSC",
+          modele: "PowerSeries Neo",
+          numeroSerie: "EQ-DS-010",
+          etat: "DISPONIBLE",
+          localisation: "Accueil - RDC",
+          type: "SECURITY",
+          adminId: admin.id,
+        },
+      }),
     ])
     equipements.forEach((e) => console.log(`   ✅ ${e.nom} (${e.type})`))
 
@@ -307,6 +331,10 @@ async function main() {
       { description: "La caméra de surveillance du parking enregistre des séquences floues pendant les heures de forte luminosité. Le capteur semble encrassé ou défectueux.", clientEmail: "employe6@gmail.com", equipementIndex: 4, priorite: "BASSE", statut: "EN_ATTENTE", technicianEmail: null },
       { description: "Après la dernière mise à jour firmware, le routeur Ubiquiti bloque l'accès au portail captif. Les invités ne peuvent plus se connecter au WiFi invité.", clientEmail: "employe7@gmail.com", equipementIndex: 6, priorite: "MOYENNE", statut: "EN_COURS", technicianEmail: technicians[2].email },
       { description: "L'imprimante Canon jams fréquemment les feuilles de format A3. Le rouleau d'entraînement semble usé et n'adhère plus correctement au papier.", clientEmail: "employe1@gmail.com", equipementIndex: 5, priorite: "MOYENNE", statut: "EN_ATTENTE", technicianEmail: null },
+      { description: "Le thermostat Honeywell du bureau 4 ne maintient plus la température programmée. Il bascule en mode manuel de façon aléatoire et ignore les plages horaires.", clientEmail: "employe2@gmail.com", equipementIndex: 8, priorite: "MOYENNE", statut: "EN_ATTENTE", technicianEmail: null },
+      { description: "La centrale d'alarme DSC de l'accueil déclenche des fausses alertes la nuit sans intrusion réelle. Les zones 3 et 5 semblent en défaut.", clientEmail: "employe3@gmail.com", equipementIndex: 9, priorite: "HAUTE", statut: "VALIDEE", technicianEmail: technicians[0].email },
+      { description: "Le thermostat Honeywell émet un clignotement rouge et affiche 'Erreur de communication' avec la passerelle Z-Wave. Impossible de le piloter à distance.", clientEmail: "employe7@gmail.com", equipementIndex: 8, priorite: "BASSE", statut: "EN_ATTENTE", technicianEmail: null },
+      { description: "Un indicateur de défaut persistant sur la centrale DSC empêche l'armement partiel. Le clavier affiche un code d'erreur 'Tamper'.", clientEmail: "employe6@gmail.com", equipementIndex: 9, priorite: "URGENTE", statut: "EN_COURS", technicianEmail: technicians[2].email },
     ]
 
     for (const d of demandesData) {

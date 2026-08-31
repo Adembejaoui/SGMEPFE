@@ -183,11 +183,7 @@ export const menuByRole = {
       href: "/dashboard/employe/demandes",
       icon: ClipboardList,
     },
-    {
-      title: "Mes demandes",
-      href: "/dashboard/employe/requests",
-      icon: FileText,
-    },
+
     {
       title: "Mon profil",
       href: "/dashboard/profile",

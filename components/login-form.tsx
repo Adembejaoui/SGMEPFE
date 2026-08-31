@@ -9,11 +9,10 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export function LoginForm({
   className,
@@ -21,141 +20,170 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter()
   const { data: session, update: updateSession } = useSession()
+
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
-  // Check session after login to determine redirect
+  // Redirect user after successful authentication
   useEffect(() => {
-    if (session?.user?.mustChangePassword) {
-      router.push("/change-password")
-    } else if (session && !session.user?.mustChangePassword) {
-      router.push("/dashboard")
+    if (!session) return
+
+    if (session.user?.mustChangePassword) {
+      router.replace("/change-password")
+    } else {
+      router.replace("/dashboard")
     }
   }, [session, router])
 
-  async function handleCredentialsLogin(event: React.FormEvent<HTMLFormElement>) {
+  async function handleCredentialsLogin(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault()
+
     setIsLoading(true)
     setError("")
-    
+
     const formData = new FormData(event.currentTarget)
+
     const email = formData.get("email") as string
     const password = formData.get("password") as string
-    
+
     try {
       const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       })
-      
+
       if (result?.error) {
         setError("Invalid email or password")
-        setIsLoading(false)
         return
       }
-      
-      // Update session to get fresh data including mustChangePassword
+
+      // Refresh the session to get updated user data
       await updateSession()
     } catch {
       setError("An error occurred. Please try again.")
-      setIsLoading(false)
-    }
-  }
-
-  async function handleGoogleLogin() {
-    setIsLoading(true)
-    try {
-      await signIn("google", { callbackUrl: "/", redirect: false })
-    } catch (error) {
-      setError("Google login is not configured. Please use email login.")
+    } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
-          <div className="p-6 md:p-8">
-            <FieldGroup>
-              <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-balance text-muted-foreground">
-                  Login to your Gmao account
-                </p>
-              </div>
+    <div
+      className={cn(
+        "flex min-h-svh flex-col items-center justify-center p-6 md:p-10",
+        className
+      )}
+      {...props}
+    >
+      <div className="w-full max-w-5xl">
+        <Card className="overflow-hidden p-0">
+          <CardContent className="grid md:grid-cols-2">
+            {/* Login Form */}
+            <div className="p-6 md:p-10">
+              <FieldGroup>
+                {/* Header */}
+                <div className="flex flex-col items-center gap-2 text-center">
+                  <h1 className="text-2xl font-bold">
+                    Welcome back
+                  </h1>
 
-              {/* Credentials Login Form */}
-              <form onSubmit={handleCredentialsLogin} className="space-y-4">
+                  <p className="text-balance text-muted-foreground">
+                    Login to your GMAO account
+                  </p>
+                </div>
+
+                {/* Error Message */}
                 {error && (
-                  <div className="text-sm text-destructive text-center">{error}</div>
-                )}
-                <Field>
-                  <FieldLabel>Email</FieldLabel>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    required
-                  />
-                </Field>
-                <Field>
-                  <FieldLabel>Password</FieldLabel>
-                  <Input
-                    name="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    required
-                  />
-                </Field>
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Signing in..." : "Sign in with Email"}
-                </Button>
-              </form>
-
-              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-                Or continue with
-              </FieldSeparator>
-
-              {/* Google Login Button */}
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={handleGoogleLogin}
-                disabled={isLoading}
-              >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="mr-2 h-4 w-4"
+                  <div
+                    role="alert"
+                    className="text-center text-sm text-destructive"
                   >
-                    <path
-                      d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                   Sign in with Google
-                 </Button>
+                    {error}
+                  </div>
+                )}
 
-              <FieldDescription className="text-center">
-                Don't have an account? <a href="/register" className="underline">Sign up</a>
-              </FieldDescription>
-            </FieldGroup>
-          </div>
-          <div className="relative hidden bg-muted md:block">
-            <img
-              src="https://xou955y8kd.ufs.sh/f/zvC4KODelhDMbXirS35iFWtAgHVDXY3jywaQ50s2hvOqKm7G"
-              alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
-          </div>
-        </CardContent>
-      </Card>
-      <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+                {/* Credentials Login Form */}
+                <form
+                  onSubmit={handleCredentialsLogin}
+                  className="space-y-4"
+                >
+                  {/* Email */}
+                  <Field>
+                    <FieldLabel htmlFor="email">
+                      Email
+                    </FieldLabel>
+
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="name@example.com"
+                      autoComplete="email"
+                      disabled={isLoading}
+                      required
+                    />
+                  </Field>
+
+                  {/* Password */}
+                  <Field>
+                    <FieldLabel htmlFor="password">
+                      Password
+                    </FieldLabel>
+
+                    <Input
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder="Enter your password"
+                      autoComplete="current-password"
+                      disabled={isLoading}
+                      required
+                    />
+                  </Field>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Signing in..." : "Sign in with Email"}
+                  </Button>
+                </form>
+              </FieldGroup>
+            </div>
+
+            {/* Logo / Image */}
+            <div className="relative flex min-h-[300px] items-center justify-center bg-muted md:min-h-0">
+              <img
+                src="https://eibdgxfutmrqetepmkxe.supabase.co/storage/v1/object/public/image/logo.png"
+                alt="GMAO application logo"
+                className="h-full w-full object-contain p-8"
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Terms */}
+      <FieldDescription className="px-6 py-4 text-center">
+        By clicking continue, you agree to our{" "}
+        <a
+          href="#"
+          className="underline underline-offset-4 hover:text-primary"
+        >
+          Terms of Service
+        </a>{" "}
+        and{" "}
+        <a
+          href="#"
+          className="underline underline-offset-4 hover:text-primary"
+        >
+          Privacy Policy
+        </a>
+        .
       </FieldDescription>
     </div>
   )
