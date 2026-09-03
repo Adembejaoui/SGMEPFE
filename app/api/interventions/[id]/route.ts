@@ -9,7 +9,7 @@ import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import type { InterventionWithRelations, RapportMaintenance } from "@/types/intervention"
-import type { StatutIntervention } from "@/types/demande"
+import type { StatutIntervention, StatutDemande } from "@/types/demande"
 import { z } from "zod"
 
 // =============================================================================
@@ -18,6 +18,7 @@ import { z } from "zod"
 const updateInterventionSchema = z.object({
   observation: z.string().optional(),
   statut: z.enum(["OUVERTE", "EN_COURS", "TERMINEE", "ANNULEE"]).optional(),
+  technicianId: z.string().optional(),
   rapport: z.object({
     diagnostic: z.string().min(10, "Le diagnostic doit contenir au moins 10 caractères"),
     actionsEffectuees: z.string().min(10, "Les actions doivent contenir au moins 10 caractères"),
@@ -162,8 +163,9 @@ export async function GET(
 // =============================================================================
 // PUT HANDLER
 // =============================================================================
-// SECURITY: Validates ownership before update
+// SECURITY: Validates ownership before update for technicians; admins can update any
 // SECURITY: Upserts RapportMaintenance, updates demande.statut to TRAITEE if TERMINEE
+// SECURITY: Allows admin to reassign technician via technicianId
 // =============================================================================
 export async function PUT(
   request: Request,
@@ -183,9 +185,9 @@ export async function PUT(
       )
     }
 
-    if (session.user.role !== "TECHNICIEN") {
+    if (!["TECHNICIEN", "ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
-        { error: "Seuls les techniciens peuvent modifier les interventions" },
+        { error: "Seuls les techniciens et administrateurs peuvent modifier les interventions" },
         { status: 403 }
       )
     }
@@ -204,7 +206,7 @@ export async function PUT(
       where: { idIntervention },
       include: {
         demande: {
-          select: { idDemande: true, statut: true },
+          select: { idDemande: true, statut: true, technicianId: true },
         },
       },
     })
@@ -216,8 +218,8 @@ export async function PUT(
       )
     }
 
-    // SECURITY: Only the assigned technician can update
-    if (existingIntervention.technicianId !== session.user.id) {
+    // SECURITY: Only the assigned technician or admin can update
+    if (session.user.role === "TECHNICIEN" && existingIntervention.technicianId !== session.user.id) {
       return NextResponse.json(
         { error: "Accès refusé" },
         { status: 403 }
@@ -234,13 +236,14 @@ export async function PUT(
       )
     }
 
-    const { observation, statut, rapport } = validationResult.data
+    const { observation, statut, technicianId, rapport } = validationResult.data
     const shouldUpdateDemandeStatut = statut === "TERMINEE"
 
     // Build update data
     const updateData: {
       observation?: string | null
       statut?: StatutIntervention
+      technicianId?: string
     } = {}
 
     if (observation !== undefined) {
@@ -249,6 +252,10 @@ export async function PUT(
 
     if (statut !== undefined) {
       updateData.statut = statut as StatutIntervention
+    }
+
+    if (technicianId !== undefined) {
+      updateData.technicianId = technicianId
     }
 
     // Update intervention and rapport in transaction
@@ -274,6 +281,21 @@ export async function PUT(
             actionsEffectuees: rapport.actionsEffectuees,
             resultat: rapport.resultat,
           },
+        })
+      }
+
+      // Update demande technician if provided
+      if (technicianId !== undefined) {
+        const demandeUpdateData: { technicianId: string; statut?: StatutDemande } = {
+          technicianId,
+        }
+        // If demande was EN_ATTENTE, move to EN_COURS when technician is assigned
+        if (existingIntervention.demande.statut === "EN_ATTENTE") {
+          demandeUpdateData.statut = "EN_COURS"
+        }
+        await tx.demandeMaintenance.update({
+          where: { idDemande: existingIntervention.demandeId },
+          data: demandeUpdateData,
         })
       }
 
@@ -307,6 +329,9 @@ export async function PUT(
                 },
               },
               rapportMaintenance: true,
+              technician: {
+                select: { id: true, firstName: true, lastName: true, email: true },
+              },
             },
           },
         },
@@ -335,6 +360,12 @@ export async function PUT(
           prenom: result!.demande.client.firstName,
           email: result!.demande.client.email,
         },
+        technician: result!.demande.technician ? {
+          id: result!.demande.technician.id,
+          nom: result!.demande.technician.lastName,
+          prenom: result!.demande.technician.firstName,
+          email: result!.demande.technician.email,
+        } : null,
         equipement: {
           idEquipement: result!.demande.equipement.id,
           nom: result!.demande.equipement.nom,

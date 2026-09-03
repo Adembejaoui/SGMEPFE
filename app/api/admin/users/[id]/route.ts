@@ -209,9 +209,55 @@ export async function DELETE(
       return NextResponse.json({ error: "Utilisateur non trouvA" }, { status: 404 })
     }
 
-    // Delete user (cascade will handle related records)
-    await prisma.user.delete({
-      where: { id },
+    // Clean up all related records in a transaction before deleting the user.
+    // The database constraints do not enforce CASCADE, so we must handle
+    // every FK relation explicitly to avoid foreign key constraint violations.
+    await prisma.$transaction(async (tx) => {
+      // 1. Interventions belonging to this user (as technician)
+      const interventionIds = await tx.intervention
+        .findMany({
+          where: { technicianId: id },
+          select: { idIntervention: true },
+        })
+        .then((rows) => rows.map((r) => r.idIntervention))
+
+      // 2. AI chat sessions referencing this user (as technician) and/or their interventions
+      await tx.aiChatSession.deleteMany({ where: { technicianId: id } })
+
+      // 3. Messages sent by this user OR belonging to their interventions
+      await tx.message.deleteMany({
+        where: {
+          OR: [
+            { senderId: id },
+            ...(interventionIds.length > 0
+              ? [{ interventionId: { in: interventionIds } }]
+              : []),
+          ],
+        },
+      })
+
+      // 4. Equipment utilisations tied to their interventions
+      if (interventionIds.length > 0) {
+        await tx.utilisationMateriel.deleteMany({
+          where: { interventionId: { in: interventionIds } },
+        })
+      }
+
+      // 5. Interventions themselves
+      await tx.intervention.deleteMany({ where: { technicianId: id } })
+
+      // 6. Demandes where this user is the assigned technician (SetNull)
+      await tx.demandeMaintenance.updateMany({
+        where: { technicianId: id },
+        data: { technicianId: null },
+      })
+
+      // 7. Auth accounts and sessions for this user
+      await tx.account.deleteMany({ where: { userId: id } })
+      await tx.session.deleteMany({ where: { userId: id } })
+
+      // 8. Finally, delete the user
+      await tx.user.delete({ where: { id } })
     })
 
     return NextResponse.json({ message: "Utilisateur supprimA A vec succAs" }, { status: 200 })

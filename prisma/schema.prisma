@@ -18,11 +18,11 @@ model Materiel {
   unite         String                @default("unité")
   emplacement   String?
   prixUnitaire  Float?
-  adminId       String
+  adminId       String?
   createdAt     DateTime              @default(now())
   updatedAt     DateTime              @updatedAt
   commandes     CommandeStock[]
-  admin         User                  @relation("AdminMateriels", fields: [adminId], references: [id])
+  admin         User?                 @relation("AdminMateriels", fields: [adminId], references: [id], onDelete: SetNull)
   utilisations  UtilisationMateriel[]
 
   @@map("materiels")
@@ -35,7 +35,7 @@ model UtilisationMateriel {
   quantiteUtilisee Int
   motif            String?
   createdAt        DateTime     @default(now())
-  intervention     Intervention @relation(fields: [interventionId], references: [idIntervention])
+  intervention     Intervention @relation(fields: [interventionId], references: [idIntervention], onDelete: Cascade)
   materiel         Materiel     @relation(fields: [materielId], references: [id])
 
   @@unique([materielId, interventionId])
@@ -70,7 +70,7 @@ model Equipement {
   updatedAt           DateTime             @updatedAt
   type                EquipmentType
   demandesMaintenance DemandeMaintenance[]
-  admin               User?                @relation(fields: [adminId], references: [id])
+  admin               User?                @relation(fields: [adminId], references: [id], onDelete: SetNull)
 
   @@map("equipements")
 }
@@ -88,7 +88,7 @@ model DemandeMaintenance {
   technicianId       String?
   client             User                @relation("ClientDemandes", fields: [clientId], references: [id], onDelete: Cascade)
   equipement         Equipement          @relation(fields: [equipementId], references: [id], onDelete: Cascade)
-  technician         User?               @relation("TechnicianDemandes", fields: [technicianId], references: [id])
+  technician         User?               @relation("TechnicianDemandes", fields: [technicianId], references: [id], onDelete: SetNull)
   interventions      Intervention[]      @relation("DemandeInterventions")
   rapportMaintenance RapportMaintenance?
 
@@ -163,9 +163,9 @@ model Intervention {
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
   demande              DemandeMaintenance    @relation("DemandeInterventions", fields: [demandeId], references: [idDemande], onDelete: Cascade)
-  technician           User                  @relation("TechnicianInterventions", fields: [technicianId], references: [id])
+  technician           User                  @relation("TechnicianInterventions", fields: [technicianId], references: [id], onDelete: Cascade)
   messages             Message[]             @relation("InterventionMessages")
-  aiChatSessions       AiChatSession[]      @relation("AiChatIntervention")
+  aiChatSessions       AiChatSession[]       @relation("AiChatIntervention")
   utilisationsMateriel UtilisationMateriel[]
 
   @@map("interventions")
@@ -194,7 +194,7 @@ model AiChatSession {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   intervention    Intervention @relation("AiChatIntervention", fields: [interventionId], references: [idIntervention], onDelete: Cascade)
-  technician      User      @relation("TechnicianAiChats", fields: [technicianId], references: [id])
+  technician      User      @relation("TechnicianAiChats", fields: [technicianId], references: [id], onDelete: Cascade)
   messages        AiMessage[]
 
   @@index([interventionId])

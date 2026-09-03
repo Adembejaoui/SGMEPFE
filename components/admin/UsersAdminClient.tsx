@@ -173,11 +173,7 @@ export function UsersAdminClient({ initialUsers }: UsersAdminClientProps) {
                             <Eye className="w-4 h-4" />
                           </Button>
                         </Link>
-                        <Link href={`/dashboard/admin/users/${user.id}/edit`}>
-                          <Button variant="ghost" size="icon">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                        </Link>
+            
                         <Button
                           variant="ghost"
                           size="icon"

@@ -110,11 +110,6 @@ export const menuByRole = {
             href: "/dashboard/admin/stock",
             icon: Package,
           },
-          {
-            title: "Commandes",
-            href: "/dashboard/admin/stock/commandes",
-            icon: ClipboardList,
-          },
         ],
       },
       {
@@ -126,11 +121,6 @@ export const menuByRole = {
        title: "Rapports d'intervention",
        href: "/dashboard/admin/rapports",
        icon: FileText,
-     },
-     {
-       title: "Paramètres système",
-       href: "/dashboard/admin/settings",
-       icon: Settings,
      },
    ],
 

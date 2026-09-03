@@ -4,13 +4,15 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Calendar, User, Wrench, AlertCircle, ClipboardList } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { PrioriteBadge } from '@/components/demandes/badges/PrioriteBadge'
 import { StatutBadge } from '@/components/demandes/badges/StatutBadge'
 import { DemandeAdminDrawer } from '@/components/demandes/DemandeAdminDrawer'
 import { DeleteDemandeDialog } from '@/components/demandes/DeleteDemandeDialog'
+import { DemandeAssignTechnicienSelect } from '@/components/demandes/DemandeAssignTechnicienSelect'
+import { InfoRow } from '@/components/ui/info-row'
 import type { DemandeWithRelations } from '@/types/demande'
 import { useState } from 'react'
 
@@ -19,54 +21,59 @@ interface DemandeAdminDetailClientProps {
 }
 
 export function DemandeAdminDetailClient({ demande }: DemandeAdminDetailClientProps) {
+  const router = useRouter()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <Button variant="ghost" size="sm" asChild>
           <Link href="/dashboard/admin/demandes">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Retour
           </Link>
         </Button>
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight truncate">
             Demande #{demande.idDemande}
           </h1>
           <p className="text-muted-foreground">Détails de la demande de maintenance</p>
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <Card className="bg-muted/50">
+        <CardContent className="p-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Priorité:</span>
+              <PrioriteBadge priorite={demande.priorite} />
+            </div>
+            <div className="flex items-center gap-2">
+              <ClipboardList className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Statut:</span>
+              <StatutBadge statut={demande.statut} />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>Informations générales</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <p className="text-sm text-muted-foreground">Description</p>
-              <p className="mt-1">{demande.description}</p>
-            </div>
-            <div className="flex gap-4">
-              <div>
-                <p className="text-sm text-muted-foreground">Priorité</p>
-                <div className="mt-1">
-                  <PrioriteBadge priorite={demande.priorite} />
-                </div>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Statut</p>
-                <div className="mt-1">
-                  <StatutBadge statut={demande.statut} />
-                </div>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Date de création</p>
-              <p className="mt-1">{new Date(demande.dateDemande).toLocaleDateString('fr-FR')}</p>
-            </div>
+          <CardContent className="space-y-1">
+            <InfoRow
+              label="Description"
+              value={demande.description}
+            />
+            <InfoRow
+              label="Date de création"
+              value={new Date(demande.dateDemande).toLocaleDateString('fr-FR')}
+              icon={Calendar}
+            />
           </CardContent>
         </Card>
 
@@ -74,16 +81,20 @@ export function DemandeAdminDetailClient({ demande }: DemandeAdminDetailClientPr
           <CardHeader>
             <CardTitle>Client</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <p>
-              <span className="text-muted-foreground">Nom:</span> {demande.client.firstName} {demande.client.lastName}
-            </p>
-            <p>
-              <span className="text-muted-foreground">Email:</span> {demande.client.email}
-            </p>
-            <p>
-              <span className="text-muted-foreground">Rôle:</span> {demande.client.role}
-            </p>
+          <CardContent className="space-y-1">
+            <InfoRow
+              label="Nom"
+              value={`${demande.client.firstName} ${demande.client.lastName}`}
+              icon={User}
+            />
+            <InfoRow
+              label="Email"
+              value={demande.client.email}
+            />
+            <InfoRow
+              label="Rôle"
+              value={demande.client.role}
+            />
           </CardContent>
         </Card>
 
@@ -91,16 +102,20 @@ export function DemandeAdminDetailClient({ demande }: DemandeAdminDetailClientPr
           <CardHeader>
             <CardTitle>Équipement</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <p>
-              <span className="text-muted-foreground">Nom:</span> {demande.equipement.nom}
-            </p>
-            <p>
-              <span className="text-muted-foreground">Type:</span> {demande.equipement.type}
-            </p>
-            <p>
-              <span className="text-muted-foreground">N° Série:</span> {demande.equipement.numeroSerie}
-            </p>
+          <CardContent className="space-y-1">
+            <InfoRow
+              label="Nom"
+              value={demande.equipement.nom}
+              icon={Wrench}
+            />
+            <InfoRow
+              label="Type"
+              value={demande.equipement.type}
+            />
+            <InfoRow
+              label="N° Série"
+              value={demande.equipement.numeroSerie}
+            />
           </CardContent>
         </Card>
 
@@ -111,66 +126,47 @@ export function DemandeAdminDetailClient({ demande }: DemandeAdminDetailClientPr
           </CardHeader>
           <CardContent>
             {demande.interventions.length === 0 ? (
-              <p className="text-muted-foreground">Aucune intervention enregistrée</p>
+              <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+                <ClipboardList className="w-8 h-8 mb-2 opacity-50" />
+                <p className="text-sm">Aucune intervention enregistrée</p>
+              </div>
             ) : (
-              <ul className="space-y-2">
+              <ul className="divide-y rounded-md border">
                 {demande.interventions.map((intervention) => (
-                  <li key={intervention.idIntervention} className="text-sm">
-                    Intervention #{intervention.idIntervention} -{' '}
-                    {new Date(intervention.createdAt).toLocaleDateString('fr-FR')}
+                  <li key={intervention.idIntervention} className="flex items-center justify-between px-3 py-2 text-sm">
+                    <span>Intervention #{intervention.idIntervention}</span>
+                    <span className="text-muted-foreground">
+                      {new Date(intervention.createdAt).toLocaleDateString('fr-FR')}
+                    </span>
                   </li>
                 ))}
               </ul>
             )}
           </CardContent>
         </Card>
+
+        <DemandeAssignTechnicienSelect
+          demandeId={demande.idDemande}
+          currentTechnicienId={demande.technician?.id || null}
+          equipementType={demande.equipement.type}
+          onAssigned={() => router.refresh()}
+        />
       </div>
 
-      <div className="flex gap-4">
-        <Button onClick={() => setDrawerOpen(true)}>Modifier le statut</Button>
-        <Button variant="destructive" onClick={() => setDeleteDialogOpen(true)}>
+      <div className="flex flex-wrap gap-2">
+        
+        <Button size="sm" variant="destructive" onClick={() => setDeleteDialogOpen(true)}>
           Supprimer la demande
         </Button>
       </div>
 
-      <DemandeAdminDrawer
-        demande={
-          {
-            idDemande: demande.idDemande,
-            description: demande.description,
-            priorite: demande.priorite,
-            statut: demande.statut,
-            dateDemande: demande.dateDemande,
-            client: {
-              id: demande.client.id,
-              firstName: demande.client.firstName,
-              lastName: demande.client.lastName,
-              email: demande.client.email,
-            },
-            equipement: {
-              id: demande.equipement.id,
-              nom: demande.equipement.nom,
-              type: demande.equipement.type,
-              numeroSerie: demande.equipement.numeroSerie,
-            },
-            technician: demande.technician ? {
-              id: demande.technician.id,
-              firstName: demande.technician.firstName,
-              lastName: demande.technician.lastName,
-            } : null,
-            _count: { interventions: demande.interventions.length },
-          }
-        }
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        onSuccess={() => {}}
-      />
+      
 
       <DeleteDemandeDialog
         demandeId={demande.idDemande}
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
-        onSuccess={() => {}}
+        onSuccess={() => router.replace('/dashboard/admin/demandes')}
       />
     </div>
   )

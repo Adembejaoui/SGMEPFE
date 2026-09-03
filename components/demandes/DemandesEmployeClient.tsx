@@ -161,16 +161,7 @@ export function DemandesEmployeClient() {
                               Voir
                             </Link>
                           </Button>
-                          {demande.statut === 'EN_ATTENTE' && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-destructive hover:text-destructive"
-                              onClick={() => handleCancel(demande.idDemande, demande.statut)}
-                            >
-                              Annuler
-                            </Button>
-                          )}
+                         
                         </div>
                       </TableCell>
                     </TableRow>

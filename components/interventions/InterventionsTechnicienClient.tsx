@@ -95,7 +95,7 @@ export function InterventionsTechnicienClient() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Mes interventions</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight truncate">Mes interventions</h1>
         <p className="text-muted-foreground">Gérez les interventions sur les demandes assignées</p>
       </div>
 
@@ -118,7 +118,7 @@ export function InterventionsTechnicienClient() {
             </div>
             <div>
               <Select value={statutFilter} onValueChange={setStatutFilter}>
-                <SelectTrigger className="w-45">
+                <SelectTrigger className="w-full sm:w-45">
                   <SelectValue placeholder="Statut" />
                 </SelectTrigger>
                 <SelectContent>
@@ -149,10 +149,12 @@ export function InterventionsTechnicienClient() {
               ))}
             </div>
           ) : filteredInterventions.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <AlertCircle className="w-16 h-16 text-muted-foreground mb-4" />
-              <p className="text-lg font-medium">Aucune intervention trouvée</p>
-              <p className="text-muted-foreground">Aucune demande assignée pour le moment</p>
+            <div className="rounded-md border">
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <AlertCircle className="w-16 h-16 text-muted-foreground mb-4" />
+                <p className="text-lg font-medium">Aucune intervention trouvée</p>
+                <p className="text-muted-foreground">Aucune demande assignée pour le moment</p>
+              </div>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -167,7 +169,7 @@ export function InterventionsTechnicienClient() {
                       <TableHead>Statut intervention</TableHead>
                       <TableHead className="max-w-xs truncate">Description</TableHead>
                       <TableHead className="hidden sm:table-cell">Date</TableHead>
-                      <TableHead>Action</TableHead>
+                     
                       <TableHead className="hidden sm:table-cell">Details</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -201,28 +203,7 @@ export function InterventionsTechnicienClient() {
                         <TableCell>
                           {new Date(intervention.createdAt).toLocaleDateString('fr-FR')}
                         </TableCell>
-                         <TableCell>
-                           <Select
-                             value={intervention.statut}
-                             onValueChange={(value) =>
-                               handleStatutChange(intervention.idIntervention, value as StatutIntervention)
-                             }
-                             disabled={savingRows[intervention.idIntervention]}
-                           >
-                             <SelectTrigger className="w-35">
-                               <SelectValue />
-                             </SelectTrigger>
-                             <SelectContent>
-                               <SelectItem value="OUVERTE">Ouverte</SelectItem>
-                               <SelectItem value="EN_COURS">En cours</SelectItem>
-                               <SelectItem value="TERMINEE">Terminée</SelectItem>
-                               <SelectItem value="ANNULEE">Annulée</SelectItem>
-                             </SelectContent>
-                           </Select>
-                           {savingRows[intervention.idIntervention] && (
-                             <Loader2 className="w-4 h-4 animate-spin mt-1" />
-                           )}
-                         </TableCell>
+                          
                          <TableCell>
                            <Link href={`/dashboard/technicien/interventions/${intervention.idIntervention}`} className="text-primary hover:underline">
                              Détails

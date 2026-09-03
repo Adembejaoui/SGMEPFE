@@ -11,10 +11,11 @@ const DialogClose = DialogPrimitive.Close
 
 const DialogPortal = ({
   className,
+  children,
   ...props
 }: DialogPrimitive.DialogPortalProps & React.HTMLAttributes<HTMLDivElement>) => (
   <DialogPrimitive.Portal {...props}>
-    <div className={cn(className)} />
+    {children}
   </DialogPrimitive.Portal>
 )
 DialogPortal.displayName = DialogPrimitive.Portal.displayName

@@ -198,6 +198,7 @@ export function DemandesAdminClient() {
                       <TableHead className="hidden sm:table-cell">Créé par</TableHead>
                       <TableHead>Équipement</TableHead>
                       <TableHead className="hidden sm:table-cell">type</TableHead>
+                      <TableHead className="hidden sm:table-cell">Status</TableHead>
                       <TableHead className="hidden sm:table-cell">Technicien</TableHead>
                       <TableHead className="hidden sm:table-cell">Date</TableHead>
                       <TableHead>Actions</TableHead>
@@ -229,16 +230,7 @@ export function DemandesAdminClient() {
                                <Eye className="w-4 h-4" />
                              </Link>
                            </Button>
-                           <Button
-                             variant="ghost"
-                             size="sm"
-                             onClick={() => {
-                               setSelectedDemande(demande)
-                               setDrawerOpen(true)
-                             }}
-                           >
-                             <Edit className="w-4 h-4" />
-                           </Button>
+                           
                            <Button
                              variant="ghost"
                              size="sm"

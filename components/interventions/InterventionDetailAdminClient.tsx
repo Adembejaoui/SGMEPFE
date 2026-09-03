@@ -9,11 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { FileText, Wrench, ClipboardList, Printer, ArrowLeft } from 'lucide-react'
+import { FileText, Wrench, ClipboardList, Printer, ArrowLeft, Calendar, User, Hash, AlertTriangle, Flag } from 'lucide-react'
 import Link from 'next/link'
 import useSWR from 'swr'
 import type { InterventionWithRelations, RapportResultat } from '@/types/intervention'
 import { PrioriteBadge } from '@/components/demandes/badges/PrioriteBadge'
+import { InfoRow } from '@/components/ui/info-row'
+import { AssignTechnicienSelect } from '@/components/interventions/AssignTechnicienSelect'
 import type { StatutIntervention, StatutDemande } from '@/types/demande'
 
 const fetcher = (url: string) =>
@@ -80,24 +82,31 @@ export function InterventionDetailAdminClient({ interventionId }: { intervention
     <div className="space-y-6">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-background border-b pb-4">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap gap-2 items-center">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/dashboard/admin/rapports">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Retour
             </Link>
           </Button>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight truncate">
               Intervention #{intervention.idIntervention}
             </h1>
-            <div className="text-muted-foreground">
-              {intervention.demande.equipement.nom} · <PrioriteBadge priorite={intervention.demande.priorite} />
-            </div>
           </div>
-          <StatutInterventionBadge statut={intervention.statut} />
         </div>
       </div>
+
+      {/* Status Banner */}
+      <Card>
+        <CardContent className="py-3">
+          <div className="flex flex-wrap items-center gap-4">
+            <span className="text-sm font-medium">{intervention.demande.equipement.nom}</span>
+            <PrioriteBadge priorite={intervention.demande.priorite} />
+            <StatutInterventionBadge statut={intervention.statut} />
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -118,7 +127,7 @@ export function InterventionDetailAdminClient({ interventionId }: { intervention
 
         {/* Tab 1: Informations */}
         <TabsContent value="informations" className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Détails de l'intervention */}
             <Card>
               <CardHeader>
@@ -128,20 +137,9 @@ export function InterventionDetailAdminClient({ interventionId }: { intervention
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Type d'intervention</p>
-                  <p className="text-sm font-medium text-foreground">{intervention.description || 'Intervention'}</p>
-                </div>
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Date intervention</p>
-                  <p className="text-sm font-medium text-foreground">{formatDate(dateIntervention)}</p>
-                </div>
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Statut</p>
-                  <div className="mt-1">
-                    <StatutInterventionBadge statut={intervention.statut} />
-                  </div>
-                </div>
+                <InfoRow label="Type d'intervention" value={intervention.description || 'Intervention'} icon={Wrench} />
+                <InfoRow label="Date intervention" value={formatDate(dateIntervention)} icon={Calendar} />
+                <InfoRow label="Statut" value={<StatutInterventionBadge statut={intervention.statut} />} icon={Flag} />
                 <div>
                   <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Observation</p>
                   {intervention.observation ? (
@@ -164,35 +162,15 @@ export function InterventionDetailAdminClient({ interventionId }: { intervention
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Demande #{intervention.demande.idDemande}</p>
-                </div>
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Date de demande</p>
-                  <p className="text-sm font-medium text-foreground">{formatDate(intervention.demande.dateDemande)}</p>
-                </div>
+                <InfoRow label="Demande" value={`#${intervention.demande.idDemande}`} icon={Hash} />
+                <InfoRow label="Date de demande" value={formatDate(intervention.demande.dateDemande)} icon={Calendar} />
                 <div>
                   <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Description</p>
                   <p className="mt-1 text-sm max-h-32 overflow-y-auto">{intervention.demande.description}</p>
                 </div>
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Priorité</p>
-                  <div className="mt-1">
-                    <PrioriteBadge priorite={intervention.demande.priorite} />
-                  </div>
-                </div>
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Statut demande</p>
-                  <div className="mt-1">
-                    <StatutDemandeBadge statut={intervention.demande.statut} />
-                  </div>
-                </div>
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Créé par</p>
-                  <p className="text-sm font-medium text-foreground">
-                    {intervention.demande.client.prenom} {intervention.demande.client.nom}
-                  </p>
-                </div>
+                <InfoRow label="Priorité" value={<PrioriteBadge priorite={intervention.demande.priorite} />} icon={AlertTriangle} />
+                <InfoRow label="Statut demande" value={<StatutDemandeBadge statut={intervention.demande.statut} />} icon={Flag} />
+                <InfoRow label="Créé par" value={`${intervention.demande.client.prenom} ${intervention.demande.client.nom}`} icon={User} />
               </CardContent>
             </Card>
 
@@ -223,6 +201,12 @@ export function InterventionDetailAdminClient({ interventionId }: { intervention
                 </div>
               </CardContent>
             </Card>
+
+            {/* Assignation technicien */}
+            <AssignTechnicienSelect
+              interventionId={intervention.idIntervention}
+              currentTechnicienId={intervention.demande.technician?.id || null}
+            />
           </div>
         </TabsContent>
 

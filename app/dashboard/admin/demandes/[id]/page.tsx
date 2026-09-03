@@ -32,6 +32,9 @@ export default async function AdminDemandeDetailPage({ params }: { params: Promi
       equipement: {
         select: { id: true, nom: true, type: true, numeroSerie: true },
       },
+      technician: {
+        select: { id: true, firstName: true, lastName: true, email: true, role: true },
+      },
       interventions: true,
     },
   }) as unknown as DemandeWithRelations | null

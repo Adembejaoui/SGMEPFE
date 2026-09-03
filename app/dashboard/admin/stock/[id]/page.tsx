@@ -149,14 +149,7 @@ export default async function StockDetailPage({ params }: { params: Promise<{ id
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {session.user.role === "ADMIN" && (
-            <Button variant="outline" asChild>
-              <Link href={`/dashboard/admin/stock/commandes/create?materielId=${materiel.id}`}>
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                Commander
-              </Link>
-            </Button>
-          )}
+          
           {session.user.role === "ADMIN" && (
             <Button asChild>
               <Link href={`/dashboard/admin/stock/${materiel.id}/edit`}>

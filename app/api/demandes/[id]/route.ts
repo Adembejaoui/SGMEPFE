@@ -225,6 +225,151 @@ export async function PATCH(
 }
 
 // =============================================================================
+// PUT HANDLER - UPDATE DEMANDE (status, technician assignment)
+// =============================================================================
+// Only ADMIN can update demande status and assign technicians.
+// =============================================================================
+export async function PUT(
+  request: Request,
+  {
+    params,
+  }: {
+    params: Promise<{ id: string }>
+  }
+) {
+  try {
+    const session = await auth()
+
+    if (!session) {
+      return NextResponse.json(
+        { error: "Non autorisé" },
+        { status: 401 }
+      )
+    }
+
+    if (session.user.role !== "ADMIN") {
+      return NextResponse.json(
+        { error: "Seuls les administrateurs peuvent modifier des demandes" },
+        { status: 403 }
+      )
+    }
+
+    const { id } = await params
+    const idDemande = parseInt(id, 10)
+
+    if (isNaN(idDemande)) {
+      return NextResponse.json(
+        { error: "ID de demande invalide" },
+        { status: 400 }
+      )
+    }
+
+    const body = await request.json()
+    const { statut, technicianId } = body as {
+      statut?: string
+      technicianId?: string | null
+    }
+
+    const demande = await prisma.demandeMaintenance.findUnique({
+      where: { idDemande },
+    })
+
+    if (!demande) {
+      return NextResponse.json(
+        { error: "Demande de maintenance non trouvée" },
+        { status: 404 }
+      )
+    }
+
+    const updateData: Record<string, unknown> = {}
+
+    if (statut) {
+      updateData.statut = statut
+    }
+
+    if (technicianId !== undefined) {
+      if (technicianId !== null) {
+        const technician = await prisma.user.findUnique({
+          where: { id: technicianId },
+        })
+
+        if (!technician || technician.role !== "TECHNICIEN") {
+          return NextResponse.json(
+            { error: "Technicien invalide" },
+            { status: 400 }
+          )
+        }
+      }
+      updateData.technicianId = technicianId
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+      const updatedDemande = await tx.demandeMaintenance.update({
+        where: { idDemande },
+        data: updateData,
+        include: {
+          client: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+              role: true,
+            },
+          },
+          equipement: {
+            select: {
+              id: true,
+              nom: true,
+              type: true,
+              numeroSerie: true,
+            },
+          },
+          technician: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
+          interventions: true,
+        },
+      })
+
+      if (technicianId && technicianId !== demande.technicianId) {
+        const existingIntervention = await tx.intervention.findFirst({
+          where: {
+            demandeId: idDemande,
+            technicianId,
+          },
+        })
+
+        if (!existingIntervention) {
+          await tx.intervention.create({
+            data: {
+              demandeId: idDemande,
+              description: `Intervention commencée pour la demande: ${demande.description.substring(0, 50)}${demande.description.length > 50 ? '...' : ''}`,
+              statut: "OUVERTE",
+              technicianId,
+            },
+          })
+        }
+      }
+
+      return updatedDemande
+    })
+
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error("Error updating demande:", error)
+    return NextResponse.json(
+      { error: "Erreur lors de la mise à jour de la demande" },
+      { status: 500 }
+    )
+  }
+}
+
+// =============================================================================
 // DELETE HANDLER - DELETE DEMANDE
 // =============================================================================
 // Deletes a maintenance request.
@@ -288,9 +433,47 @@ export async function DELETE(
       )
     }
 
-    // Delete the demande (cascade will handle interventions and rapportMaintenance)
-    await prisma.demandeMaintenance.delete({
-      where: { idDemande },
+    // Clean up all related records in a transaction before deleting the demande.
+    // The database constraints do not enforce CASCADE, so we must handle
+    // every FK relation explicitly to avoid foreign key constraint violations.
+    await prisma.$transaction(async (tx) => {
+      // 1. Collect intervention IDs for this demande
+      const interventionIds = await tx.intervention
+        .findMany({
+          where: { demandeId: idDemande },
+          select: { idIntervention: true },
+        })
+        .then((rows) => rows.map((r) => r.idIntervention))
+
+      // 2. Delete child records that reference interventions
+      if (interventionIds.length > 0) {
+        await tx.utilisationMateriel.deleteMany({
+          where: { interventionId: { in: interventionIds } },
+        })
+        await tx.message.deleteMany({
+          where: { interventionId: { in: interventionIds } },
+        })
+        await tx.aiChatSession.deleteMany({
+          where: { interventionId: { in: interventionIds } },
+        })
+      }
+
+      // 3. Delete interventions for this demande
+      if (interventionIds.length > 0) {
+        await tx.intervention.deleteMany({
+          where: { idIntervention: { in: interventionIds } },
+        })
+      }
+
+      // 4. Delete rapport de maintenance (if it exists)
+      await tx.rapportMaintenance.deleteMany({
+        where: { demandeId: idDemande },
+      })
+
+      // 5. Finally, delete the demande
+      await tx.demandeMaintenance.delete({
+        where: { idDemande },
+      })
     })
 
     return NextResponse.json(
